@@ -97,14 +97,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="PriceFlipIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="favourites-white.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CurrencyIcon.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
