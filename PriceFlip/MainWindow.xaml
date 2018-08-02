@@ -14,17 +14,10 @@
             <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="6,94,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" FontSize="22" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
             <Button x:Name="FavouritesButton" Content="Favourites" Height="310" Margin="0,180,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Click="FavouritesButton_Click" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,50,1,1"/>
             <Label x:Name="subtitle" Content="by Tinny and Judy" HorizontalAlignment="Center" Height="24" Margin="6,121,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
-            <Image x:Name="PriceFlipIcon" HorizontalAlignment="Center" Height="79" Margin="20,15,20,0" VerticalAlignment="Top" Width="102">
-                <Image.Source>
-                    <BitmapImage UriSource="file:///C:/Users/Martin/source/repos/PriceFlip/PriceFlip/ImageAssets/PriceFlipIcon.png"/>
-                </Image.Source>
-            </Image>
+            <Image x:Name="PriceFlipIcon" HorizontalAlignment="Center" Height="79" Margin="20,15,20,0" VerticalAlignment="Top" Width="102" Source="ImageAssets/PriceFlipIcon.png"/>
             <Button x:Name="Currency_Button" Content="Currency" Height="310" Margin="0,490,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Padding="1,50,1,1"/>
         </Grid>
-        <Image x:Name="StarIcon" Margin="50,287,982,465" Stretch="Fill" RenderTransformOrigin="0.47,0.776" OpacityMask="Black">
-            <Image.Source>
-                <BitmapImage UriSource="file:///C:/Users/Martin/source/repos/PriceFlip/PriceFlip/ImageAssets/favourites-white.png"/>
-            </Image.Source>
+        <Image x:Name="StarIcon" Margin="50,287,982,465" Stretch="Fill" RenderTransformOrigin="0.47,0.776" OpacityMask="Black" Source="ImageAssets/favourites-white.png">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -34,11 +27,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="CurrencyIcon" Margin="46,596,980,161" Stretch="Fill">
-            <Image.Source>
-                <BitmapImage UriSource="file:///C:/Users/Martin/source/repos/PriceFlip/PriceFlip/ImageAssets/CurrencyIcon.png"/>
-            </Image.Source>
-        </Image>
+        <Image x:Name="CurrencyIcon" Margin="46,596,980,161" Stretch="Fill" Source="ImageAssets/CurrencyIcon.png"/>
 
     </Grid>
 </Window>
