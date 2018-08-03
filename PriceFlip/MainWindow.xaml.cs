@@ -85,33 +85,6 @@ namespace PriceFlip
         }
 
         private void refresh(object sender, RoutedEventArgs e) { 
-        //{
-        //    foreach (KeyValuePair<string, int> entry in currency)
-        //    {
-        //        if (entry.Value != 4)
-        //        {
-        //            string data;
-        //            using (var client = new WebClient())
-        //            {
-        //                string link = "http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + entry.Value + "&have=" + currency["chaos"];
-        //                data = client.DownloadString(link);
-        //                HtmlDocument doc = new HtmlDocument();
-        //                doc.LoadHtml(data);
-        //                var htmlNode = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']")[6];
-
-        //                var ign = htmlNode.GetAttributeValue("data-ign", "IGN not found");
-        //                var receive = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
-        //                var pay = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
-        //                var stock = htmlNode.GetAttributeValue("data-stock", "Stock not found");
-
-        //                //Test print
-        //                string msg = "IGN: " + ign + ", Currency: " + entry.Key + ", Receive: " + receive + ", Pay: " + pay + ", Stock: " + stock + "\n";
-        //                stringbox.Text = msg;
-
-        //            }
-        //        }
-        //    }
-        //}
                     foreach (KeyValuePair<string, int> entry in currency)
                         {
                             if (entry.Value != 4)
@@ -131,7 +104,7 @@ namespace PriceFlip
 
                                 //Test print
                                 string msg = "IGN: " + ign + ", Currency: chaos to " + entry.Key + ", Receive: " + receive + ", Pay: " + pay + ", Stock: " + stock + "\n";
-                                stringbox.Text += msg;
+                               
 
 
                                 var Urlx = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency["chaos"] + "&have=" + entry.Value;
@@ -149,7 +122,7 @@ namespace PriceFlip
 
                                 //Test print
                                 string msgx = "IGN: " + ignx + ", Currency:" + entry.Key + " to chaos" + ", Receive: " + receivex + ", Pay: " + payx + ", Stock: " + stockx + "\n";
-                                stringbox.Text += msgx;
+                                
                 }
                         }
                     }
