@@ -101,10 +101,10 @@
     <Resource Include="ImageAssets\favourites-white.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageAssets\PriceFlipIcon.png" />
+    <Resource Include="ImageAssets\CurrencyIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageAssets\CurrencyIcon.png" />
+    <Resource Include="ImageAssets\PriceFlipIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

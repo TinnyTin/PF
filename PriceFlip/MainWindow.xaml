@@ -6,28 +6,30 @@
         xmlns:local="clr-namespace:PriceFlip"
         mc:Ignorable="d"
         Title="Tinny's Flip Tool" Height="800" Width="1080" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid Background="#FF1E2025">
+    <Grid x:Name="Background" Background="#FF1E2025" ScrollViewer.VerticalScrollBarVisibility="Disabled">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="20" Click="minimize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-7,1,1"/>
+        <Rectangle x:Name="DragBar" Fill="#FF282B32" HorizontalAlignment="Left" Height="24" Margin="142,0,0,0" VerticalAlignment="Top" Width="886" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="dragwindow"/>
+        <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="16" Click="close" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False"/>
+
         <Grid HorizontalAlignment="Left" Width="142" Background="#FF282B32">
+
+
             <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="6,94,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" FontSize="22" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
-            <Button x:Name="FavouritesButton" Content="Favourites" Height="310" Margin="0,180,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Click="FavouritesButton_Click" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,50,1,1"/>
+            <Button x:Name="FavouritesButton" Height="290" Margin="0,200,0,0" VerticalAlignment="Top" Background="#FF282B32" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="18" Foreground="White" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,50,1,1" Content="Favourites"/>
             <Label x:Name="subtitle" Content="by Tinny and Judy" HorizontalAlignment="Center" Height="24" Margin="6,121,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
-            <Image x:Name="PriceFlipIcon" HorizontalAlignment="Center" Height="79" Margin="20,15,20,0" VerticalAlignment="Top" Width="102" Source="ImageAssets/PriceFlipIcon.png"/>
-            <Button x:Name="Currency_Button" Content="Currency" Height="310" Margin="0,490,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Padding="1,50,1,1"/>
+            <Button x:Name="CurrencyButton" Content="Currency" Height="305" Margin="0,495,0,0" VerticalAlignment="Top" Background="#FF282B32" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Padding="1,50,1,1"/>
         </Grid>
-        <Image x:Name="StarIcon" Margin="50,287,982,465" Stretch="Fill" RenderTransformOrigin="0.47,0.776" OpacityMask="Black" Source="ImageAssets/favourites-white.png">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform X="3"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
-        <Image x:Name="CurrencyIcon" Margin="46,596,980,161" Stretch="Fill" Source="ImageAssets/CurrencyIcon.png"/>
+        <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="92" Margin="23,10,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
+        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Height="42" Margin="0,310,993,0" VerticalAlignment="Top" Width="43" Source="ImageAssets/favourites-white.png" IsEnabled="False" RenderTransformOrigin="0.43,0.51"/>
+        <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="46" Margin="44,606,0,0" VerticalAlignment="Top" Width="52" Source="ImageAssets/CurrencyIcon.png"/>
+        <Button x:Name="RefreshButton" Margin="540,364,417,0" Background="#FF282B32" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="18" Foreground="White" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1" Content="Refresh" Height="42" VerticalAlignment="Top" Click="refresh"/>
+        <StackPanel HorizontalAlignment="Left" Height="776" Margin="142,24,0,0" VerticalAlignment="Top" Width="344">
+            <TextBox x:Name="stringbox" x:FieldModifier="public" HorizontalAlignment="Left" Height="774" TextWrapping="Wrap" Text="Waiting for data...&#xA;" VerticalAlignment="Top" Width="344" Foreground="White" BorderBrush="#FF282B32" Background="{x:Null}" FontFamily="Century Gothic"  VerticalScrollBarVisibility="Auto" IsEnabled="False"/>
+        </StackPanel>
 
     </Grid>
+
 </Window>

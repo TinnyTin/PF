@@ -22,9 +22,41 @@ namespace PriceFlip
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Currency # association via poe.trade
+        Dictionary<string, int> currency = new Dictionary<string, int>()
+        {
+            { "alt", 1 },
+            { "fusing", 2 },
+            { "alch", 3 },
+            { "chaos", 4 },
+            { "gcp", 5 },
+            { "exalt", 6 },
+            { "chrom", 7 },
+            { "jeweller", 8 },
+            { "chance", 9 },
+            { "chisel", 10 },
+            { "scour", 11 },
+            { "blessed", 12 },
+            { "regret", 13 },
+            { "regal", 14 },
+            { "divine", 15 },
+            { "vaal", 16 },
+            { "offering", 40 },
+            { "apprentice", 45 },
+            { "journeyman", 46 },
+            { "masters", 47 },
+            { "annul", 513 }
+
+        };
+
+
+
+
+
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         class MyWebClient : WebClient
@@ -37,20 +69,39 @@ namespace PriceFlip
             }
         }
 
-        private void FavouritesButton_Click(object sender, RoutedEventArgs e)
+        private void close(object sender, RoutedEventArgs e)
         {
-            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&want=4&have=5";
-            
-            var data = new MyWebClient().DownloadString(Url);
-
-            var doc = new HtmlDocument();
-            doc.LoadHtml(data);
-            string seventh = doc.DocumentNode.SelectNodes("//*[@id=\"content\"]/div[9]/div[1]")[0].InnerText;
-            Console.WriteLine(seventh);
+            Close();
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        private void minimize(object sender, RoutedEventArgs e)
         {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void dragwindow(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void refresh(object sender, RoutedEventArgs e)
+        {
+            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency["alch"] + "&have=" + currency["chaos"];
+            var data = new MyWebClient().DownloadString(Url);
+            var doc = new HtmlDocument();
+            doc.LoadHtml(data);
+
+            var htmlNode = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']")[6];
+
+            var ign = htmlNode.GetAttributeValue("data-ign", "IGN not found");
+            var receive = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
+            var pay = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
+            var stock = htmlNode.GetAttributeValue("data-stock", "Stock not found");
+
+
+            //Test print
+            string msg = "IGN: " + ign + ", Receive: " + receive + ", Pay: " + pay + ", Stock: " + stock + "\n";
+            stringbox.Text = msg;
 
         }
     }
