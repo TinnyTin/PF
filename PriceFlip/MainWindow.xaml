@@ -27,7 +27,7 @@
         <Image RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Left" Height="46" Margin="44,606,0,0" VerticalAlignment="Top" Width="52" Source="ImageAssets/CurrencyIcon.png"/>
         <Button x:Name="RefreshButton" Margin="540,364,417,0" Background="#FF282B32" BorderBrush="{x:Null}" FontFamily="Century Gothic" FontSize="18" Foreground="White" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1" Content="Refresh" Height="42" VerticalAlignment="Top" Click="refresh"/>
         <StackPanel HorizontalAlignment="Left" Height="776" Margin="142,24,0,0" VerticalAlignment="Top" Width="344">
-            <TextBox x:Name="stringbox" x:FieldModifier="public" HorizontalAlignment="Left" Height="774" TextWrapping="Wrap" Text="Waiting for data...&#xA;" VerticalAlignment="Top" Width="344" Foreground="White" BorderBrush="#FF282B32" Background="{x:Null}" FontFamily="Century Gothic"  VerticalScrollBarVisibility="Auto" IsEnabled="False"/>
+            <TextBox x:Name="stringbox" x:FieldModifier="public" HorizontalAlignment="Left" Height="774" TextWrapping="Wrap" Text="Waiting for data...&#xA;" VerticalAlignment="Top" Width="344" Foreground="White" BorderBrush="#FF282B32" Background="{x:Null}" FontFamily="Century Gothic"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
         </StackPanel>
 
     </Grid>
