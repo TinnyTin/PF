@@ -213,8 +213,11 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="Background" Background="#FF1E2025" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="124" Background="#FF282B32" Margin="0,0,0,602">
+        <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="124" Background="#FF282B32" Margin="0,0,0,602" d:IsLocked="True">
 
 
             <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="6,94,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" FontSize="22" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
@@ -222,14 +225,14 @@
             <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="92" Margin="16,10,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
         </Grid>
 
-        <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="20" Click="minimize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1"/>
-        <Rectangle x:Name="DragBar" Fill="#FF282B32" HorizontalAlignment="Left" Height="24" Margin="124,0,0,0" VerticalAlignment="Top" Width="904" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="dragwindow"/>
-        <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="16" Click="close" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False"/>
+        <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="20" Click="minimize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1" Width="24" d:IsLocked="True"/>
+        <Rectangle x:Name="DragBar" Fill="#FF282B32" HorizontalAlignment="Left" Height="24" Margin="124,0,0,0" VerticalAlignment="Top" Width="904" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="dragwindow" d:IsLocked="True"/>
+        <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="16" Click="close" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24" d:IsLocked="True"/>
 
         <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1080" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem x:Name="FavouritesTab" Margin="-2,172,-8,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Century Gothic" Foreground="White" BorderBrush="#FF282B32" Height="300">
                 <TabItem.Header>
-                    <TextBlock x:Name="FavouritesLabel" Height="84" TextWrapping="Wrap" Width="88" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" TextAlignment="Center" FontSize="16" FontStretch="UltraExpanded"><Run Text=""/><InlineUIContainer>
+                    <TextBlock x:Name="FavouritesLabel" Height="84" TextWrapping="Wrap" Width="88" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" TextAlignment="Center" FontSize="16" FontStretch="UltraExpanded" d:IsLocked="True"><Run Text=""/><InlineUIContainer>
                             <Image
                                 d:DesignUseLayoutRounding="True" Width="42" VerticalAlignment="Center" UseLayoutRounding="True" RenderTransformOrigin="0.43,0.51" x:Name="FavIcon" IsEnabled="False" Height="56" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="Fant">
                                 <Image.Source
@@ -239,17 +242,119 @@
                             </Image>
                         </InlineUIContainer><LineBreak/><Run FontStretch="Normal" Text="Favourites"/></TextBlock>
                 </TabItem.Header>
-                <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3"/>
+                <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3" d:IsLocked="True"/>
             </TabItem>
             <TabItem x:Name="CurrencyTab" Margin="-2,174,-9,-174" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Century Gothic" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="300">
                 <TabItem.Header>
-                    <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" Height="84" TextWrapping="Wrap" Width="101" TextAlignment="Center" FontSize="16"><Run Text=""/><InlineUIContainer>
+                    <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" Height="84" TextWrapping="Wrap" Width="101" TextAlignment="Center" FontSize="16" d:IsLocked="True"><Run Text=""/><InlineUIContainer>
                             <Image
-                                Width="52" VerticalAlignment="Top" Source="ImageAssets/CurrencyIcon.png" x:Name="CurrIcon" Height="48" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                Width="52" VerticalAlignment="Top" Source="ImageAssets/CurrencyIcon.png" x:Name="CurrIcon" Height="48" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" d:IsLocked="True"/>
                         </InlineUIContainer><Run/><LineBreak/><Run Text="All Currency"/></TextBlock>
                 </TabItem.Header>
-                <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="6,-3,-3,-3"/>
+                <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="6,-3,5,-3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button x:Name="Alteration" Background="{x:Null}" Margin="9,10,496,709" Padding="0">
+                        <Grid HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="441">
+                            <TextBox HorizontalAlignment="Left" Height="29" Margin="101,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="380 ⇐ 25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}"/>
+
+
+                            <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,0,380,0" Width="61"/>
+                            <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Margin="187,0,227,25"/>
+                            <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,0,334,25" Width="33"/>
+                            <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.296,0.528" Margin="269,1,145,24"/>
+                            <TextBox HorizontalAlignment="Left" Height="29" Margin="289,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="10 ⇐ 153" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}"/>
+                            <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,-1,30,26" Width="33"/>
+                            <RichTextBox HorizontalAlignment="Left" Height="27" Margin="226,28,0,0" VerticalAlignment="Top" Width="28" Background="Transparent" BorderBrush="Transparent" Foreground="White" TextChanged="RichTextBox_TextChanged">
+                                <FlowDocument>
+                                    <Paragraph>
+                                        <Run Text="%"/>
+                                    </Paragraph>
+                                </FlowDocument>
+                            </RichTextBox>
+
+                        </Grid>
+
+                    </Button>
+                    <Button x:Name="Fusing" Background="{x:Null}" Margin="10,75,877,641">
+                        <Image Source="ImageAssets/Fusing.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Alchemy" Background="{x:Null}" Margin="10,140,877,576">
+                        <Image Source="ImageAssets/Alchemy.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Chaos" Background="{x:Null}" Margin="9,205,878,511"/>
+                    <Button x:Name="Gemcutter" Background="{x:Null}" Margin="10,270,877,446">
+                        <Image Source="ImageAssets/Gemcutter.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Exalted" Background="{x:Null}" Margin="10,335,877,381">
+                        <Image Source="ImageAssets/Exalted.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Chromatic" Background="{x:Null}" Margin="10,400,877,316">
+                        <Image Source="ImageAssets/Chromatic.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Jeweller" Background="{x:Null}" Margin="11,465,876,251">
+                        <Image Source="ImageAssets/Jeweller.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Chance" Background="{x:Null}" Margin="11,530,876,186" RenderTransformOrigin="0.5,0.5">
+                        <Image Source="ImageAssets/Chance.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Chisel" Background="{x:Null}" Margin="11,595,876,121">
+                        <Image Source="ImageAssets/Chisel.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Scouring" Background="{x:Null}" Margin="12,660,875,56">
+                        <Image Source="ImageAssets/Scouring.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5"/>
+                    </Button>
+
+
+
+                    <Button x:Name="Blessed" Background="{x:Null}" Margin="486,10,398,706">
+                        <Image Source="ImageAssets/Blessed.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5"/>
+                    </Button>
+                    <Button x:Name="Regret" Background="{x:Null}" Margin="486,75,399,641">
+                        <Image Source="ImageAssets/Regret.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Regal" Background="{x:Null}" Margin="486,140,399,576">
+                        <Image Source="ImageAssets/Regal.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Divine" Background="{x:Null}" Margin="486,205,398,511">
+                        <Image Source="ImageAssets/Divine.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Vaal" Background="{x:Null}" Margin="487,270,398,446">
+                        <Image Source="ImageAssets/Vaal.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Offering" Background="{x:Null}" Margin="487,335,398,381">
+                        <Image Source="ImageAssets/Offering.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="ApprenticeSextant" Background="{x:Null}" Margin="488,400,399,316">
+                        <Image Source="ImageAssets/ApprenticeSextant.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="JourneymanSextant" Background="{x:Null}" Margin="488,465,397,251">
+                        <Image Source="ImageAssets/JourneymanSextant.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="MasterSextant" Background="{x:Null}" Margin="488,530,397,186">
+                        <Image Source="ImageAssets/MasterSextant.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
+                    </Button>
+                    <Button x:Name="Annulment" Background="{x:Null}" Margin="488,595,397,121">
+                        <Image Source="ImageAssets/Annulment.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5"/>
+                    </Button>
+                    <CheckBox Content="" HorizontalAlignment="Left" Margin="72,49,0,0" VerticalAlignment="Top" Height="17" Width="18" RenderTransformOrigin="0.046,0.353">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-4.086" Y="-1.25"/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
+
+                </Grid>
+
             </TabItem>
+
         </TabControl>
 
     </Grid>

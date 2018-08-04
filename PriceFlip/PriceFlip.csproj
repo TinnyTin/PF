@@ -106,5 +106,64 @@
   <ItemGroup>
     <Resource Include="ImageAssets\PriceFlipIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Chromatic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\ApprenticeSextant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Blessed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Chisel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Chaos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Divine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Exalted.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\MasterSextant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\JourneymanSextant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Jeweller.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Gemcutter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Offering.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Alchemy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Alteration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Annulment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Chance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Fusing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Regret.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\Regal.png" />
+    <Resource Include="ImageAssets\Scouring.png" />
+    <Resource Include="ImageAssets\Vaal.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

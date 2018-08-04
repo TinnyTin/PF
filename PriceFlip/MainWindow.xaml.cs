@@ -171,9 +171,7 @@ namespace PriceFlip
             return result;
 
         }
-
-       
-
+        
     }
 
 }
