@@ -268,13 +268,7 @@
                             <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.296,0.528" Margin="269,1,145,24"/>
                             <TextBox HorizontalAlignment="Left" Height="29" Margin="289,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="10 ⇐ 153" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}"/>
                             <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,-1,30,26" Width="33"/>
-                            <RichTextBox HorizontalAlignment="Left" Height="27" Margin="226,28,0,0" VerticalAlignment="Top" Width="28" Background="Transparent" BorderBrush="Transparent" Foreground="White" TextChanged="RichTextBox_TextChanged">
-                                <FlowDocument>
-                                    <Paragraph>
-                                        <Run Text="%"/>
-                                    </Paragraph>
-                                </FlowDocument>
-                            </RichTextBox>
+                            <TextBox HorizontalAlignment="Left" Height="29" Margin="200,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" TextChanged="TextBox_TextChanged_1"/>
 
                         </Grid>
 

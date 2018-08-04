@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HtmlAgilityPack;
+
 namespace PriceFlip
 {
     /// <summary>
@@ -171,7 +172,32 @@ namespace PriceFlip
             return result;
 
         }
-        
+
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            string text = (tb.Text.TrimEnd('%'));
+            Debug.Print("reached");
+            if (text != "") //can't convert whitespace to double. change later for efficiency? 
+            {
+                double percentage = Convert.ToDouble(text);
+
+                if (percentage >= 10)
+                {
+                    tb.Foreground = Brushes.Green;
+
+                }
+                else if (percentage >= 5 && percentage < 10)
+                {
+                    tb.Foreground = Brushes.Yellow;
+                }
+                else
+                {
+                    tb.Foreground = Brushes.Red;
+                }
+            }
+        }
     }
 
 }
