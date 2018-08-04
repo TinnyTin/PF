@@ -48,7 +48,12 @@ namespace PriceFlip
             { "annul", 513 }
 
         };
-        
+
+
+        List<Object[]> favouritesList = new List<Object[]>(0);
+
+
+
 
 
 
@@ -84,31 +89,69 @@ namespace PriceFlip
             this.DragMove();
         }
 
-        // Given want and have currency strings, retrieves the 7th listing info from currency.poe.trade
-        // Returns an object array {want#,have#} representing ( want <- have )
-        // Note that this is the same as ( receive <- pay )
-        private Object[] refresh(string want, string have)
+        // Calculates the flat profit value of 1 trade cycle.
+        // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
+        // Returns a double representing the flat profit in *chaos* units.
+        private double flatprofit(double receive, double pay, double receive2, double pay2)
+        {
+            double profit = 0.0;
+            double totalbuy = pay2 - receive;
+            double buyvalue = pay2 / receive2;
+            profit = totalbuy / buyvalue;
+
+            return profit;
+        }
+
+        // Calculates the profit margin % of 1 trade cycle.
+        // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
+        // Returns a double representing the profit margin %.
+        private double profitmargin(double receive, double pay, double receive2, double pay2)
+        {
+            double profit = 0.0;
+            double buyvalue = pay2 / receive2;
+            double sellvalue = receive / pay;
+            profit = (buyvalue / sellvalue) - 1;
+
+            return profit;
+        }
+
+        // Given an array, add it to the favourites list.
+        private void addFavourite(Object[] data)
+        {
+            favouritesList.Add(data);
+        }
+
+        // Given receive and pay currency strings, retrieves the 7th listing info from currency.poe.trade. If there are <=12 listings, index = listing.size/2.
+        // Returns an array[receive#,have#] representing ( receive <- pay )
+        private Object[] refresh(string receive, string pay)
         {
             Object[] result = new Object[] { 0, 0 };
             
-            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency[want] + "&have=" + currency[have];
+            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency[receivevalue] + "&have=" + currency[payvalue];
             var data = new MyWebClient().DownloadString(Url);
             var doc = new HtmlDocument();
             doc.LoadHtml(data);
 
-            var htmlNode = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']")[6];
+            var htmlNodeList = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']");
+            int index = 6;
+            int htmlListSize = (int) htmlNodeList.LongCount();
+            if (htmlListSize <= 12)
+            {
+                index = htmlListSize / 2;
+            }
+            var htmlNode = htmlNodeList[index];
 
             // IGN and stock are not necessary in the current implementation
             //var ign = htmlNode.GetAttributeValue("data-ign", "IGN not found");
             //var stock = htmlNode.GetAttributeValue("data-stock", "Stock not found");
 
-            string receive = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
-            string pay = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
+            string receivevalue = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
+            string payvalue = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
 
-            if(receive != "Sell value not found" && pay != "Buy value not found")
+            if(receivevalue != "Sell value not found" && payvalue != "Buy value not found")
             {
-                result[0] = Convert.ToDouble(receive);
-                result[1] = Convert.ToDouble(pay);
+                result[0] = Convert.ToDouble(receivevalue);
+                result[1] = Convert.ToDouble(payvalue);
             }
 
             //Test print
