@@ -89,6 +89,17 @@ namespace PriceFlip
             this.DragMove();
         }
 
+
+        // Pre-emptive setup for clipboard helper on click.
+        private string clipboardClick()
+        {
+            string c1 = "chaos";
+            double c1value = 0;
+            double c2value = 0;
+
+            return "~b/o" + c1value + "/" + c2value + " " + c1;
+        }
+
         // Calculates the flat profit value of 1 trade cycle.
         // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
         // Returns a double representing the flat profit in *chaos* units.
@@ -127,7 +138,7 @@ namespace PriceFlip
         {
             Object[] result = new Object[] { 0, 0 };
             
-            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency[receivevalue] + "&have=" + currency[payvalue];
+            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency[receive] + "&have=" + currency[pay];
             var data = new MyWebClient().DownloadString(Url);
             var doc = new HtmlDocument();
             doc.LoadHtml(data);
