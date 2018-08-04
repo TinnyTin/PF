@@ -234,8 +234,7 @@
                                 d:DesignUseLayoutRounding="True" Width="42" VerticalAlignment="Center" UseLayoutRounding="True" RenderTransformOrigin="0.43,0.51" x:Name="FavIcon" IsEnabled="False" Height="56" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="Fant">
                                 <Image.Source
             >
-                                    <BitmapImage
-                                        UriSource="C:\Users\Martin\source\repos\PriceFlip\PriceFlip\ImageAssets\favourites-white.png" CacheOption="OnLoad" CreateOptions="IgnoreImageCache" BaseUri="pack://application:,,,/"/>
+                                    <ImageSource>ImageAssets/favourites-white.png</ImageSource>
                                 </Image.Source>
                             </Image>
                         </InlineUIContainer><LineBreak/><Run FontStretch="Normal" Text="Favourites"/></TextBlock>
