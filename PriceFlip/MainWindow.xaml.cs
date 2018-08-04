@@ -48,7 +48,7 @@ namespace PriceFlip
             { "annul", 513 }
 
         };
-
+        
 
 
 
@@ -84,49 +84,42 @@ namespace PriceFlip
             this.DragMove();
         }
 
-        private void refresh(object sender, RoutedEventArgs e) { 
-                    foreach (KeyValuePair<string, int> entry in currency)
-                        {
-                            if (entry.Value != 4)
-                            {
-                                var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + entry.Value + "&have=" + currency["chaos"];
-                                var data = new MyWebClient().DownloadString(Url);
-                                var doc = new HtmlDocument();
-                                doc.LoadHtml(data);
+        // Given want and have currency strings, retrieves the 7th listing info from currency.poe.trade
+        // Returns an object array {want#,have#} representing ( want <- have )
+        // Note that this is the same as ( receive <- pay )
+        private Object[] refresh(string want, string have)
+        {
+            Object[] result = new Object[] { 0, 0 };
+            
+            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency[want] + "&have=" + currency[have];
+            var data = new MyWebClient().DownloadString(Url);
+            var doc = new HtmlDocument();
+            doc.LoadHtml(data);
 
-                                var htmlNode = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']")[6];
+            var htmlNode = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']")[6];
 
-                                var ign = htmlNode.GetAttributeValue("data-ign", "IGN not found");
-                                var receive = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
-                                var pay = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
-                                var stock = htmlNode.GetAttributeValue("data-stock", "Stock not found");
+            // IGN and stock are not necessary in the current implementation
+            //var ign = htmlNode.GetAttributeValue("data-ign", "IGN not found");
+            //var stock = htmlNode.GetAttributeValue("data-stock", "Stock not found");
 
+            string receive = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
+            string pay = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
 
-                                //Test print
-                                string msg = "IGN: " + ign + ", Currency: chaos to " + entry.Key + ", Receive: " + receive + ", Pay: " + pay + ", Stock: " + stock + "\n";
-                               
+            if(receive != "Sell value not found" && pay != "Buy value not found")
+            {
+                result[0] = Convert.ToDouble(receive);
+                result[1] = Convert.ToDouble(pay);
+            }
 
+            //Test print
+            //string msg = "IGN: " + ign + ", Currency: chaos to " + entry.Key + ", Receive: " + receive + ", Pay: " + pay + ", Stock: " + stock + "\n";
 
-                                var Urlx = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency["chaos"] + "&have=" + entry.Value;
-                                var datax = new MyWebClient().DownloadString(Urlx);
-                                var docx = new HtmlDocument();
-                                docx.LoadHtml(datax);
+            return result;
 
-                                var htmlNodex = docx.DocumentNode.SelectNodes("//div[@class='displayoffer ']")[6];
+        }
 
-                                var ignx = htmlNodex.GetAttributeValue("data-ign", "IGN not found");
-                                var receivex = htmlNodex.GetAttributeValue("data-sellvalue", "Sell value not found");
-                                var payx = htmlNodex.GetAttributeValue("data-buyvalue", "Buy value not found");
-                                var stockx = htmlNodex.GetAttributeValue("data-stock", "Stock not found");
+       
 
-
-                                //Test print
-                                string msgx = "IGN: " + ignx + ", Currency:" + entry.Key + " to chaos" + ", Receive: " + receivex + ", Pay: " + payx + ", Stock: " + stockx + "\n";
-                                
-                }
-                        }
-                    }
-
-                }
+    }
 
 }
