@@ -50,6 +50,7 @@ namespace PriceFlip
 
         };
 
+        //Currency image association
         Dictionary<string, string> images = new Dictionary<string, string>()
         {
             { "alt", "ImageAssets/Alteration.png" },
@@ -76,11 +77,10 @@ namespace PriceFlip
 
         };
 
+        // Currency main list initialization
+        List<Object[]> DataList = new List<Object[]>();
 
         List<Object[]> favouritesList = new List<Object[]>(0);
-        List<Object[]> currencyDataList = new List<Object[]>(0);
-
-
 
 
 
@@ -88,6 +88,8 @@ namespace PriceFlip
         public MainWindow()
         {
             InitializeComponent();
+            populateList();
+            Debug.Print(DataList.Count +"");
 
         }
 
@@ -117,15 +119,7 @@ namespace PriceFlip
         }
 
 
-        // Pre-emptive setup for clipboard helper on click.
-        private string clipboardClick()
-        {
-            string c1 = "chaos";
-            double c1value = 0;
-            double c2value = 0;
 
-            return "~b/o" + c1value + "/" + c2value + " " + c1;
-        }
 
         // Calculates the flat profit value of 1 trade cycle.
         // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
@@ -157,6 +151,23 @@ namespace PriceFlip
         private void addFavourite(Object[] data)
         {
             favouritesList.Add(data);
+        }
+
+        private void populateList()
+        {
+            //new Object[] { "alt", "chaos", 0, 0, 0, 0 }
+            foreach (KeyValuePair<string, int> entry in currency)
+            {
+                if(entry.Key != "chaos")
+                {
+                    DataList.Add(new Object[] { entry.Key, "chaos", 0, 0, 0, 0 });
+                }
+                if (entry.Key != "exalt")
+                {
+                    DataList.Add(new Object[] { entry.Key, "exalt", 0, 0, 0, 0 });
+                }
+
+            }
         }
 
         // Given receive and pay currency strings, retrieves the 7th listing info from currency.poe.trade. If there are <=12 listings, index = listing.size/2.
@@ -199,7 +210,7 @@ namespace PriceFlip
 
         }
 
-
+        
         private void Textbox_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -224,6 +235,18 @@ namespace PriceFlip
                 }
             }
         }
+
+        private void copyToClipboard(object sender, RoutedEventArgs e)
+        {
+           
+
+            //string c1 = "chaos";
+            //double c1value = 0;
+            //double c2value = 0;
+
+            //string result =  "~b/o" + c1value + "/" + c2value + " " + c1;
+        }
+
     }
 
 }

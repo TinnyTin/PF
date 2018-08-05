@@ -370,7 +370,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ItemsControl x:Name="CurrencyList" Margin="0,0,285,0"/>
+                    <ItemsControl x:Name="CurrencyList" Margin="0,0,285,0">
+                        
+                    </ItemsControl>
+
+
                     <StackPanel HorizontalAlignment="Left" Height="776" VerticalAlignment="Top" Width="671">
                         <Grid x:Name="Row0" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
                             <CheckBox x:Name="AltCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353">
@@ -384,7 +388,7 @@
                                 </CheckBox.RenderTransform>
                             </CheckBox>
                             <TextBox x:Name="AltProfit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" TextChanged="Textbox_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
-                            <Button x:Name="Alteration_Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}">
+                            <Button x:Name="Alteration_Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="copyToClipboard">
                                 <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
                                     <TextBox x:Name="AltRatio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
@@ -394,7 +398,7 @@
                                 </Grid>
 
                             </Button>
-                            <Button x:Name="Alteration_Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}">
+                            <Button x:Name="Alteration_Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="copyToClipboard">
                                 <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
 
                                     <TextBox x:Name="AltRatio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
