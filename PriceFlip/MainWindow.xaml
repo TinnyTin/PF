@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PriceFlip"
         mc:Ignorable="d"
-        Title="Tinny's Flip Tool" Height="800" Width="1080" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Tinny's Flip Tool" Height="800" Width="1080" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{DynamicResource Button.Disabled.Foreground}">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -16,22 +16,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#F0F0F0" Offset="0.0"/>
-            <GradientStop Color="#FF020101" Offset="1.0"/>
-        </LinearGradientBrush>
         <SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
-        <SolidColorBrush x:Key="TabItem.MouseOver.Background" Color="#FFFFD394"/>
-        <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#FFFFE6C1"/>
+        <SolidColorBrush x:Key="TabItem.MouseOver.Background" Color="LightSteelBlue"/>
+        <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#00FFE6C1"/>
         <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
         <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
         <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#FF1E2025"/>
         <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FF1E2025"/>
         <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Static.Border}"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="6,2,6,2"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -206,6 +199,113 @@
                                 <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
                                 <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
                             </MultiDataTrigger>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="LightSteelBlue" Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="#FF282B32" Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF1E2025"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF2C628B"/>
+        <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Background="#FF1E2025"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="1.00"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FF1E2025"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="RefreshButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -217,22 +317,37 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="124" Background="#FF282B32" Margin="0,0,0,602" d:IsLocked="True">
+        <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="124" Background="#FF282B32" Margin="0,24,0,602">
 
 
-            <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="6,94,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" FontSize="22" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
-            <Label x:Name="subtitle" Content="by Tinny and Judy" HorizontalAlignment="Center" Height="24" Margin="6,121,10,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
-            <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="92" Margin="16,10,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
+            <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="0,83,0,0" VerticalAlignment="Top" Width="124" FontFamily="Century Gothic" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" HorizontalContentAlignment="Center"/>
+            <Label x:Name="subtitle" Content="by Tinny and Judy" HorizontalAlignment="Center" Height="24" Margin="0,109,-2,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
+            <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="70" Margin="24,19,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
         </Grid>
 
         <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="20" Click="minimize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1" Width="24" d:IsLocked="True"/>
-        <Rectangle x:Name="DragBar" Fill="#FF282B32" HorizontalAlignment="Left" Height="24" Margin="124,0,0,0" VerticalAlignment="Top" Width="904" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="dragwindow" d:IsLocked="True"/>
+        <Rectangle x:Name="DragBar" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="1028" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="dragwindow">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                            <RotateTransform Angle="270" CenterY="0.5" CenterX="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF282B32" Offset="0"/>
+                    <GradientStop Color="#FF1E2025" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="16" Click="close" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24" d:IsLocked="True"/>
 
         <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1080" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}">
-            <TabItem x:Name="FavouritesTab" Margin="-2,172,-8,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Century Gothic" Foreground="White" BorderBrush="#FF282B32" Height="300">
+            <TabItem x:Name="FavouritesTab" Margin="-2,172,-9,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Century Gothic" Foreground="White" BorderBrush="#FF282B32" Height="124" d:IsLocked="True">
                 <TabItem.Header>
-                    <TextBlock x:Name="FavouritesLabel" Height="84" TextWrapping="Wrap" Width="88" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" TextAlignment="Center" FontSize="16" FontStretch="UltraExpanded" d:IsLocked="True"><Run Text=""/><InlineUIContainer>
+                    <TextBlock x:Name="FavouritesLabel" Height="84" TextWrapping="Wrap" Width="88" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" TextAlignment="Center" FontSize="16" FontStretch="UltraExpanded"><Run Text=""/><InlineUIContainer>
                             <Image
                                 d:DesignUseLayoutRounding="True" Width="42" VerticalAlignment="Center" UseLayoutRounding="True" RenderTransformOrigin="0.43,0.51" x:Name="FavIcon" IsEnabled="False" Height="56" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="Fant">
                                 <Image.Source
@@ -244,106 +359,57 @@
                 </TabItem.Header>
                 <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3" d:IsLocked="True"/>
             </TabItem>
-            <TabItem x:Name="CurrencyTab" Margin="-2,174,-9,-174" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Century Gothic" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="300">
+            <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Century Gothic" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124">
                 <TabItem.Header>
-                    <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" Height="84" TextWrapping="Wrap" Width="101" TextAlignment="Center" FontSize="16" d:IsLocked="True"><Run Text=""/><InlineUIContainer>
+                    <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" Width="101" TextAlignment="Center" FontSize="16" d:IsLocked="True"><Run Text=""/><InlineUIContainer>
                             <Image
                                 Width="52" VerticalAlignment="Top" Source="ImageAssets/CurrencyIcon.png" x:Name="CurrIcon" Height="48" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" d:IsLocked="True"/>
                         </InlineUIContainer><Run/><LineBreak/><Run Text="All Currency"/></TextBlock>
                 </TabItem.Header>
-                <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="6,-3,5,-3">
+                <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="6,-3,-3,-3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <ItemsControl x:Name="CurrencyList" Margin="0,0,285,0"/>
+                    <StackPanel HorizontalAlignment="Left" Height="776" VerticalAlignment="Top" Width="671">
+                        <Grid x:Name="Row0" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
+                            <CheckBox x:Name="AltCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353">
+                                <CheckBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="-4.086" Y="-1.25"/>
+                                    </TransformGroup>
+                                </CheckBox.RenderTransform>
+                            </CheckBox>
+                            <TextBox x:Name="AltProfit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" TextChanged="Textbox_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                            <Button x:Name="Alteration_Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}">
+                                <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
+                                    <TextBox x:Name="AltRatio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                                    <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,133,0" HorizontalAlignment="Right" Width="29" Height="29"/>
+                                    <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,15,0" Width="29"/>
 
-                    <Button x:Name="Alteration" Background="{x:Null}" Margin="9,10,496,709" Padding="0">
-                        <Grid HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="441">
-                            <TextBox HorizontalAlignment="Left" Height="29" Margin="101,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="380 ⇐ 25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}"/>
+                                </Grid>
 
+                            </Button>
+                            <Button x:Name="Alteration_Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}">
+                                <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
 
-                            <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,0,380,0" Width="61"/>
-                            <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Margin="187,0,227,25"/>
-                            <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,0,334,25" Width="33"/>
-                            <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.296,0.528" Margin="269,1,145,24"/>
-                            <TextBox HorizontalAlignment="Left" Height="29" Margin="289,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="10 ⇐ 153" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}"/>
-                            <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="-2.696,0.58" HorizontalAlignment="Right" Margin="0,-1,30,26" Width="33"/>
-                            <TextBox HorizontalAlignment="Left" Height="29" Margin="200,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" TextChanged="TextBox_TextChanged_1"/>
+                                    <TextBox x:Name="AltRatio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                                    <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,134,0" HorizontalAlignment="Right" Width="29" Height="29"/>
+                                    <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,16,0" Width="29"/>
 
+                                </Grid>
+
+                            </Button>
+                            <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="{DynamicResource Button.MouseOver.Background}" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}">
+                                <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Button>
+                            <TextBox x:Name="AltProfit_Copy" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" TextChanged="Textbox_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
                         </Grid>
-
-                    </Button>
-                    <Button x:Name="Fusing" Background="{x:Null}" Margin="10,75,877,641">
-                        <Image Source="ImageAssets/Fusing.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Alchemy" Background="{x:Null}" Margin="10,140,877,576">
-                        <Image Source="ImageAssets/Alchemy.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Chaos" Background="{x:Null}" Margin="9,205,878,511"/>
-                    <Button x:Name="Gemcutter" Background="{x:Null}" Margin="10,270,877,446">
-                        <Image Source="ImageAssets/Gemcutter.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Exalted" Background="{x:Null}" Margin="10,335,877,381">
-                        <Image Source="ImageAssets/Exalted.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Chromatic" Background="{x:Null}" Margin="10,400,877,316">
-                        <Image Source="ImageAssets/Chromatic.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Jeweller" Background="{x:Null}" Margin="11,465,876,251">
-                        <Image Source="ImageAssets/Jeweller.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Chance" Background="{x:Null}" Margin="11,530,876,186" RenderTransformOrigin="0.5,0.5">
-                        <Image Source="ImageAssets/Chance.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Chisel" Background="{x:Null}" Margin="11,595,876,121">
-                        <Image Source="ImageAssets/Chisel.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Scouring" Background="{x:Null}" Margin="12,660,875,56">
-                        <Image Source="ImageAssets/Scouring.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5"/>
-                    </Button>
-
-
-
-                    <Button x:Name="Blessed" Background="{x:Null}" Margin="486,10,398,706">
-                        <Image Source="ImageAssets/Blessed.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5"/>
-                    </Button>
-                    <Button x:Name="Regret" Background="{x:Null}" Margin="486,75,399,641">
-                        <Image Source="ImageAssets/Regret.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Regal" Background="{x:Null}" Margin="486,140,399,576">
-                        <Image Source="ImageAssets/Regal.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Divine" Background="{x:Null}" Margin="486,205,398,511">
-                        <Image Source="ImageAssets/Divine.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Vaal" Background="{x:Null}" Margin="487,270,398,446">
-                        <Image Source="ImageAssets/Vaal.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Offering" Background="{x:Null}" Margin="487,335,398,381">
-                        <Image Source="ImageAssets/Offering.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="ApprenticeSextant" Background="{x:Null}" Margin="488,400,399,316">
-                        <Image Source="ImageAssets/ApprenticeSextant.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="JourneymanSextant" Background="{x:Null}" Margin="488,465,397,251">
-                        <Image Source="ImageAssets/JourneymanSextant.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="MasterSextant" Background="{x:Null}" Margin="488,530,397,186">
-                        <Image Source="ImageAssets/MasterSextant.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5" Height="61" Width="61"/>
-                    </Button>
-                    <Button x:Name="Annulment" Background="{x:Null}" Margin="488,595,397,121">
-                        <Image Source="ImageAssets/Annulment.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.5"/>
-                    </Button>
-                    <CheckBox Content="" HorizontalAlignment="Left" Margin="72,49,0,0" VerticalAlignment="Top" Height="17" Width="18" RenderTransformOrigin="0.046,0.353">
-                        <CheckBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform X="-4.086" Y="-1.25"/>
-                            </TransformGroup>
-                        </CheckBox.RenderTransform>
-                    </CheckBox>
+                    </StackPanel>
 
                 </Grid>
 

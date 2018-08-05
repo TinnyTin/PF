@@ -165,5 +165,8 @@
     <Resource Include="ImageAssets\Scouring.png" />
     <Resource Include="ImageAssets\Vaal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageAssets\refreshicon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

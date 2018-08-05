@@ -78,7 +78,7 @@ namespace PriceFlip
 
 
         List<Object[]> favouritesList = new List<Object[]>(0);
-
+        List<Object[]> currencyDataList = new List<Object[]>(0);
 
 
 
@@ -200,7 +200,7 @@ namespace PriceFlip
         }
 
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        private void Textbox_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
