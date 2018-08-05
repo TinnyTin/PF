@@ -50,6 +50,32 @@ namespace PriceFlip
 
         };
 
+        Dictionary<string, string> images = new Dictionary<string, string>()
+        {
+            { "alt", "ImageAssets/Alteration.png" },
+            { "fusing", "ImageAssets/Fusing.png" },
+            { "alch", "ImageAssets/Alchemy.png" },
+            { "chaos", "ImageAssets/Chaos.png" },
+            { "gcp", "ImageAssets/Gemcutter.png" },
+            { "exalt", "ImageAssets/Exalted.png" },
+            { "chrom", "ImageAssets/Chromatic.png" },
+            { "jeweller", "ImageAssets/Jeweller.png" },
+            { "chance", "ImageAssets/Chance.png" },
+            { "chisel", "ImageAssets/Chisel.png" },
+            { "scour", "ImageAssets/Scouring.png" },
+            { "blessed", "ImageAssets/Blessed.png" },
+            { "regret", "ImageAssets/Regret.png" },
+            { "regal", "ImageAssets/Regal.png" },
+            { "divine", "ImageAssets/Divine.png" },
+            { "vaal", "ImageAssets/Vaal.png" },
+            { "offering", "ImageAssets/Offering.png" },
+            { "apprentice", "ImageAssets/ApprenticeSextant.png" },
+            { "journeyman", "ImageAssets/JourneymanSextant.png" },
+            { "masters", "ImageAssets/MasterSextant.png" },
+            { "annul", "ImageAssets/Annulment.png" }
+
+        };
+
 
         List<Object[]> favouritesList = new List<Object[]>(0);
 
