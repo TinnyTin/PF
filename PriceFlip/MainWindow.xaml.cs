@@ -129,8 +129,25 @@ namespace PriceFlip
                 new Currency(){name="alteration",id=1,image="ImageAssets/Alteration.png",tag="alt"},
                 new Currency(){name="fusing",id=2,image="ImageAssets/Fusing.png",tag="fuse"},
                 new Currency(){name="alchemy",id=3,image="ImageAssets/Alchemy.png",tag="alch"},
-                new Currency(){name="chaos",id=2,image="ImageAssets/Chaos.png",tag="chaos"},
-                new Currency(){name="gemcutters",id=2,image="ImageAssets/Gemcutter.png",tag="gcp"},
+                new Currency(){name="chaos",id=4,image="ImageAssets/Chaos.png",tag="chaos"},
+                new Currency(){name="gemcutters",id=5,image="ImageAssets/Gemcutter.png",tag="gcp"},
+                new Currency(){name="exalted", id=6, image="ImageAssets/Exalted.png", tag="exa"},
+                new Currency(){name="chromatic", id=7, image="ImageAssets/Chromatic.png", tag="chrom"},
+                new Currency(){name="jeweller", id=8, image="ImageAssets/Jeweller.png", tag="jew"},
+                new Currency(){name="chance", id=9, image="ImageAssets/Chance.png", tag="chance"},
+                new Currency(){name="chisel", id=10, image="ImageAssets/Chisel.png", tag="chisel"},
+                new Currency(){name="scouring", id=11, image="ImageAssets/Scouring.png", tag="scour"},
+                new Currency(){name="blessed", id=12, image="ImageAssets/Blessed.png", tag="blesse"},
+                new Currency(){name="regret", id=13, image="ImageAssets/Regret.png", tag="regret"},
+                new Currency(){name="regal", id=14, image="ImageAssets/Regal.png", tag="regal"},
+                new Currency(){name="divine", id=15, image="ImageAssets/Divine.png", tag="divine"},
+                new Currency(){name="vaal", id=16, image="ImageAssets/Vaal.png", tag="vaal"},
+                new Currency(){name="offering", id=40, image="ImageAssets/Offering.png", tag="offer"},
+                new Currency(){name="apprentice", id=45, image="ImageAssets/ApprenticeSextant.png", tag="apprentice-sextant"},
+                new Currency(){name="journeyman", id=46, image="ImageAssets/JourneymanSextant.png", tag="journeyman-sextant"},
+                new Currency(){name="masters", id=47, image="ImageAssets/MasterSextant.png", tag="master-sextant"},
+                new Currency(){name="annulment", id=513, image="ImageAssets/Annulment.png", tag="orb-of-annulment"},
+
             };
         }
 
