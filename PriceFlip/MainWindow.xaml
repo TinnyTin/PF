@@ -388,8 +388,8 @@
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
-                                            <Image Source="{Binding Path=CIMAGE1}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,133,0" HorizontalAlignment="Right" Width="29" Height="29"/>
-                                            <Image Source="{Binding Path=CIMAGE2}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,15,0" Width="29"/>
+                                            <Image Source="{Binding Path=CIMAGE1}" ToolTip="{Binding Path=CTYPE1}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,133,0" HorizontalAlignment="Right" Width="29" Height="29"/>
+                                            <Image Source="{Binding Path=CIMAGE2}" ToolTip="{Binding Path=CTYPE2}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,15,0" Width="29"/>
 
                                         </Grid>
 
@@ -398,8 +398,8 @@
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
-                                            <Image Source="{Binding Path=CIMAGE2}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,134,0" HorizontalAlignment="Right" Width="29" Height="29"/>
-                                            <Image Source="{Binding Path=CIMAGE1}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,16,0" Width="29"/>
+                                            <Image Source="{Binding Path=CIMAGE2}" ToolTip="{Binding Path=CTYPE2}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,134,0" HorizontalAlignment="Right" Width="29" Height="29"/>
+                                            <Image Source="{Binding Path=CIMAGE1}" ToolTip="{Binding Path=CTYPE1}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,16,0" Width="29"/>
 
                                         </Grid>
 

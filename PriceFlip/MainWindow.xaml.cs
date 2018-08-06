@@ -161,11 +161,11 @@ namespace PriceFlip
             {
                 if(entry.Key != "chaos")
                 {
-                    dataList.Add(new CurrencyRow { ctype1 = entry.Key, ctype2 = "chaos", CIMAGE1=images[entry.Key], CIMAGE2 = images["chaos"]});
+                    dataList.Add(new CurrencyRow { CTYPE1 = entry.Key, CTYPE2 = "chaos", CIMAGE1=images[entry.Key], CIMAGE2 = images["chaos"]});
                 }
                 if (entry.Key != "exalt")
                 {
-                    dataList.Add(new CurrencyRow { ctype1 = entry.Key, ctype2 = "exalt", CIMAGE1= images[entry.Key], CIMAGE2 = images["exalt"] });
+                    dataList.Add(new CurrencyRow { CTYPE1 = entry.Key, CTYPE2 = "exalt", CIMAGE1= images[entry.Key], CIMAGE2 = images["exalt"] });
                 }
 
             }
@@ -269,8 +269,9 @@ namespace PriceFlip
 
     public class CurrencyRow
     {
-        public string ctype1 = "";
-        public string ctype2 = "";
+        private string ctype1 = "";
+        private string ctype2 = "";
+
         public double receive1 = 0;
         public double pay1 = 0;
         public double receive2 = 0;
@@ -278,6 +279,30 @@ namespace PriceFlip
 
         private string cimage1 = "";
         private string cimage2 = "";
+
+        public string CTYPE1
+        {
+            get
+            {
+                return ctype1;
+            }
+            set
+            {
+                ctype1 = value;
+            }
+        }
+
+        public string CTYPE2
+        {
+            get
+            {
+                return ctype2;
+            }
+            set
+            {
+                ctype2 = value;
+            }
+        }
 
         public string CIMAGE1
         {
