@@ -79,9 +79,9 @@ namespace PriceFlip
         };
 
         // Currency main list initialization
-        List<Object[]> DataList = new List<Object[]>();
+        List<CurrencyRow> dataList = new List<CurrencyRow>(0);
 
-        List<Object[]> favouritesList = new List<Object[]>(0);
+        List<CurrencyRow> favouritesList = new List<CurrencyRow>(0);
 
 
 
@@ -90,7 +90,7 @@ namespace PriceFlip
         {
             InitializeComponent();
             populateList();
-            Debug.Print(DataList.Count +"");
+            items.ItemsSource = dataList;
 
         }
 
@@ -149,23 +149,23 @@ namespace PriceFlip
         }
 
         // Given an array, add it to the favourites list.
-        private void addFavourite(Object[] data)
+        private void addFavourite(CurrencyRow data)
         {
             favouritesList.Add(data);
         }
 
+        // Initializes all available currency items for flipping.
         private void populateList()
         {
-            //new Object[] { "alt", "chaos", 0, 0, 0, 0 }
             foreach (KeyValuePair<string, int> entry in currency)
             {
                 if(entry.Key != "chaos")
                 {
-                    DataList.Add(new Object[] { entry.Key, "chaos", 0, 0, 0, 0 });
+                    dataList.Add(new CurrencyRow { ctype1 = entry.Key, ctype2 = "chaos", CIMAGE1=images[entry.Key], CIMAGE2 = images["chaos"]});
                 }
                 if (entry.Key != "exalt")
                 {
-                    DataList.Add(new Object[] { entry.Key, "exalt", 0, 0, 0, 0 });
+                    dataList.Add(new CurrencyRow { ctype1 = entry.Key, ctype2 = "exalt", CIMAGE1= images[entry.Key], CIMAGE2 = images["exalt"] });
                 }
 
             }
@@ -261,6 +261,46 @@ namespace PriceFlip
             //string result =  "~b/o" + c1value + "/" + c2value + " " + c1;
         }
 
+        private void updateRow(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+
+    public class CurrencyRow
+    {
+        public string ctype1 = "";
+        public string ctype2 = "";
+        public double receive1 = 0;
+        public double pay1 = 0;
+        public double receive2 = 0;
+        public double pay2 = 0;
+
+        private string cimage1 = "";
+        private string cimage2 = "";
+
+        public string CIMAGE1
+        {
+            get
+            {
+                return cimage1;
+            }
+            set
+            {
+                cimage1 = value;
+            }
+        }
+        public string CIMAGE2
+        {
+            get
+            {
+                return cimage2;
+            }
+            set
+            {
+                cimage2 = value;
+            }
+        }
     }
 
 }
