@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -29,7 +30,7 @@ namespace PriceFlip
         // Currency main list initialization
         List<Currency> currency;
         List<CurrencyRow> dataList = new List<CurrencyRow>(0);
-        List<CurrencyRow> favouritesList = new List<CurrencyRow>(0);
+        ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
 
 
 
@@ -39,8 +40,9 @@ namespace PriceFlip
             InitializeComponent();
 
             initCurrency();
-            populateList();
+            PopulateList();
             items.ItemsSource = dataList;
+            items_Fav.ItemsSource = favouritesList;
 
         }
 
@@ -84,17 +86,17 @@ namespace PriceFlip
             }
         }
 
-        private void close(object sender, RoutedEventArgs e)
+        private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void minimize(object sender, RoutedEventArgs e)
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void dragwindow(object sender, MouseButtonEventArgs e)
+        private void DragWindow(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
@@ -105,7 +107,7 @@ namespace PriceFlip
         // Calculates the flat profit value of 1 trade cycle.
         // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
         // Returns a double representing the flat profit in *chaos* units.
-        private double flatprofit(double receive, double pay, double receive2, double pay2)
+        private double Flatprofit(double receive, double pay, double receive2, double pay2)
         {
             double profit = 0.0;
             double totalbuy = pay2 - receive;
@@ -118,7 +120,7 @@ namespace PriceFlip
         // Calculates the profit margin % of 1 trade cycle.
         // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
         // Returns a double representing the profit margin %.
-        private double profitmargin(double receive, double pay, double receive2, double pay2)
+        private double Profitmargin(double receive, double pay, double receive2, double pay2)
         {
             double profit = 0.0;
             double buyvalue = pay2 / receive2;
@@ -129,13 +131,13 @@ namespace PriceFlip
         }
 
         // Given an array, add it to the favourites list.
-        private void addFavourite(CurrencyRow data)
+        private void AddFavourite(CurrencyRow data)
         {
             favouritesList.Add(data);
         }
 
         // Initializes all available currency items for flipping.
-        private void populateList()
+        private void PopulateList()
         {
             foreach (Currency entry in currency)
             {
@@ -153,7 +155,7 @@ namespace PriceFlip
 
         // Given receive and pay currency strings, retrieves the 7th listing info from currency.poe.trade. If there are <=12 listings, index = listing.size/2.
         // Returns an array[receive#,have#] representing ( receive <- pay )
-        private double[] refresh(string receive, string pay)
+        private double[] Refresh(string receive, string pay)
         {
             double[] result = new double[] { 0, 0 };
             int receiveID = currency.Find(currency => currency.name == receive).id;
@@ -190,7 +192,7 @@ namespace PriceFlip
         }
 
         
-        private void profit_Changed(object sender, TextChangedEventArgs e)
+        private void Profit_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
@@ -214,7 +216,7 @@ namespace PriceFlip
             }
         }
 
-        private void flatprofit_Changed(object sender, TextChangedEventArgs e)
+        private void Flatprofit_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
             string text = tb.Text.TrimEnd('c');
@@ -237,7 +239,7 @@ namespace PriceFlip
             }
         }
 
-        private void copyToClipboard(object sender, RoutedEventArgs e)
+        private void CopyToClipboard(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
             Grid g = (Grid)btn.Content;
@@ -257,7 +259,7 @@ namespace PriceFlip
         }
 
         // Update numbers for the row by sending a request to currency.poe.trade **function is costly, optimize wherever possible**
-        private void updateRow(object sender, RoutedEventArgs e)
+        private void UpdateRow(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             Grid g = (Grid) b.Parent;
@@ -269,18 +271,45 @@ namespace PriceFlip
             Grid bbgrid = (Grid) buybutton.Content;
             string ctype1 = (string) sbgrid.Children.OfType<Image>().FirstOrDefault().ToolTip;
             string ctype2 = (string) sbgrid.Children.OfType<Image>().LastOrDefault().ToolTip;
-            double[] sellvalues = refresh(ctype1, ctype2);
-            double[] buyvalues = refresh(ctype2, ctype1);
+            double[] sellvalues = Refresh(ctype1, ctype2);
+            double[] buyvalues = Refresh(ctype2, ctype1);
 
             TextBox sbtextbox = sbgrid.Children.OfType<TextBox>().FirstOrDefault();
             TextBox bbtextbox = bbgrid.Children.OfType<TextBox>().LastOrDefault();
             sbtextbox.Text = sellvalues[0] + " ⇐ " + sellvalues[1];
             bbtextbox.Text = buyvalues[0] + " ⇐ " + buyvalues[1];
 
-            g.Children.OfType<TextBox>().FirstOrDefault().Text = profitmargin(sellvalues[0],sellvalues[1],buyvalues[0],buyvalues[1]) + "%";
-            g.Children.OfType<TextBox>().LastOrDefault().Text = flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
+            
+            g.Children.OfType<TextBox>().FirstOrDefault().Text = Profitmargin(sellvalues[0],sellvalues[1],buyvalues[0],buyvalues[1]) + "%";
+            g.Children.OfType<TextBox>().LastOrDefault().Text = Flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
+
+
+            //CurrencyRow cr = dataList.Find(row => (row.CTYPE1 == ctype1) && (row.CTYPE2 == ctype2));
+            CurrencyRow cr = (CurrencyRow) g.DataContext;
+            cr.Receive1 = sellvalues[0];
+            cr.Pay1 = sellvalues[1];
+            cr.Receive2 = buyvalues[0];
+            cr.Pay2 = buyvalues[1];
+
         }
 
+        private void AddFavourites_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            Grid g = (Grid) b.Parent;
+            // PROBLEM LINE - FINDS 0 CHILDREN
+            IEnumerable<CheckBox> children = g.Children.OfType<CheckBox>();
+            // Debug.Print(children.Count() + "");
+            foreach(CheckBox entry in children)
+            {
+                if (entry.IsChecked == true)
+                {
+                    AddFavourite((CurrencyRow)g.DataContext);
+                }
+            }
+
+
+        }
 
     }
 
@@ -294,61 +323,42 @@ namespace PriceFlip
 
     public class CurrencyRow
     {
-        private string ctype1 = "";
-        private string ctype2 = "";
+        public double Receive1 { get; set; }
+        public double Pay1 { get; set; }
+        public double Receive2 { get; set; }
+        public double Pay2 { get; set; }
 
-        public double receive1 = 0;
-        public double pay1 = 0;
-        public double receive2 = 0;
-        public double pay2 = 0;
 
-        private string cimage1 = "";
-        private string cimage2 = "";
 
-        public string CTYPE1
+        public string CTYPE1 { get; set; }
+        public string CTYPE2 { get; set; }
+
+        public string CIMAGE1 { get; set; }
+        public string CIMAGE2 { get; set; }
+
+        private string sellstring;
+        private string buystring;
+
+        public string Buystring
         {
             get
             {
-                return ctype1;
+                return buystring;
             }
             set
             {
-                ctype1 = value;
+                sellstring = Receive2 + " ⇐ " + Pay2;
             }
         }
-
-        public string CTYPE2
+        public string Sellstring
         {
             get
             {
-                return ctype2;
+                return sellstring;
             }
             set
             {
-                ctype2 = value;
-            }
-        }
-
-        public string CIMAGE1
-        {
-            get
-            {
-                return cimage1;
-            }
-            set
-            {
-                cimage1 = value;
-            }
-        }
-        public string CIMAGE2
-        {
-            get
-            {
-                return cimage2;
-            }
-            set
-            {
-                cimage2 = value;
+                sellstring = Receive1 + " ⇐ " + Pay1;
             }
         }
     }

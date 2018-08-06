@@ -323,8 +323,8 @@
             <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="70" Margin="24,19,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
         </Grid>
 
-        <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="20" Click="minimize" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1" Width="24" d:IsLocked="True"/>
-        <Rectangle x:Name="DragBar" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="1028" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="dragwindow">
+        <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="20" Click="MinimizeWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1" Width="24" d:IsLocked="True"/>
+        <Rectangle x:Name="DragBar" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="1028" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="DragWindow">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -340,10 +340,10 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="16" Click="close" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24" d:IsLocked="True"/>
+        <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Century Gothic" FontSize="16" Click="CloseWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24" d:IsLocked="True"/>
 
         <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1080" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}">
-            <TabItem x:Name="FavouritesTab" Margin="-2,172,-9,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Century Gothic" Foreground="White" BorderBrush="#FF282B32" Height="124" d:IsLocked="True">
+            <TabItem x:Name="FavouritesTab" Margin="-2,172,-9,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Century Gothic" Foreground="White" BorderBrush="#FF282B32" Height="124">
                 <TabItem.Header>
                     <TextBlock x:Name="FavouritesLabel" Height="84" TextWrapping="Wrap" Width="88" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" TextAlignment="Center" FontSize="16" FontStretch="UltraExpanded"><Run Text=""/><InlineUIContainer>
                             <Image
@@ -355,7 +355,52 @@
                             </Image>
                         </InlineUIContainer><LineBreak/><Run FontStretch="Normal" Text="Favourites"/></TextBlock>
                 </TabItem.Header>
-                <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3" d:IsLocked="True"/>
+                <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3">
+                    <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="671" Orientation="Horizontal"/>
+
+
+                    <ItemsControl x:Name="items_Fav" ScrollViewer.CanContentScroll="True" Margin="0,42,285,23">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="Row0" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
+
+                                    <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard">
+                                        <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
+
+                                            <TextBox x:Name="Ratio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Path=Sellstring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
+                                            <Image Source="{Binding CIMAGE1}" ToolTip="{Binding CTYPE1}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,133,0" HorizontalAlignment="Right" Width="29" Height="29"/>
+                                            <Image Source="{Binding CIMAGE2}" ToolTip="{Binding CTYPE2}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,15,0" Width="29"/>
+
+                                        </Grid>
+
+                                    </Button>
+                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard">
+                                        <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
+
+                                            <TextBox x:Name="Ratio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Path=Buystring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
+                                            <Image Source="{Binding CIMAGE2}" ToolTip="{Binding CTYPE2}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,134,0" HorizontalAlignment="Right" Width="29" Height="29"/>
+                                            <Image Source="{Binding CIMAGE1}" ToolTip="{Binding CTYPE1}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,16,0" Width="29"/>
+
+                                        </Grid>
+
+                                    </Button>
+                                    <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="UpdateRow">
+                                        <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Button>
+                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                                    <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer x:Name="ScrollView" HorizontalAlignment="Left" Height="710" VerticalAlignment="Top" Width="671" Margin="0" VerticalScrollBarVisibility="Auto">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControl>
+                </Grid>
             </TabItem>
             <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Century Gothic" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124">
                 <TabItem.Header>
@@ -383,7 +428,7 @@
                                             </TransformGroup>
                                         </CheckBox.RenderTransform>
                                     </CheckBox>
-                                    <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="copyToClipboard">
+                                    <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
@@ -393,7 +438,7 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="copyToClipboard">
+                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
@@ -403,11 +448,11 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="updateRow">
+                                    <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="UpdateRow">
                                         <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
-                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
-                                    <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="flatprofit_Changed"/>
+                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                                    <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed"/>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -419,7 +464,7 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="37.333" Margin="712,96,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Century Gothic" FontSize="15"/>
+                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="37.333" Margin="712,96,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Century Gothic" FontSize="15" Click="AddFavourites_Click"/>
                     <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="712,188,43,386" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
 
 
