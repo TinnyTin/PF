@@ -78,6 +78,32 @@ namespace PriceFlip
 
         };
 
+        Dictionary<string, string> abbrevcurrency = new Dictionary<string, string>()
+        {
+            { "alt", "alt" },
+            { "fusing", "fuse" },
+            { "alch", "alch" },
+            { "chaos", "chaos" },
+            { "gcp", "gcp" },
+            { "exalt", "exa" },
+            { "chrom", "chrom" },
+            { "jeweller", "jew" },
+            { "chance", "chance" },
+            { "chisel", "chisel" },
+            { "scour", "scour" },
+            { "blessed", "blesse" },
+            { "regret", "regret" },
+            { "regal", "regal" },
+            { "divine", "divine" },
+            { "vaal", "vaal" },
+            { "offering", "offer" },
+            { "apprentice", "apprentice-sextant" },
+            { "journeyman", "journeyman-sextant" },
+            { "masters", "master-sextant" },
+            { "annul", "orb-of-annulment" }
+
+        };
+
         // Currency main list initialization
         List<CurrencyRow> dataList = new List<CurrencyRow>(0);
 
@@ -243,7 +269,11 @@ namespace PriceFlip
         {
             Button btn = (Button)sender;
             var g = (Grid)btn.Content;
+            
             var textbox = g.Children.OfType<TextBox>().FirstOrDefault();
+            var currencyimage = g.Children.OfType<Image>().LastOrDefault();
+            string currencytype = (string)currencyimage.ToolTip;
+            Debug.Print(currencytype);
             var text = textbox.Text;
             var textarray = text.Split('⇐');
             string c1value = textarray[0];
@@ -253,7 +283,7 @@ namespace PriceFlip
             //    Debug.Print(textarray[i].Trim());
             //}
 
-            Clipboard.SetText("~b/o" + c1value + "/" + c2value + "currency 1");
+            Clipboard.SetText("~b/o " + c1value.Trim() + "/" + c2value.Trim() + " " + currencytype);
 
             //string c1 = "chaos";
             //double c1value = 0;
