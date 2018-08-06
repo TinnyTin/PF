@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -237,13 +238,26 @@ namespace PriceFlip
         }
 
         private void copyToClipboard(object sender, RoutedEventArgs e)
+            //sender = button object that sent it,
+            //e = event
         {
-           
+            Button btn = (Button)sender;
+            var g = (Grid)btn.Content;
+            var textbox = g.Children.OfType<TextBox>().FirstOrDefault();
+            var text = textbox.Text;
+            var textarray = text.Split('⇐');
+            string c1value = textarray[0];
+            string c2value = textarray[1];
+            //for (int i=0; i<2; i++)
+            //{
+            //    Debug.Print(textarray[i].Trim());
+            //}
+
+            Clipboard.SetText("~b/o" + c1value + "/" + c2value + "currency 1");
 
             //string c1 = "chaos";
             //double c1value = 0;
             //double c2value = 0;
-
             //string result =  "~b/o" + c1value + "/" + c2value + " " + c1;
         }
 

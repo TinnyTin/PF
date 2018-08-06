@@ -318,8 +318,6 @@
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="124" Background="#FF282B32" Margin="0,24,0,602">
-
-
             <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="0,83,0,0" VerticalAlignment="Top" Width="124" FontFamily="Century Gothic" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" HorizontalContentAlignment="Center"/>
             <Label x:Name="subtitle" Content="by Tinny and Judy" HorizontalAlignment="Center" Height="24" Margin="0,109,-2,0" VerticalAlignment="Top" Width="126" FontFamily="Century Gothic" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
             <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="70" Margin="24,19,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
@@ -371,7 +369,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <ItemsControl x:Name="CurrencyList" Margin="0,0,285,0">
-                        
+
                     </ItemsControl>
 
 
@@ -391,7 +389,7 @@
                             <Button x:Name="Alteration_Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="copyToClipboard">
                                 <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
-                                    <TextBox x:Name="AltRatio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="0 ⇐ 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                                    <TextBox x:Name="AltRatio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="2 ⇐ 10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="AltRatio1_TextChanged"/>
                                     <Image Source="ImageAssets/Chaos.png" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,133,0" HorizontalAlignment="Right" Width="29" Height="29"/>
                                     <Image Source="ImageAssets/Alteration.png" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,15,0" Width="29"/>
 
