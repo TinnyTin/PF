@@ -24,85 +24,7 @@ namespace PriceFlip
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Currency # association via poe.trade
-        Dictionary<string, int> currency1 = new Dictionary<string, int>()
-        {
-            { "alt", 1 },
-            { "fusing", 2 },
-            { "alch", 3 },
-            { "chaos", 4 },
-            { "gcp", 5 },
-            { "exalt", 6 },
-            { "chrom", 7 },
-            { "jeweller", 8 },
-            { "chance", 9 },
-            { "chisel", 10 },
-            { "scour", 11 },
-            { "blessed", 12 },
-            { "regret", 13 },
-            { "regal", 14 },
-            { "divine", 15 },
-            { "vaal", 16 },
-            { "offering", 40 },
-            { "apprentice", 45 },
-            { "journeyman", 46 },
-            { "masters", 47 },
-            { "annul", 513 }
 
-        };
-
-        //Currency image association
-        Dictionary<string, string> images = new Dictionary<string, string>()
-        {
-            { "alt", "ImageAssets/Alteration.png" },
-            { "fusing", "ImageAssets/Fusing.png" },
-            { "alch", "ImageAssets/Alchemy.png" },
-            { "chaos", "ImageAssets/Chaos.png" },
-            { "gcp", "ImageAssets/Gemcutter.png" },
-            { "exalt", "ImageAssets/Exalted.png" },
-            { "chrom", "ImageAssets/Chromatic.png" },
-            { "jeweller", "ImageAssets/Jeweller.png" },
-            { "chance", "ImageAssets/Chance.png" },
-            { "chisel", "ImageAssets/Chisel.png" },
-            { "scour", "ImageAssets/Scouring.png" },
-            { "blessed", "ImageAssets/Blessed.png" },
-            { "regret", "ImageAssets/Regret.png" },
-            { "regal", "ImageAssets/Regal.png" },
-            { "divine", "ImageAssets/Divine.png" },
-            { "vaal", "ImageAssets/Vaal.png" },
-            { "offering", "ImageAssets/Offering.png" },
-            { "apprentice", "ImageAssets/ApprenticeSextant.png" },
-            { "journeyman", "ImageAssets/JourneymanSextant.png" },
-            { "masters", "ImageAssets/MasterSextant.png" },
-            { "annul", "ImageAssets/Annulment.png" }
-
-        };
-
-        Dictionary<string, string> abbrevcurrency = new Dictionary<string, string>()
-        {
-            { "alt", "alt" },
-            { "fusing", "fuse" },
-            { "alch", "alch" },
-            { "chaos", "chaos" },
-            { "gcp", "gcp" },
-            { "exalt", "exa" },
-            { "chrom", "chrom" },
-            { "jeweller", "jew" },
-            { "chance", "chance" },
-            { "chisel", "chisel" },
-            { "scour", "scour" },
-            { "blessed", "blesse" },
-            { "regret", "regret" },
-            { "regal", "regal" },
-            { "divine", "divine" },
-            { "vaal", "vaal" },
-            { "offering", "offer" },
-            { "apprentice", "apprentice-sextant" },
-            { "journeyman", "journeyman-sextant" },
-            { "masters", "master-sextant" },
-            { "annul", "orb-of-annulment" }
-
-        };
 
         // Currency main list initialization
         List<Currency> currency;
@@ -122,6 +44,7 @@ namespace PriceFlip
 
         }
 
+        // Initializes all currency information according to currency.poe.trade.
         private void initCurrency()
         {
             currency = new List<Currency>()
@@ -146,7 +69,7 @@ namespace PriceFlip
                 new Currency(){name="apprentice", id=45, image="ImageAssets/ApprenticeSextant.png", tag="apprentice-sextant"},
                 new Currency(){name="journeyman", id=46, image="ImageAssets/JourneymanSextant.png", tag="journeyman-sextant"},
                 new Currency(){name="masters", id=47, image="ImageAssets/MasterSextant.png", tag="master-sextant"},
-                new Currency(){name="annulment", id=513, image="ImageAssets/Annulment.png", tag="orb-of-annulment"},
+                new Currency(){name="annulment", id=513, image="ImageAssets/Annulment.png", tag="orb-of-annulment"}
 
             };
         }
@@ -189,7 +112,7 @@ namespace PriceFlip
             double buyvalue = pay2 / receive2;
             profit = totalbuy / buyvalue;
 
-            return profit;
+            return Math.Round(profit,1);
         }
 
         // Calculates the profit margin % of 1 trade cycle.
@@ -202,7 +125,7 @@ namespace PriceFlip
             double sellvalue = receive / pay;
             profit = (buyvalue / sellvalue) - 1;
 
-            return profit;
+            return Math.Round(profit, 2) * 100;
         }
 
         // Given an array, add it to the favourites list.
@@ -214,15 +137,15 @@ namespace PriceFlip
         // Initializes all available currency items for flipping.
         private void populateList()
         {
-            foreach (KeyValuePair<string, int> entry in currency)
+            foreach (Currency entry in currency)
             {
-                if(entry.Key != "chaos")
+                if(entry.name != "chaos")
                 {
-                    dataList.Add(new CurrencyRow { CTYPE1 = entry.Key, CTYPE2 = "chaos", CIMAGE1=images[entry.Key], CIMAGE2 = images["chaos"]});
+                    dataList.Add(new CurrencyRow { CTYPE1 = entry.name, CTYPE2 = "chaos", CIMAGE1=entry.image, CIMAGE2 = "ImageAssets/Chaos.png" });
                 }
-                if (entry.Key != "exalt")
+                if (entry.name != "exalted")
                 {
-                    dataList.Add(new CurrencyRow { CTYPE1 = entry.Key, CTYPE2 = "exalt", CIMAGE1= images[entry.Key], CIMAGE2 = images["exalt"] });
+                    dataList.Add(new CurrencyRow { CTYPE1 = entry.name, CTYPE2 = "exalted", CIMAGE1= entry.image, CIMAGE2 = "ImageAssets/Exalted.png" });
                 }
 
             }
@@ -230,11 +153,12 @@ namespace PriceFlip
 
         // Given receive and pay currency strings, retrieves the 7th listing info from currency.poe.trade. If there are <=12 listings, index = listing.size/2.
         // Returns an array[receive#,have#] representing ( receive <- pay )
-        private Object[] refresh(string receive, string pay)
+        private double[] refresh(string receive, string pay)
         {
-            Object[] result = new Object[] { 0, 0 };
-            
-            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + currency[receive] + "&have=" + currency[pay];
+            double[] result = new double[] { 0, 0 };
+            int receiveID = currency.Find(currency => currency.name == receive).id;
+            int payID = currency.Find(currency => currency.name == pay).id;
+            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + receiveID + "&have=" + payID;
             var data = new MyWebClient().DownloadString(Url);
             var doc = new HtmlDocument();
             doc.LoadHtml(data);
@@ -261,31 +185,27 @@ namespace PriceFlip
                 result[1] = Convert.ToDouble(payvalue);
             }
 
-            //Test print
-            //string msg = "IGN: " + ign + ", Currency: chaos to " + entry.Key + ", Receive: " + receive + ", Pay: " + pay + ", Stock: " + stock + "\n";
-
             return result;
 
         }
 
         
-        private void Textbox_Changed(object sender, TextChangedEventArgs e)
+        private void profit_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
-            Debug.Print("reached");
             if (text != "") //can't convert whitespace to double. change later for efficiency? 
             {
                 double percentage = Convert.ToDouble(text);
 
-                if (percentage >= 10)
+                if (percentage >= 7.5)
                 {
-                    tb.Foreground = Brushes.Green;
+                    tb.Foreground = Brushes.GreenYellow;
 
                 }
-                else if (percentage >= 5 && percentage < 10)
+                else if (percentage > 0)
                 {
-                    tb.Foreground = Brushes.Yellow;
+                    tb.Foreground = Brushes.LightGoldenrodYellow;
                 }
                 else
                 {
@@ -294,38 +214,74 @@ namespace PriceFlip
             }
         }
 
+        private void flatprofit_Changed(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            string text = tb.Text.TrimEnd('c');
+            if (text != "")
+            {
+                double flatprofit = Convert.ToDouble(text);
+                if(flatprofit > 5)
+                {
+                    tb.Foreground = Brushes.GreenYellow;
+                }
+                else if(flatprofit > 0)
+                {
+                    tb.Foreground = Brushes.LightGoldenrodYellow;
+                }
+                else
+                {
+                    tb.Foreground = Brushes.OrangeRed;
+                }
+             
+            }
+        }
+
         private void copyToClipboard(object sender, RoutedEventArgs e)
-            //sender = button object that sent it,
-            //e = event
         {
             Button btn = (Button)sender;
-            var g = (Grid)btn.Content;
+            Grid g = (Grid)btn.Content;
             
-            var textbox = g.Children.OfType<TextBox>().FirstOrDefault();
-            var currencyimage = g.Children.OfType<Image>().LastOrDefault();
+            TextBox textbox = g.Children.OfType<TextBox>().FirstOrDefault();
+            Image currencyimage = g.Children.OfType<Image>().LastOrDefault();
+            
+            string text = textbox.Text;
+            string[] textarray = text.Split('⇐');
+            string c1value = textarray[0].Trim();
+            string c2value = textarray[1].Trim();
+
             string currencytype = (string)currencyimage.ToolTip;
-            Debug.Print(currencytype);
-            var text = textbox.Text;
-            var textarray = text.Split('⇐');
-            string c1value = textarray[0];
-            string c2value = textarray[1];
-            //for (int i=0; i<2; i++)
-            //{
-            //    Debug.Print(textarray[i].Trim());
-            //}
 
-            Clipboard.SetText("~b/o " + c1value.Trim() + "/" + c2value.Trim() + " " + currencytype);
 
-            //string c1 = "chaos";
-            //double c1value = 0;
-            //double c2value = 0;
-            //string result =  "~b/o" + c1value + "/" + c2value + " " + c1;
+            Clipboard.SetText("~b/o " + c2value + "/" + c1value + " " + currency.Find(c => c.name == currencytype).tag);
         }
 
+        // Update numbers for the row by sending a request to currency.poe.trade **function is costly, optimize wherever possible**
         private void updateRow(object sender, RoutedEventArgs e)
         {
+            Button b = (Button)sender;
+            Grid g = (Grid) b.Parent;
+            IEnumerable<Button> buttonList = g.Children.OfType<Button>();
+            Button sellbutton = buttonList.ElementAtOrDefault(0);
+            Button buybutton = buttonList.ElementAtOrDefault(1);
 
+            Grid sbgrid = (Grid) sellbutton.Content;
+            Grid bbgrid = (Grid) buybutton.Content;
+            string ctype1 = (string) sbgrid.Children.OfType<Image>().FirstOrDefault().ToolTip;
+            string ctype2 = (string) sbgrid.Children.OfType<Image>().LastOrDefault().ToolTip;
+            double[] sellvalues = refresh(ctype1, ctype2);
+            double[] buyvalues = refresh(ctype2, ctype1);
+
+            TextBox sbtextbox = sbgrid.Children.OfType<TextBox>().FirstOrDefault();
+            TextBox bbtextbox = bbgrid.Children.OfType<TextBox>().LastOrDefault();
+            sbtextbox.Text = sellvalues[0] + " ⇐ " + sellvalues[1];
+            bbtextbox.Text = buyvalues[0] + " ⇐ " + buyvalues[1];
+
+            g.Children.OfType<TextBox>().FirstOrDefault().Text = profitmargin(sellvalues[0],sellvalues[1],buyvalues[0],buyvalues[1]) + "%";
+            g.Children.OfType<TextBox>().LastOrDefault().Text = flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
         }
+
+
     }
 
     public class Currency
