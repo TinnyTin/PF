@@ -25,7 +25,7 @@ namespace PriceFlip
     public partial class MainWindow : Window
     {
         //Currency # association via poe.trade
-        Dictionary<string, int> currency = new Dictionary<string, int>()
+        Dictionary<string, int> currency1 = new Dictionary<string, int>()
         {
             { "alt", 1 },
             { "fusing", 2 },
@@ -105,8 +105,8 @@ namespace PriceFlip
         };
 
         // Currency main list initialization
+        List<Currency> currency;
         List<CurrencyRow> dataList = new List<CurrencyRow>(0);
-
         List<CurrencyRow> favouritesList = new List<CurrencyRow>(0);
 
 
@@ -115,9 +115,23 @@ namespace PriceFlip
         public MainWindow()
         {
             InitializeComponent();
+
+            initCurrency();
             populateList();
             items.ItemsSource = dataList;
 
+        }
+
+        private void initCurrency()
+        {
+            currency = new List<Currency>()
+            {
+                new Currency(){name="alteration",id=1,image="ImageAssets/Alteration.png",tag="alt"},
+                new Currency(){name="fusing",id=2,image="ImageAssets/Fusing.png",tag="fuse"},
+                new Currency(){name="alchemy",id=3,image="ImageAssets/Alchemy.png",tag="alch"},
+                new Currency(){name="chaos",id=2,image="ImageAssets/Chaos.png",tag="chaos"},
+                new Currency(){name="gemcutters",id=2,image="ImageAssets/Gemcutter.png",tag="gcp"},
+            };
         }
 
         class MyWebClient : WebClient
@@ -295,6 +309,14 @@ namespace PriceFlip
         {
 
         }
+    }
+
+    public class Currency
+    {
+        public string name = "";
+        public int id = 0;
+        public string tag = "";
+        public string image = "";
     }
 
     public class CurrencyRow
