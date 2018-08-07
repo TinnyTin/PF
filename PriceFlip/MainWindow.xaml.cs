@@ -297,7 +297,7 @@ namespace PriceFlip
         {
             Button b = (Button)sender;
             Grid g = (Grid) b.Parent;
-            // PROBLEM LINE - FINDS 0 CHILDREN
+            // PROBLEM LINE - FINDS 0 CHILDREN - THIS NEEDS TO BE DEBUGGED AND FIXED. PLEASE FIND THIS - JUDY - --------------------------------------------------------
             IEnumerable<CheckBox> children = g.Children.OfType<CheckBox>();
             // Debug.Print(children.Count() + "");
             foreach(CheckBox entry in children)
