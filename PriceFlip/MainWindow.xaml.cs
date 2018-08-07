@@ -199,7 +199,7 @@ namespace PriceFlip
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
-            if (text != "") //can't convert whitespace to double. change later for efficiency? 
+            if (text != "") 
             {
                 double percentage = Convert.ToDouble(text);
 
@@ -222,7 +222,7 @@ namespace PriceFlip
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
-            if (text != "") //can't convert whitespace to double. change later for efficiency? 
+            if (text != "") 
             {
                 double percentage = Convert.ToDouble(text);
 
@@ -304,7 +304,7 @@ namespace PriceFlip
             Clipboard.SetText("~b/o " + c2value + "/" + c1value + " " + currency.Find(c => c.name == currencytype).tag);
         }
 
-        // Update numbers for the row by sending a request to currency.poe.trade **function is costly, optimize wherever possible**
+        // Update numbers for the row by sending a request to currency.poe.trade 
         private void UpdateRow(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -334,7 +334,6 @@ namespace PriceFlip
                     
                 }
             }
-            //CurrencyRow cr = (CurrencyRow) g.DataContext;
 
         }
 
