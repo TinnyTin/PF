@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -29,8 +31,9 @@ namespace PriceFlip
 
         // Currency main list initialization
         List<Currency> currency;
-        List<CurrencyRow> dataList = new List<CurrencyRow>(0);
+        ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
+        HashSet<CurrencyRow> favourites_queue = new HashSet<CurrencyRow>(); 
 
 
 
@@ -215,7 +218,29 @@ namespace PriceFlip
                 }
             }
         }
+        private void Profit_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            string text = (tb.Text.TrimEnd('%'));
+            if (text != "") //can't convert whitespace to double. change later for efficiency? 
+            {
+                double percentage = Convert.ToDouble(text);
 
+                if (percentage >= 7.5)
+                {
+                    tb.Foreground = Brushes.GreenYellow;
+
+                }
+                else if (percentage > 0)
+                {
+                    tb.Foreground = Brushes.LightGoldenrodYellow;
+                }
+                else
+                {
+                    tb.Foreground = Brushes.Red;
+                }
+            }
+        }
         private void Flatprofit_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -238,7 +263,28 @@ namespace PriceFlip
              
             }
         }
+        private void Flatprofit_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            string text = tb.Text.TrimEnd('c');
+            if (text != "")
+            {
+                double flatprofit = Convert.ToDouble(text);
+                if (flatprofit > 5)
+                {
+                    tb.Foreground = Brushes.GreenYellow;
+                }
+                else if (flatprofit > 0)
+                {
+                    tb.Foreground = Brushes.LightGoldenrodYellow;
+                }
+                else
+                {
+                    tb.Foreground = Brushes.OrangeRed;
+                }
 
+            }
+        }
         private void CopyToClipboard(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
@@ -263,53 +309,56 @@ namespace PriceFlip
         {
             Button b = (Button)sender;
             Grid g = (Grid) b.Parent;
-            IEnumerable<Button> buttonList = g.Children.OfType<Button>();
-            Button sellbutton = buttonList.ElementAtOrDefault(0);
-            Button buybutton = buttonList.ElementAtOrDefault(1);
 
-            Grid sbgrid = (Grid) sellbutton.Content;
-            Grid bbgrid = (Grid) buybutton.Content;
-            string ctype1 = (string) sbgrid.Children.OfType<Image>().FirstOrDefault().ToolTip;
-            string ctype2 = (string) sbgrid.Children.OfType<Image>().LastOrDefault().ToolTip;
-            double[] sellvalues = Refresh(ctype1, ctype2);
-            double[] buyvalues = Refresh(ctype2, ctype1);
+            CurrencyRow cr = (CurrencyRow)g.DataContext;
 
-            TextBox sbtextbox = sbgrid.Children.OfType<TextBox>().FirstOrDefault();
-            TextBox bbtextbox = bbgrid.Children.OfType<TextBox>().LastOrDefault();
-            sbtextbox.Text = sellvalues[0] + " ⇐ " + sellvalues[1];
-            bbtextbox.Text = buyvalues[0] + " ⇐ " + buyvalues[1];
+            double[] sellvalues = Refresh(cr.CTYPE1, cr.CTYPE2);
+            double[] buyvalues = Refresh(cr.CTYPE2, cr.CTYPE1);
 
             
-            g.Children.OfType<TextBox>().FirstOrDefault().Text = Profitmargin(sellvalues[0],sellvalues[1],buyvalues[0],buyvalues[1]) + "%";
-            g.Children.OfType<TextBox>().LastOrDefault().Text = Flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
 
 
-            //CurrencyRow cr = dataList.Find(row => (row.CTYPE1 == ctype1) && (row.CTYPE2 == ctype2));
-            CurrencyRow cr = (CurrencyRow) g.DataContext;
-            cr.Receive1 = sellvalues[0];
-            cr.Pay1 = sellvalues[1];
-            cr.Receive2 = buyvalues[0];
-            cr.Pay2 = buyvalues[1];
+            //real data
+            foreach (CurrencyRow entry in dataList)
+            {
+                if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
+                {
+                    entry.Receive1 = sellvalues[0];
+                    entry.Pay1 = sellvalues[1];
+                    entry.Receive2 = buyvalues[0];
+                    entry.Pay2 = buyvalues[1];
+                    entry.PROFIT = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "%";
+                    entry.FLATPROFIT = Flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
+                    entry.Sellstring = "";
+                    entry.Buystring = "";
+                    
+                }
+            }
+            //CurrencyRow cr = (CurrencyRow) g.DataContext;
 
         }
 
         private void AddFavourites_Click(object sender, RoutedEventArgs e)
         {
-            Button b = (Button)sender;
-            Grid g = (Grid) b.Parent;
-            // PROBLEM LINE - FINDS 0 CHILDREN - THIS NEEDS TO BE DEBUGGED AND FIXED. PLEASE FIND THIS - JUDY - --------------------------------------------------------
-            IEnumerable<CheckBox> children = g.Children.OfType<CheckBox>();
-            // Debug.Print(children.Count() + "");
-            foreach(CheckBox entry in children)
+            favouritesList.Clear();
+            foreach (CurrencyRow cr in favourites_queue)
             {
-                if (entry.IsChecked == true)
+                if (!favouritesList.Contains(cr))
                 {
-                    AddFavourite((CurrencyRow)g.DataContext);
+                    favouritesList.Add(cr);
                 }
+                
             }
-
-
+            
         }
+
+        private void Checkmarked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            Grid g = (Grid)cb.Parent;
+            favourites_queue.Add((CurrencyRow)g.DataContext);
+        }
+
 
     }
 
@@ -321,13 +370,14 @@ namespace PriceFlip
         public string image = "";
     }
 
-    public class CurrencyRow
+    public class CurrencyRow:INotifyPropertyChanged
     {
         public double Receive1 { get; set; }
         public double Pay1 { get; set; }
         public double Receive2 { get; set; }
         public double Pay2 { get; set; }
-
+        private string Profit = "0%";
+        private string FlatProfit = "0.0";
 
 
         public string CTYPE1 { get; set; }
@@ -336,9 +386,45 @@ namespace PriceFlip
         public string CIMAGE1 { get; set; }
         public string CIMAGE2 { get; set; }
 
-        private string sellstring;
-        private string buystring;
+        private string sellstring = "0 ⇐ 0";
+        private string buystring = "0 ⇐ 0";
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public string PROFIT
+        {
+            get
+            {
+                return Profit;
+            }
+            set
+            {
+                
+                if (value != Profit)
+                {
+                    Profit = value;
+                    NotifyPropertyChanged();
+                }
+
+            }
+        }
+
+        public string FLATPROFIT
+        {
+            get
+            {
+                return FlatProfit;
+            }
+            set
+            {
+                if (value != FlatProfit)
+                {
+                    FlatProfit = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
         public string Buystring
         {
             get
@@ -347,7 +433,12 @@ namespace PriceFlip
             }
             set
             {
-                sellstring = Receive2 + " ⇐ " + Pay2;
+                if (value != buystring)
+                {
+                    buystring = Receive2 + " ⇐ " + Pay2;
+                    NotifyPropertyChanged();
+                }
+                
             }
         }
         public string Sellstring
@@ -358,7 +449,20 @@ namespace PriceFlip
             }
             set
             {
-                sellstring = Receive1 + " ⇐ " + Pay1;
+                if (value != sellstring)
+                {
+                    sellstring = Receive1 + " ⇐ " + Pay1;
+                    NotifyPropertyChanged();
+                }
+                
+
+            }
+        }
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
