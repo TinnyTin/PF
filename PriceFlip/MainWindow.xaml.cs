@@ -33,7 +33,8 @@ namespace PriceFlip
         List<Currency> currency;
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
-        HashSet<CurrencyRow> favourites_queue = new HashSet<CurrencyRow>(); 
+        HashSet<CurrencyRow> favourites_queue = new HashSet<CurrencyRow>();
+        HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
 
 
 
@@ -358,7 +359,20 @@ namespace PriceFlip
             favourites_queue.Add((CurrencyRow)g.DataContext);
         }
 
+        private void RemoveFromFavourites_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (CurrencyRow cr in removefav_queue)
+            {
+                    favouritesList.Remove(cr);
+            }
+        }
 
+        private void Favourites_Checkmarked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            Grid g = (Grid)cb.Parent;
+            removefav_queue.Add((CurrencyRow)g.DataContext);
+        }
     }
 
     public class Currency
