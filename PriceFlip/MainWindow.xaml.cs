@@ -24,7 +24,6 @@ namespace PriceFlip
         List<Currency> currency;
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
-        HashSet<CurrencyRow> favourites_queue = new HashSet<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
 
 
@@ -130,6 +129,7 @@ namespace PriceFlip
         // Given an array, add it to the favourites list.
         private void AddFavourite(CurrencyRow data)
         {
+            data.CHECKED = false;
             favouritesList.Add(data);
         }
 
@@ -334,10 +334,12 @@ namespace PriceFlip
         private void AddFavourites_Click(object sender, RoutedEventArgs e)
         {
             favouritesList.Clear();
-            foreach (CurrencyRow cr in favourites_queue)
+            
+            foreach (CurrencyRow cr in dataList)
             {
-                if (!favouritesList.Contains(cr))
+                if (cr.CHECKED)
                 {
+                    cr.CHECKED = false;
                     favouritesList.Add(cr);
                 }
                 
@@ -350,7 +352,6 @@ namespace PriceFlip
             CheckBox cb = (CheckBox)sender;
             Grid g = (Grid)cb.Parent;
             CurrencyRow row = (CurrencyRow)g.DataContext;
-            favourites_queue.Add(row);
             row.CHECKED = true;
 
         }
@@ -359,8 +360,15 @@ namespace PriceFlip
         {
             foreach (CurrencyRow cr in removefav_queue)
             {
+                if (cr.CHECKED == true)
+                {
                     favouritesList.Remove(cr);
+                   
+                }
+                Console.WriteLine(cr.CHECKED.ToString());
             }
+            removefav_queue.Clear();
+
         }
 
         private void Favourites_Checkmarked(object sender, RoutedEventArgs e)
@@ -370,6 +378,18 @@ namespace PriceFlip
             CurrencyRow row = (CurrencyRow)g.DataContext;
             removefav_queue.Add(row);
             row.CHECKED = true;
+        }
+
+        private bool entireListChecked(ObservableCollection<CurrencyRow> list)
+        {
+            foreach (CurrencyRow cr in list)
+            {
+                if (cr.CHECKED == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void SelectAllCurrency_Click(object sender, RoutedEventArgs e)
@@ -391,34 +411,31 @@ namespace PriceFlip
 
         }
 
-        private bool entireListChecked(ObservableCollection<CurrencyRow> list)
-        {
-            foreach (CurrencyRow cr in list)
-            {
-                if (cr.CHECKED == false)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         private void SelectAllFav_Click(object sender, RoutedEventArgs e)
         {
             if (entireListChecked(favouritesList) == true)
             {
                 foreach (CurrencyRow cr in favouritesList)
                 {
-                    cr.CHECKED = true;
+                    cr.CHECKED = false;
                 }
             }
             else
             {
                 foreach (CurrencyRow cr in favouritesList)
                 {
-                    cr.CHECKED = false;
+                    cr.CHECKED = true;
                 }
             }
+        }
+
+        private void Fav_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            Grid g = (Grid)cb.Parent;
+            CurrencyRow row = (CurrencyRow)g.DataContext;
+            removefav_queue.Remove(row);
+            row.CHECKED = false;
         }
     }
 

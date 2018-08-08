@@ -364,7 +364,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="RowFav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
-                                    <CheckBox x:Name="FavCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Favourites_Checkmarked" IsChecked="{Binding CHECKED}">
+                                    <CheckBox x:Name="FavCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Favourites_Checkmarked" IsChecked="{Binding CHECKED}" Unchecked="Fav_Unchecked">
                                         <CheckBox.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
