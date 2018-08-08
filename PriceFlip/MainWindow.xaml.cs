@@ -374,20 +374,51 @@ namespace PriceFlip
 
         private void SelectAllCurrency_Click(object sender, RoutedEventArgs e)
         {
-            foreach (CurrencyRow cr in dataList)
+            if (entireListChecked(dataList) == true)
             {
-                cr.CHECKED = true;
+                foreach (CurrencyRow cr in dataList)
+                {
+                    cr.CHECKED = false;
+                }
             }
+            else
+            {
+                foreach (CurrencyRow cr in dataList)
+                {
+                    cr.CHECKED = true;
+                }
+            }
+
+        }
+
+        private bool entireListChecked(ObservableCollection<CurrencyRow> list)
+        {
+            foreach (CurrencyRow cr in list)
+            {
+                if (cr.CHECKED == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void SelectAllFav_Click(object sender, RoutedEventArgs e)
         {
-
-            foreach (CurrencyRow cr in  favouritesList)
+            if (entireListChecked(favouritesList) == true)
             {
-                cr.CHECKED = true;
+                foreach (CurrencyRow cr in favouritesList)
+                {
+                    cr.CHECKED = true;
+                }
             }
-
+            else
+            {
+                foreach (CurrencyRow cr in favouritesList)
+                {
+                    cr.CHECKED = false;
+                }
+            }
         }
     }
 
