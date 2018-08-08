@@ -364,7 +364,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="RowFav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
-                                    <CheckBox x:Name="FavCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Favourites_Checkmarked">
+                                    <CheckBox x:Name="FavCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Favourites_Checkmarked" IsChecked="{Binding CHECKED}">
                                         <CheckBox.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -374,7 +374,7 @@
                                             </TransformGroup>
                                         </CheckBox.RenderTransform>
                                     </CheckBox>
-                                    
+
                                     <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
@@ -411,7 +411,8 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button Content="Remove from Favourites" HorizontalAlignment="Left" Margin="727,66,0,0" VerticalAlignment="Top" Width="196" Click="RemoveFromFavourites_Click" Height="24" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
+                    <Button Content="Select All&#xD;&#xA;" HorizontalAlignment="Left" Margin="732,118,0,0" Width="191" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
+                    <Button Content="Remove from Favourites" HorizontalAlignment="Left" Margin="732,66,0,0" VerticalAlignment="Top" Width="191" Click="RemoveFromFavourites_Click" Height="36" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Century Gothic" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124">
@@ -430,7 +431,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
-                                    <CheckBox x:Name="Checkbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Checkmarked">
+                                    <CheckBox x:Name="Checkbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Checkmarked" IsChecked="{Binding CHECKED}">
                                         <CheckBox.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -465,6 +466,7 @@
                                     </Button>
                                     <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding Path=PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
                                     <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding Path=FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed"/>
+                                    
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -476,7 +478,8 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="37.333" Margin="712,96,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Century Gothic" FontSize="15" Click="AddFavourites_Click"/>
+                    <Button Content="Select All&#xD;&#xA;" HorizontalAlignment="Left" Margin="712,141,0,0" Width="175" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click" />
+                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="36" Margin="712,96,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Century Gothic" FontSize="15" Click="AddFavourites_Click"/>
                     <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="712,188,43,386" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
 
 

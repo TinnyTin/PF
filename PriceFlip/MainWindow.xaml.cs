@@ -2,22 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using HtmlAgilityPack;
 
 namespace PriceFlip
@@ -35,6 +26,8 @@ namespace PriceFlip
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
         HashSet<CurrencyRow> favourites_queue = new HashSet<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
+
+
 
 
 
@@ -356,7 +349,10 @@ namespace PriceFlip
         {
             CheckBox cb = (CheckBox)sender;
             Grid g = (Grid)cb.Parent;
-            favourites_queue.Add((CurrencyRow)g.DataContext);
+            CurrencyRow row = (CurrencyRow)g.DataContext;
+            favourites_queue.Add(row);
+            row.CHECKED = true;
+
         }
 
         private void RemoveFromFavourites_Click(object sender, RoutedEventArgs e)
@@ -371,7 +367,27 @@ namespace PriceFlip
         {
             CheckBox cb = (CheckBox)sender;
             Grid g = (Grid)cb.Parent;
-            removefav_queue.Add((CurrencyRow)g.DataContext);
+            CurrencyRow row = (CurrencyRow)g.DataContext;
+            removefav_queue.Add(row);
+            row.CHECKED = true;
+        }
+
+        private void SelectAllCurrency_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (CurrencyRow cr in dataList)
+            {
+                cr.CHECKED = true;
+            }
+        }
+
+        private void SelectAllFav_Click(object sender, RoutedEventArgs e)
+        {
+
+            foreach (CurrencyRow cr in  favouritesList)
+            {
+                cr.CHECKED = true;
+            }
+
         }
     }
 
@@ -391,6 +407,7 @@ namespace PriceFlip
         public double Pay2 { get; set; }
         private string Profit = "0%";
         private string FlatProfit = "0.0";
+        private bool Checked = false;
 
 
         public string CTYPE1 { get; set; }
@@ -404,7 +421,21 @@ namespace PriceFlip
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-
+        public bool CHECKED
+        {
+            get
+            {
+                return Checked;
+            }
+            set
+            {
+                if (value != Checked)
+                {
+                    Checked = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
         public string PROFIT
         {
             get
