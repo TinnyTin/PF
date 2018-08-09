@@ -26,7 +26,7 @@ namespace PriceFlip
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
-        public string link = "";
+        public string link = "http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=";
 
 
 

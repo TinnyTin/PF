@@ -471,7 +471,7 @@
                     </Themes:SystemDropShadowChrome>
                 </Popup>
                 <ToggleButton x:Name="toggleButton"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
-                    
+
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Grid>
             <ControlTemplate.Triggers>
@@ -627,7 +627,9 @@
                                     <ImageSource>ImageAssets/favourites-white.png</ImageSource>
                                 </Image.Source>
                             </Image>
-                        </InlineUIContainer><LineBreak/><Run FontStretch="Normal" Text="Favourites"/></TextBlock>
+                        </InlineUIContainer><LineBreak/><Run FontStretch="Normal" Text="Favourites"/><InlineUIContainer>
+                            <TextBlock x:Name="Tip1_Copy1" HorizontalAlignment="Center" Height="20" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
+                        </InlineUIContainer></TextBlock>
                 </TabItem.Header>
                 <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3">
                     <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="671" Orientation="Horizontal"/>
@@ -686,11 +688,12 @@
                     </ItemsControl>
                     <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="732,118,0,0" Width="191" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
                     <Button Content="Remove from Favourites" HorizontalAlignment="Left" Margin="732,66,0,0" VerticalAlignment="Top" Width="191" Click="RemoveFromFavourites_Click" Height="36" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="771,576,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event">
+                    <ComboBox HorizontalAlignment="Left" Margin="755,479,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Incursion" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Flashback" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                     </ComboBox>
+                    <TextBlock x:Name="Tip1_Copy2" HorizontalAlignment="Center" Height="20" Margin="771,454,92,301" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Open Sans" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124">
@@ -758,11 +761,12 @@
                     <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="712,141,0,0" Width="175" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click" />
                     <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="36" Margin="712,96,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Open Sans" FontSize="15" Click="AddFavourites_Click"/>
                     <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="712,234,43,340" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
-                    <ComboBox HorizontalAlignment="Left" Margin="720,524,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event">
+                    <ComboBox HorizontalAlignment="Left" Margin="720,524,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Incursion" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Flashback" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                     </ComboBox>
+                    <TextBlock x:Name="Tip1_Copy" HorizontalAlignment="Center" Height="20" Margin="737,499,126,257" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
 
 
 
