@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,6 +26,7 @@ namespace PriceFlip
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
+
 
 
 
@@ -281,13 +283,16 @@ namespace PriceFlip
         }
         private void CopyToClipboard(object sender, RoutedEventArgs e)
         {
+
             Button btn = (Button)sender;
+            btn.IsEnabled = false;
             Grid g = (Grid)btn.Content;
             
             TextBox textbox = g.Children.OfType<TextBox>().FirstOrDefault();
             Image currencyimage = g.Children.OfType<Image>().LastOrDefault();
             
             string text = textbox.Text;
+
             string[] textarray = text.Split('⇐');
             string c1value = textarray[0].Trim();
             string c2value = textarray[1].Trim();
@@ -296,6 +301,21 @@ namespace PriceFlip
 
 
             Clipboard.SetText("~b/o " + c2value + "/" + c1value + " " + currency.Find(c => c.name == currencytype).tag);
+            var backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += (s, ea) => Thread.Sleep(TimeSpan.FromSeconds(0.5));
+            backgroundWorker.RunWorkerCompleted += (s, ea) =>
+            {
+                textbox.FontSize = 15;
+                textbox.Text = text;
+                btn.IsEnabled = true;
+            };
+
+            textbox.FontSize = 10;
+            textbox.Text = "Copied to Clipboard";
+            backgroundWorker.RunWorkerAsync();
+
+
+
         }
 
         // Update numbers for the row by sending a request to currency.poe.trade 
