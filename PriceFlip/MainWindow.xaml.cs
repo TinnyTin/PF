@@ -26,10 +26,7 @@ namespace PriceFlip
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
-
-
-
-
+        public string link = "";
 
 
 
@@ -159,7 +156,7 @@ namespace PriceFlip
             double[] result = new double[] { 0, 0 };
             int receiveID = currency.Find(currency => currency.name == receive).id;
             int payID = currency.Find(currency => currency.name == pay).id;
-            var Url = @"http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=" + receiveID + "&have=" + payID;
+            var Url = link + receiveID + "&have=" + payID;
             var data = new MyWebClient().DownloadString(Url);
             var doc = new HtmlDocument();
             doc.LoadHtml(data);
@@ -456,6 +453,26 @@ namespace PriceFlip
             CurrencyRow row = (CurrencyRow)g.DataContext;
             removefav_queue.Remove(row);
             row.CHECKED = false;
+        }
+
+
+        private void DropDownClosed_Event(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            Console.WriteLine(cb.SelectionBoxItem);
+            if (cb.SelectionBoxItem.ToString() == "Incursion")
+            {
+                link = "http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=";
+            }
+            if (cb.SelectionBoxItem.ToString() == "Standard")
+            {
+                link = "http://currency.poe.trade/search?league=Standard&online=x&stock=&want=";
+            }
+            if (cb.SelectionBoxItem.ToString() == "Flashback")
+            {
+                link = "http://currency.poe.trade/search?league=Incursion+Event+%28IRE001%29&online=x&stock=&want=";
+            }
+            Console.WriteLine(link);
         }
     }
 
