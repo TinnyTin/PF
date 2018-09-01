@@ -690,6 +690,7 @@
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Incursion" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Flashback" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
+                        <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
                     <TextBlock x:Name="SelectLeagueFav" HorizontalAlignment="Center" Height="20" Margin="771,454,92,301" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
                     <TextBlock x:Name="Profitheaderfav" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Profit" Margin="517,10,363,743"/>
@@ -767,6 +768,7 @@
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Incursion" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Flashback" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
+                        <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
                     <TextBlock x:Name="Select_League" HorizontalAlignment="Center" Height="20" Margin="737,499,126,257" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
                     <TextBlock x:Name="Profitheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Profit" Margin="517,10,363,743"/>

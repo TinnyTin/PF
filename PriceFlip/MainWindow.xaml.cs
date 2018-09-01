@@ -459,7 +459,7 @@ namespace PriceFlip
         private void DropDownClosed_Event(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
-            Console.WriteLine(cb.SelectionBoxItem);
+            //Console.WriteLine(cb.SelectionBoxItem);
             if (cb.SelectionBoxItem.ToString() == "Incursion")
             {
                 link = "http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=";
@@ -472,7 +472,11 @@ namespace PriceFlip
             {
                 link = "http://currency.poe.trade/search?league=Incursion+Event+%28IRE001%29&online=x&stock=&want=";
             }
-            Console.WriteLine(link);
+            if (cb.SelectionBoxItem.ToString() == "Delve")
+            {
+                link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
+            }
+            //Console.WriteLine(link);
         }
     }
 
