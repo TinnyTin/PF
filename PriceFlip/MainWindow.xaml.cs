@@ -26,7 +26,7 @@ namespace PriceFlip
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
-        public string link = "http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=";
+        public string link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
 
 
 
@@ -350,17 +350,17 @@ namespace PriceFlip
 
         private void AddFavourites_Click(object sender, RoutedEventArgs e)
         {
-            favouritesList.Clear();
             
             foreach (CurrencyRow cr in dataList)
             {
-                if (cr.CHECKED)
+                if (cr.CHECKED && favouritesList.Contains(cr) == false)
                 {
                     cr.CHECKED = false;
                     favouritesList.Add(cr);
                 }
                 
             }
+            
             
         }
 
@@ -460,17 +460,9 @@ namespace PriceFlip
         {
             ComboBox cb = (ComboBox)sender;
             //Console.WriteLine(cb.SelectionBoxItem);
-            if (cb.SelectionBoxItem.ToString() == "Incursion")
-            {
-                link = "http://currency.poe.trade/search?league=Incursion&online=x&stock=&want=";
-            }
             if (cb.SelectionBoxItem.ToString() == "Standard")
             {
                 link = "http://currency.poe.trade/search?league=Standard&online=x&stock=&want=";
-            }
-            if (cb.SelectionBoxItem.ToString() == "Flashback")
-            {
-                link = "http://currency.poe.trade/search?league=Incursion+Event+%28IRE001%29&online=x&stock=&want=";
             }
             if (cb.SelectionBoxItem.ToString() == "Delve")
             {
