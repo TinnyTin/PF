@@ -764,8 +764,7 @@
                     <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="712,234,43,340" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
                     <ComboBox HorizontalAlignment="Left" Margin="720,524,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
-                        <ComboBoxItem Content="Incursion" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
-                        <ComboBoxItem Content="Flashback" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
+                        
                         <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
                     <TextBlock x:Name="Select_League" HorizontalAlignment="Center" Height="20" Margin="737,499,126,257" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>

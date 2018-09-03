@@ -162,8 +162,14 @@ namespace PriceFlip
             doc.LoadHtml(data);
 
             var htmlNodeList = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']");
+            if (htmlNodeList == null) {
+                result[0] = 0;
+                result[1] = 0;
+                return result;
+            }
+
             int index = 6;
-            int htmlListSize = (int) htmlNodeList.LongCount();
+            int htmlListSize = htmlNodeList.Count;
             if (htmlListSize <= 12)
             {
                 index = htmlListSize / 2;
