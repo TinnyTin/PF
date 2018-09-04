@@ -174,6 +174,11 @@ namespace PriceFlip
             {
                 index = htmlListSize / 2;
             }
+            
+            if((receiveID == 6 && payID != 4) || (receiveID != 4 && payID == 6))
+            {
+                index--;
+            }
             var htmlNode = htmlNodeList[index];
 
             // IGN and stock are not necessary in the current implementation
