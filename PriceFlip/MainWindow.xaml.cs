@@ -179,6 +179,10 @@ namespace PriceFlip
             {
                 index--;
             }
+            if (index < 0)
+            {
+                index = 0;
+            }
             var htmlNode = htmlNodeList[index];
 
             // IGN and stock are not necessary in the current implementation
@@ -308,7 +312,7 @@ namespace PriceFlip
             string currencytype = (string)currencyimage.ToolTip;
 
 
-            Clipboard.SetText("~b/o " + c2value + "/" + c1value + " " + currency.Find(c => c.name == currencytype).tag);
+            Clipboard.SetDataObject("~b/o " + c2value + "/" + c1value + " " + currency.Find(c => c.name == currencytype).tag);
             var backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += (s, ea) => Thread.Sleep(TimeSpan.FromSeconds(0.5));
             backgroundWorker.RunWorkerCompleted += (s, ea) =>
