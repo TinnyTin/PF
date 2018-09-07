@@ -330,6 +330,8 @@ namespace PriceFlip
 
         }
 
+
+
         // Update numbers for the row by sending a request to currency.poe.trade 
         private void UpdateRow(object sender, RoutedEventArgs e)
         {
@@ -349,8 +351,8 @@ namespace PriceFlip
             {
                 if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
                 {
-                    entry.Receive1 = sellvalues[0];
-                    entry.Pay1 = sellvalues[1];
+                    entry.RECEIVE1 = sellvalues[0];
+                    entry.PAY1 = sellvalues[1];
                     entry.Receive2 = buyvalues[0];
                     entry.Pay2 = buyvalues[1];
                     entry.PROFIT = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "%";
@@ -485,7 +487,41 @@ namespace PriceFlip
             }
             //Console.WriteLine(link);
         }
+
+        private void BulkUp(object sender, MouseWheelEventArgs e)
+        {
+            // access current CurrencyRow
+            Grid g = (Grid)sender;
+            CurrencyRow cr = (CurrencyRow)g.DataContext;
+            double pay = cr.PAY1;
+            double receive = cr.RECEIVE1;
+
+
+            if (e.Delta > 0) //bulk up
+            {
+                pay = pay * 2;
+                receive = receive * 2;                
+            }
+            if (e.Delta < 0) //bulk down
+            {
+                pay = pay / 2;
+                receive = receive / 2;
+            }
+            foreach (CurrencyRow entry in dataList)
+            {
+                if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
+                {
+                    entry.PAY1 = pay;
+                    entry.RECEIVE1 = receive;
+                    entry.Sellstring = "Hello";
+                    Console.WriteLine(pay + ":" + receive);
+                }
+
+            }
+        }
     }
+
+
 
     public class Currency
     {
@@ -497,8 +533,10 @@ namespace PriceFlip
 
     public class CurrencyRow:INotifyPropertyChanged
     {
-        public double Receive1 { get; set; }
-        public double Pay1 { get; set; }
+
+        private double Receive1 = 0;
+        private double Pay1 = 0; 
+        
         public double Receive2 { get; set; }
         public double Pay2 { get; set; }
         private string Profit = "0%";
@@ -516,6 +554,37 @@ namespace PriceFlip
         private string buystring = "0 ⇐ 0";
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public double PAY1 {
+            get
+            {
+                return Pay1;
+            }
+            set
+            {
+                if (value != Pay1)
+                {
+                    Pay1 = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public double RECEIVE1
+        {
+            get
+            {
+                return Receive1;
+            }
+            set
+            {
+                if (value != Receive1)
+                {
+                    Receive1 = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public bool CHECKED
         {

@@ -711,7 +711,7 @@
                     <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,285,24">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
+                                <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647" MouseWheel="BulkUp">
                                     <CheckBox x:Name="Checkbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Checkmarked" IsChecked="{Binding CHECKED}">
                                         <CheckBox.RenderTransform>
                                             <TransformGroup>
@@ -722,7 +722,7 @@
                                             </TransformGroup>
                                         </CheckBox.RenderTransform>
                                     </CheckBox>
-                                    <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard">
+                                    <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" Cursor="">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Sellstring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False" FontFamily="Open Sans"/>
