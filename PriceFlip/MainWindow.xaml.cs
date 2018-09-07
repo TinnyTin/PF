@@ -490,7 +490,12 @@ namespace PriceFlip
 
         private void BulkUp(object sender, MouseWheelEventArgs e)
         {
-            // access current CurrencyRow
+            // TODO: Judy you will need to fix this after moving your Bulkup event. 
+            // HIERARCHY:
+            // Grid                             **Before you were here.**
+            //     -> SellButton  -> BuyButton  **Now you are here (Depending on which button you mousewheel)**
+
+            // access current CurrencyRow below
             Grid g = (Grid)sender;
             CurrencyRow cr = (CurrencyRow)g.DataContext;
             double pay = cr.PAY1;
