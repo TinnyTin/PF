@@ -658,7 +658,7 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="Buy_MouseWheel">
+                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="Sell_MouseWheel">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Buystring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
@@ -732,7 +732,7 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="Buy_MouseWheel">
+                                    <Button x:Name="Buy" Background="{x:Null}" Margin="271,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="Sell_MouseWheel">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
 
                                             <TextBox x:Name="Ratio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Buystring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>

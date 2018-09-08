@@ -488,15 +488,58 @@ namespace PriceFlip
             //Console.WriteLine(link);
         }
 
-        //private void BulkUp(object sender, MouseWheelEventArgs e)
-        //{
-        //    // TODO: Judy you will need to fix this after moving your Bulkup event. 
-        //    // HIERARCHY:
-        //    // Grid                             **Before you were here.**
-        //    //     -> SellButton  -> BuyButton  **Now you are here (Depending on which button you mousewheel)**
 
-        //    // access current CurrencyRow below
-        //    Grid g = (Grid)sender;
+        private void Sell_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Button b = (Button)sender;
+            Grid g = (Grid)b.Parent;
+            CurrencyRow cr = (CurrencyRow)g.DataContext; 
+            double pay = cr.PAY2;
+            double receive = cr.RECEIVE2;
+            
+            if (b.Name == "Buy")
+            {
+                pay = cr.PAY1;
+                receive = cr.RECEIVE1;
+            }
+            
+
+            if (e.Delta > 0) //bulk up
+            {
+                pay = pay * 2;
+                receive = receive * 2;
+            }
+            if (e.Delta < 0) //bulk down
+            {
+                pay = pay / 2;
+                receive = receive / 2;
+            }
+            foreach (CurrencyRow entry in dataList)
+            {
+                if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
+                {
+                    if (b.Name == "Sell")
+                    {
+                        entry.PAY2 = pay;
+                        entry.RECEIVE2 = receive;
+                        entry.Sellstring = "Hello";
+                    }
+                    if (b.Name == "Buy")
+                    {
+                        entry.PAY1 = pay;
+                        entry.RECEIVE1 = receive;
+                        entry.Buystring = "Hello";
+                    }
+                    Console.WriteLine(pay + ":" + receive);
+                }
+
+            }
+        }
+
+        //private void Buy_MouseWheel(object sender, MouseWheelEventArgs e)
+        //{
+        //    Button b = (Button)sender;
+        //    Grid g = (Grid)b.Parent;
         //    CurrencyRow cr = (CurrencyRow)g.DataContext;
         //    double pay = cr.PAY1;
         //    double receive = cr.RECEIVE1;
@@ -505,7 +548,7 @@ namespace PriceFlip
         //    if (e.Delta > 0) //bulk up
         //    {
         //        pay = pay * 2;
-        //        receive = receive * 2;                
+        //        receive = receive * 2;
         //    }
         //    if (e.Delta < 0) //bulk down
         //    {
@@ -518,76 +561,12 @@ namespace PriceFlip
         //        {
         //            entry.PAY1 = pay;
         //            entry.RECEIVE1 = receive;
-        //            entry.Sellstring = "Hello";
+        //            entry.Buystring = "Hello";
         //            Console.WriteLine(pay + ":" + receive);
         //        }
 
         //    }
         //}
-
-        private void Sell_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            Button b = (Button)sender;
-            Grid g = (Grid)b.Parent;
-            CurrencyRow cr = (CurrencyRow)g.DataContext;
-            double pay = cr.PAY2;
-            double receive = cr.RECEIVE2;
-
-
-            if (e.Delta > 0) //bulk up
-            {
-                pay = pay * 2;
-                receive = receive * 2;
-            }
-            if (e.Delta < 0) //bulk down
-            {
-                pay = pay / 2;
-                receive = receive / 2;
-            }
-            foreach (CurrencyRow entry in dataList)
-            {
-                if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
-                {
-                    entry.PAY2 = pay;
-                    entry.RECEIVE2 = receive;
-                    entry.Sellstring = "Hello";
-                    Console.WriteLine(pay + ":" + receive);
-                }
-
-            }
-        }
-
-        private void Buy_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            Button b = (Button)sender;
-            Grid g = (Grid)b.Parent;
-            CurrencyRow cr = (CurrencyRow)g.DataContext;
-            double pay = cr.PAY1;
-            double receive = cr.RECEIVE1;
-
-
-            if (e.Delta > 0) //bulk up
-            {
-                pay = pay * 2;
-                receive = receive * 2;
-            }
-            if (e.Delta < 0) //bulk down
-            {
-                pay = pay / 2;
-                receive = receive / 2;
-            }
-            foreach (CurrencyRow entry in dataList)
-            {
-                if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
-                {
-                    entry.PAY1 = pay;
-                    entry.RECEIVE1 = receive;
-                    entry.Buystring = "Hello";
-                    Console.WriteLine(pay + ":" + receive);
-                }
-
-            }
-        }
     }
 
 
