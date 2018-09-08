@@ -38,7 +38,7 @@ namespace PriceFlip
             PopulateList();
             items.ItemsSource = dataList;
             items_Fav.ItemsSource = favouritesList;
-
+            
         }
 
         // Initializes all currency information according to currency.poe.trade.
@@ -357,9 +357,9 @@ namespace PriceFlip
                     entry.PAY2 = buyvalues[1];
                     entry.PROFIT = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "%";
                     entry.FLATPROFIT = Flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
-                    entry.Sellstring = "";
-                    entry.Buystring = "";
-                    
+                    entry.Sellstring = sellvalues[0] + " ⇐ " + sellvalues[1];
+                    entry.Buystring = buyvalues[0] + " ⇐ " + buyvalues[1];
+
                 }
             }
 
@@ -489,30 +489,33 @@ namespace PriceFlip
         }
 
 
-        private void Sell_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void ScrollBulk(object sender, MouseWheelEventArgs e)
         {
+            e.Handled = true;
+
             Button b = (Button)sender;
             Grid g = (Grid)b.Parent;
-            CurrencyRow cr = (CurrencyRow)g.DataContext; 
-            double pay = cr.PAY2;
-            double receive = cr.RECEIVE2;
+            CurrencyRow cr = (CurrencyRow)g.DataContext;
+            double receive = cr.RECEIVE1;
+            double pay = cr.PAY1;
+            
             
             if (b.Name == "Buy")
             {
-                pay = cr.PAY1;
-                receive = cr.RECEIVE1;
+                receive = cr.RECEIVE2;
+                pay = cr.PAY2; 
             }
             
 
             if (e.Delta > 0) //bulk up
             {
-                pay = pay * 2;
                 receive = receive * 2;
+                pay = pay * 2;
             }
             if (e.Delta < 0) //bulk down
             {
-                pay = pay / 2;
                 receive = receive / 2;
+                pay = pay / 2;
             }
             foreach (CurrencyRow entry in dataList)
             {
@@ -520,53 +523,20 @@ namespace PriceFlip
                 {
                     if (b.Name == "Sell")
                     {
-                        entry.PAY2 = pay;
-                        entry.RECEIVE2 = receive;
-                        entry.Sellstring = "Hello";
+                        entry.RECEIVE1 = receive;
+                        entry.PAY1 = pay;
+                        entry.Sellstring = receive + " ⇐ " + pay;
                     }
                     if (b.Name == "Buy")
                     {
-                        entry.PAY1 = pay;
-                        entry.RECEIVE1 = receive;
-                        entry.Buystring = "Hello";
+                        entry.PAY2 = pay;
+                        entry.RECEIVE2 = receive;
+                        entry.Buystring = receive + " ⇐ " +  pay;
                     }
-                    Console.WriteLine(pay + ":" + receive);
                 }
 
             }
         }
-
-        //private void Buy_MouseWheel(object sender, MouseWheelEventArgs e)
-        //{
-        //    Button b = (Button)sender;
-        //    Grid g = (Grid)b.Parent;
-        //    CurrencyRow cr = (CurrencyRow)g.DataContext;
-        //    double pay = cr.PAY1;
-        //    double receive = cr.RECEIVE1;
-
-
-        //    if (e.Delta > 0) //bulk up
-        //    {
-        //        pay = pay * 2;
-        //        receive = receive * 2;
-        //    }
-        //    if (e.Delta < 0) //bulk down
-        //    {
-        //        pay = pay / 2;
-        //        receive = receive / 2;
-        //    }
-        //    foreach (CurrencyRow entry in dataList)
-        //    {
-        //        if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
-        //        {
-        //            entry.PAY1 = pay;
-        //            entry.RECEIVE1 = receive;
-        //            entry.Buystring = "Hello";
-        //            Console.WriteLine(pay + ":" + receive);
-        //        }
-
-        //    }
-        //}
     }
 
 
@@ -727,7 +697,7 @@ namespace PriceFlip
             {
                 if (value != buystring)
                 {
-                    buystring = Receive2 + " ⇐ " + Pay2;
+                    buystring = value;
                     NotifyPropertyChanged();
                 }
                 
@@ -743,7 +713,7 @@ namespace PriceFlip
             {
                 if (value != sellstring)
                 {
-                    sellstring = Receive1 + " ⇐ " + Pay1;
+                    sellstring = value;
                     NotifyPropertyChanged();
                 }
                 
