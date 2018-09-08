@@ -353,8 +353,8 @@ namespace PriceFlip
                 {
                     entry.RECEIVE1 = sellvalues[0];
                     entry.PAY1 = sellvalues[1];
-                    entry.Receive2 = buyvalues[0];
-                    entry.Pay2 = buyvalues[1];
+                    entry.RECEIVE2 = buyvalues[0];
+                    entry.PAY2 = buyvalues[1];
                     entry.PROFIT = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "%";
                     entry.FLATPROFIT = Flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
                     entry.Sellstring = "";
@@ -488,15 +488,79 @@ namespace PriceFlip
             //Console.WriteLine(link);
         }
 
-        private void BulkUp(object sender, MouseWheelEventArgs e)
-        {
-            // TODO: Judy you will need to fix this after moving your Bulkup event. 
-            // HIERARCHY:
-            // Grid                             **Before you were here.**
-            //     -> SellButton  -> BuyButton  **Now you are here (Depending on which button you mousewheel)**
+        //private void BulkUp(object sender, MouseWheelEventArgs e)
+        //{
+        //    // TODO: Judy you will need to fix this after moving your Bulkup event. 
+        //    // HIERARCHY:
+        //    // Grid                             **Before you were here.**
+        //    //     -> SellButton  -> BuyButton  **Now you are here (Depending on which button you mousewheel)**
 
-            // access current CurrencyRow below
-            Grid g = (Grid)sender;
+        //    // access current CurrencyRow below
+        //    Grid g = (Grid)sender;
+        //    CurrencyRow cr = (CurrencyRow)g.DataContext;
+        //    double pay = cr.PAY1;
+        //    double receive = cr.RECEIVE1;
+
+
+        //    if (e.Delta > 0) //bulk up
+        //    {
+        //        pay = pay * 2;
+        //        receive = receive * 2;                
+        //    }
+        //    if (e.Delta < 0) //bulk down
+        //    {
+        //        pay = pay / 2;
+        //        receive = receive / 2;
+        //    }
+        //    foreach (CurrencyRow entry in dataList)
+        //    {
+        //        if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
+        //        {
+        //            entry.PAY1 = pay;
+        //            entry.RECEIVE1 = receive;
+        //            entry.Sellstring = "Hello";
+        //            Console.WriteLine(pay + ":" + receive);
+        //        }
+
+        //    }
+        //}
+
+        private void Sell_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Button b = (Button)sender;
+            Grid g = (Grid)b.Parent;
+            CurrencyRow cr = (CurrencyRow)g.DataContext;
+            double pay = cr.PAY2;
+            double receive = cr.RECEIVE2;
+
+
+            if (e.Delta > 0) //bulk up
+            {
+                pay = pay * 2;
+                receive = receive * 2;
+            }
+            if (e.Delta < 0) //bulk down
+            {
+                pay = pay / 2;
+                receive = receive / 2;
+            }
+            foreach (CurrencyRow entry in dataList)
+            {
+                if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
+                {
+                    entry.PAY2 = pay;
+                    entry.RECEIVE2 = receive;
+                    entry.Sellstring = "Hello";
+                    Console.WriteLine(pay + ":" + receive);
+                }
+
+            }
+        }
+
+        private void Buy_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Button b = (Button)sender;
+            Grid g = (Grid)b.Parent;
             CurrencyRow cr = (CurrencyRow)g.DataContext;
             double pay = cr.PAY1;
             double receive = cr.RECEIVE1;
@@ -505,7 +569,7 @@ namespace PriceFlip
             if (e.Delta > 0) //bulk up
             {
                 pay = pay * 2;
-                receive = receive * 2;                
+                receive = receive * 2;
             }
             if (e.Delta < 0) //bulk down
             {
@@ -518,7 +582,7 @@ namespace PriceFlip
                 {
                     entry.PAY1 = pay;
                     entry.RECEIVE1 = receive;
-                    entry.Sellstring = "Hello";
+                    entry.Buystring = "Hello";
                     Console.WriteLine(pay + ":" + receive);
                 }
 
@@ -540,10 +604,10 @@ namespace PriceFlip
     {
 
         private double Receive1 = 0;
-        private double Pay1 = 0; 
-        
-        public double Receive2 { get; set; }
-        public double Pay2 { get; set; }
+        private double Pay1 = 0;
+        private double Receive2 = 0;
+        private double Pay2 = 0;
+
         private string Profit = "0%";
         private string FlatProfit = "0.0";
         private bool Checked = false;
@@ -559,6 +623,7 @@ namespace PriceFlip
         private string buystring = "0 ⇐ 0";
 
         public event PropertyChangedEventHandler PropertyChanged;
+
 
         public double PAY1 {
             get
@@ -590,6 +655,40 @@ namespace PriceFlip
                 }
             }
         }
+
+
+        public double PAY2
+        {
+            get
+            {
+                return Pay2;
+            }
+            set
+            {
+                if (value != Pay2)
+                {
+                    Pay2 = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public double RECEIVE2
+        {
+            get
+            {
+                return Receive2;
+            }
+            set
+            {
+                if (value != Receive2)
+                {
+                    Receive2 = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
 
         public bool CHECKED
         {
