@@ -534,6 +534,11 @@ namespace PriceFlip
 
             Button b = (Button)sender;
             Grid g = (Grid)b.Parent;
+            var list = dataList;
+            if (g.Name == "RowFav")
+            {
+                list = favouritesList;
+            }
             CurrencyRow cr = (CurrencyRow)g.DataContext;
             double receive = cr.RECEIVE1;
             double pay = cr.PAY1;
@@ -556,7 +561,7 @@ namespace PriceFlip
                 receive = receive / 2;
                 pay = pay / 2;
             }
-            foreach (CurrencyRow entry in dataList)
+            foreach (CurrencyRow entry in list)
             {
                 if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
                 {
