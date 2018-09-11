@@ -558,7 +558,9 @@ namespace PriceFlip
                 pay = cr.PAY2;
             }
 
-            int gcd = GCD(Convert.ToInt32(receive), Convert.ToInt32(pay));
+            int gcd = 1;
+            if (receive != 0 && pay != 0) { gcd = GCD(Convert.ToInt32(receive), Convert.ToInt32(pay)); }
+
             if (e.Delta > 0) //bulk up
             {
                 receive = receive + (receive / gcd);
