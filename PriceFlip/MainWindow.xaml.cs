@@ -37,17 +37,20 @@ namespace PriceFlip
         {
             InitializeComponent();
 
+            // Populate our lists
             initCurrency();
             PopulateList();
             items.ItemsSource = dataList;
 
+            // Check if favourites.txt exists, create empty textfile if needed.
             FileInfo fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)
             {
                 Directory.CreateDirectory(fileInfo.Directory.FullName);
                 File.Create(path).Dispose();
             }
-                
+            
+            // Reload favouritesList off of favourites.txt
             StreamReader reader = File.OpenText(path);
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -71,9 +74,7 @@ namespace PriceFlip
                     CHECKED = false
                 });
             };
-
             items_Fav.ItemsSource = favouritesList;
-            Console.WriteLine(favouritesList);
         }   
 
      
@@ -241,7 +242,7 @@ namespace PriceFlip
 
         }
 
-
+        // Changes the profit textbox colouration depending on value
         private void Profit_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -265,6 +266,8 @@ namespace PriceFlip
                 }
             }
         }
+
+        // Changes the profit textbox colouration depending on value (for first load)
         private void Profit_Loaded(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -332,6 +335,8 @@ namespace PriceFlip
 
             }
         }
+
+        // Copies the correct ~b/o line to clipboard
         private void CopyToClipboard(object sender, RoutedEventArgs e)
         {
 
@@ -404,6 +409,7 @@ namespace PriceFlip
 
         }
 
+        // Adds all checkmarked rows to favouritesList
         private void AddFavourites_Click(object sender, RoutedEventArgs e)
         {
 
@@ -429,6 +435,7 @@ namespace PriceFlip
 
         }
 
+        // Removes all checkmarked rows from favourites.
         private void RemoveFromFavourites_Click(object sender, RoutedEventArgs e)
         {
             foreach (CurrencyRow cr in removefav_queue)
@@ -444,6 +451,7 @@ namespace PriceFlip
 
         }
 
+        
         private void Favourites_Checkmarked(object sender, RoutedEventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
@@ -515,7 +523,7 @@ namespace PriceFlip
         private void DropDownClosed_Event(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
-            //Console.WriteLine(cb.SelectionBoxItem);
+            
             if (cb.SelectionBoxItem.ToString() == "Standard")
             {
                 link = "http://currency.poe.trade/search?league=Standard&online=x&stock=&want=";
@@ -524,10 +532,10 @@ namespace PriceFlip
             {
                 link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
             }
-            //Console.WriteLine(link);
+            
         }
 
-
+        // On scrollwheel event, increase or decrease the price ratios for a CurrencyRow.
         private void ScrollBulk(object sender, MouseWheelEventArgs e)
         {
             e.Handled = true;
@@ -550,16 +558,20 @@ namespace PriceFlip
                 pay = cr.PAY2;
             }
 
-
+            int gcd = GCD(Convert.ToInt32(receive), Convert.ToInt32(pay));
             if (e.Delta > 0) //bulk up
             {
-                receive = receive * 2;
-                pay = pay * 2;
+                receive = receive + (receive / gcd);
+                pay = pay + (pay / gcd);
             }
             if (e.Delta < 0) //bulk down
-            {
-                receive = receive / 2;
-                pay = pay / 2;
+            {   
+                if(pay - (pay / gcd) != 0)
+                {
+                    receive = receive - (receive / gcd);
+                    pay = pay - (pay / gcd);
+                }
+
             }
             foreach (CurrencyRow entry in list)
             {
@@ -582,7 +594,21 @@ namespace PriceFlip
             }
         }
 
-        public void saveFavouritestxt()
+        private int GCD(int a, int b)
+        {
+            while (a != 0 && b != 0)
+            {
+                if (a > b)
+                    a %= b;
+                else
+                    b %= a;
+            }
+
+            return a == 0 ? b : a;
+        }
+
+            // Saves the contents of favouritesList to favourites.txt
+            public void saveFavouritestxt()
         {
 
              using (TextWriter tw = new StreamWriter(path))
