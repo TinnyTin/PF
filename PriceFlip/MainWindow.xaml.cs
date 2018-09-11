@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -27,6 +28,8 @@ namespace PriceFlip
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
         public string link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PriceFlip\\favourites.txt";
+
 
 
 
@@ -37,9 +40,43 @@ namespace PriceFlip
             initCurrency();
             PopulateList();
             items.ItemsSource = dataList;
+
+            FileInfo fileInfo = new FileInfo(path);
+            if (!fileInfo.Exists)
+            {
+                Directory.CreateDirectory(fileInfo.Directory.FullName);
+                File.Create(path).Dispose();
+            }
+                
+            StreamReader reader = File.OpenText(path);
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] items = line.Split(';');
+                favouritesList.Add(new CurrencyRow
+                {
+
+                    RECEIVE1 = double.Parse(items[0]),
+                    PAY1 = double.Parse(items[1]),
+                    RECEIVE2 = double.Parse(items[2]),
+                    PAY2 = double.Parse(items[3]),
+                    CTYPE1 = items[4],
+                    CTYPE2 = items[5],
+                    CIMAGE1 = items[6],
+                    CIMAGE2 = items[7],
+                    Sellstring = items[8],
+                    Buystring = items[9],
+                    PROFIT = items[10],
+                    FLATPROFIT = items[11],
+                    CHECKED = false
+                });
+            };
+
             items_Fav.ItemsSource = favouritesList;
-            
-        }
+            Console.WriteLine(favouritesList);
+        }   
+
+     
 
         // Initializes all currency information according to currency.poe.trade.
         private void initCurrency()
@@ -83,6 +120,7 @@ namespace PriceFlip
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
+            saveFavouritestxt();
             Close();
         }
 
@@ -109,7 +147,7 @@ namespace PriceFlip
             double buyvalue = pay2 / receive2;
             profit = totalbuy / buyvalue;
 
-            return Math.Round(profit,1);
+            return Math.Round(profit, 1);
         }
 
         // Calculates the profit margin % of 1 trade cycle.
@@ -137,13 +175,13 @@ namespace PriceFlip
         {
             foreach (Currency entry in currency)
             {
-                if(entry.name != "chaos")
+                if (entry.name != "chaos")
                 {
-                    dataList.Add(new CurrencyRow { CTYPE1 = entry.name, CTYPE2 = "chaos", CIMAGE1=entry.image, CIMAGE2 = "ImageAssets/Chaos.png" });
+                    dataList.Add(new CurrencyRow { CTYPE1 = entry.name, CTYPE2 = "chaos", CIMAGE1 = entry.image, CIMAGE2 = "ImageAssets/Chaos.png" });
                 }
                 if (entry.name != "exalted")
                 {
-                    dataList.Add(new CurrencyRow { CTYPE1 = entry.name, CTYPE2 = "exalted", CIMAGE1= entry.image, CIMAGE2 = "ImageAssets/Exalted.png" });
+                    dataList.Add(new CurrencyRow { CTYPE1 = entry.name, CTYPE2 = "exalted", CIMAGE1 = entry.image, CIMAGE2 = "ImageAssets/Exalted.png" });
                 }
 
             }
@@ -162,7 +200,8 @@ namespace PriceFlip
             doc.LoadHtml(data);
 
             var htmlNodeList = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']");
-            if (htmlNodeList == null) {
+            if (htmlNodeList == null)
+            {
                 result[0] = 0;
                 result[1] = 0;
                 return result;
@@ -174,8 +213,8 @@ namespace PriceFlip
             {
                 index = htmlListSize / 2;
             }
-            
-            if((receiveID == 6 && payID != 4) || (receiveID != 4 && payID == 6))
+
+            if ((receiveID == 6 && payID != 4) || (receiveID != 4 && payID == 6))
             {
                 index--;
             }
@@ -192,7 +231,7 @@ namespace PriceFlip
             string receivevalue = htmlNode.GetAttributeValue("data-sellvalue", "Sell value not found");
             string payvalue = htmlNode.GetAttributeValue("data-buyvalue", "Buy value not found");
 
-            if(receivevalue != "Sell value not found" && payvalue != "Buy value not found")
+            if (receivevalue != "Sell value not found" && payvalue != "Buy value not found")
             {
                 result[0] = Convert.ToDouble(receivevalue);
                 result[1] = Convert.ToDouble(payvalue);
@@ -202,12 +241,12 @@ namespace PriceFlip
 
         }
 
-        
+
         private void Profit_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
-            if (text != "") 
+            if (text != "")
             {
                 double percentage = Convert.ToDouble(text);
 
@@ -230,7 +269,7 @@ namespace PriceFlip
         {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
-            if (text != "") 
+            if (text != "")
             {
                 double percentage = Convert.ToDouble(text);
 
@@ -256,11 +295,11 @@ namespace PriceFlip
             if (text != "")
             {
                 double flatprofit = Convert.ToDouble(text);
-                if(flatprofit > 5)
+                if (flatprofit > 5)
                 {
                     tb.Foreground = Brushes.GreenYellow;
                 }
-                else if(flatprofit > 0)
+                else if (flatprofit > 0)
                 {
                     tb.Foreground = Brushes.LightGoldenrodYellow;
                 }
@@ -268,7 +307,7 @@ namespace PriceFlip
                 {
                     tb.Foreground = Brushes.OrangeRed;
                 }
-             
+
             }
         }
         private void Flatprofit_Loaded(object sender, RoutedEventArgs e)
@@ -299,10 +338,10 @@ namespace PriceFlip
             Button btn = (Button)sender;
             btn.IsEnabled = false;
             Grid g = (Grid)btn.Content;
-            
+
             TextBox textbox = g.Children.OfType<TextBox>().FirstOrDefault();
             Image currencyimage = g.Children.OfType<Image>().LastOrDefault();
-            
+
             string text = textbox.Text;
 
             string[] textarray = text.Split('⇐');
@@ -336,14 +375,14 @@ namespace PriceFlip
         private void UpdateRow(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            Grid g = (Grid) b.Parent;
+            Grid g = (Grid)b.Parent;
 
             CurrencyRow cr = (CurrencyRow)g.DataContext;
 
             double[] sellvalues = Refresh(cr.CTYPE1, cr.CTYPE2);
             double[] buyvalues = Refresh(cr.CTYPE2, cr.CTYPE1);
 
-            
+
 
 
             //real data
@@ -367,7 +406,7 @@ namespace PriceFlip
 
         private void AddFavourites_Click(object sender, RoutedEventArgs e)
         {
-            
+
             foreach (CurrencyRow cr in dataList)
             {
                 if (cr.CHECKED && favouritesList.Contains(cr) == false)
@@ -375,10 +414,10 @@ namespace PriceFlip
                     cr.CHECKED = false;
                     favouritesList.Add(cr);
                 }
-                
+
             }
-            
-            
+
+
         }
 
         private void Checkmarked(object sender, RoutedEventArgs e)
@@ -397,7 +436,7 @@ namespace PriceFlip
                 if (cr.CHECKED == true)
                 {
                     favouritesList.Remove(cr);
-                   
+
                 }
                 Console.WriteLine(cr.CHECKED.ToString());
             }
@@ -498,14 +537,14 @@ namespace PriceFlip
             CurrencyRow cr = (CurrencyRow)g.DataContext;
             double receive = cr.RECEIVE1;
             double pay = cr.PAY1;
-            
-            
+
+
             if (b.Name == "Buy")
             {
                 receive = cr.RECEIVE2;
-                pay = cr.PAY2; 
+                pay = cr.PAY2;
             }
-            
+
 
             if (e.Delta > 0) //bulk up
             {
@@ -531,11 +570,36 @@ namespace PriceFlip
                     {
                         entry.PAY2 = pay;
                         entry.RECEIVE2 = receive;
-                        entry.Buystring = receive + " ⇐ " +  pay;
+                        entry.Buystring = receive + " ⇐ " + pay;
                     }
                 }
 
             }
+        }
+
+        public void saveFavouritestxt()
+        {
+
+             using (TextWriter tw = new StreamWriter(path))
+             {
+                 foreach (CurrencyRow cr in favouritesList)
+                 {
+                     tw.WriteLine(cr.RECEIVE1 + ";" +
+                         cr.PAY1 + ";" +
+                         cr.RECEIVE2 + ";" +
+                         cr.PAY2 + ";" +
+                         cr.CTYPE1 + ";" +
+                         cr.CTYPE2 + ";" +
+                         cr.CIMAGE1 + ";" +
+                         cr.CIMAGE2 + ";" +
+                         cr.Sellstring + ";" +
+                         cr.Buystring + ";" +
+                         cr.PROFIT + ";" +
+                         cr.FLATPROFIT + ";" +
+                         cr.CHECKED);
+                 }
+             }
+            
         }
     }
 
@@ -549,18 +613,13 @@ namespace PriceFlip
         public string image = "";
     }
 
-    public class CurrencyRow:INotifyPropertyChanged
+    public class CurrencyRow : INotifyPropertyChanged
     {
 
         private double Receive1 = 0;
         private double Pay1 = 0;
         private double Receive2 = 0;
         private double Pay2 = 0;
-
-        private string Profit = "0%";
-        private string FlatProfit = "0.0";
-        private bool Checked = false;
-
 
         public string CTYPE1 { get; set; }
         public string CTYPE2 { get; set; }
@@ -571,10 +630,15 @@ namespace PriceFlip
         private string sellstring = "0 ⇐ 0";
         private string buystring = "0 ⇐ 0";
 
+        private string Profit = "0%";
+        private string FlatProfit = "0.0";
+        private bool Checked = false;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public double PAY1 {
+        public double PAY1
+        {
             get
             {
                 return Pay1;
@@ -662,7 +726,7 @@ namespace PriceFlip
             }
             set
             {
-                
+
                 if (value != Profit)
                 {
                     Profit = value;
@@ -700,7 +764,7 @@ namespace PriceFlip
                     buystring = value;
                     NotifyPropertyChanged();
                 }
-                
+
             }
         }
         public string Sellstring
@@ -716,7 +780,7 @@ namespace PriceFlip
                     sellstring = value;
                     NotifyPropertyChanged();
                 }
-                
+
 
             }
         }
@@ -727,6 +791,7 @@ namespace PriceFlip
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
     }
 
 }
