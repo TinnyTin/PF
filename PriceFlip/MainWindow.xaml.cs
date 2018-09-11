@@ -381,6 +381,11 @@ namespace PriceFlip
         {
             Button b = (Button)sender;
             Grid g = (Grid)b.Parent;
+            var list = dataList;
+            if(g.Name == "RowFav")
+            {
+                list = favouritesList;
+            }
 
             CurrencyRow cr = (CurrencyRow)g.DataContext;
 
@@ -391,7 +396,7 @@ namespace PriceFlip
 
 
             //real data
-            foreach (CurrencyRow entry in dataList)
+            foreach (CurrencyRow entry in list)
             {
                 if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
                 {
@@ -597,6 +602,7 @@ namespace PriceFlip
             }
         }
 
+        //Given 2 integers, return the greatest common divisor.
         private int GCD(int a, int b)
         {
             while (a != 0 && b != 0)
