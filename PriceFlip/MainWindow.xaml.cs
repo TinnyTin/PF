@@ -591,6 +591,7 @@ namespace PriceFlip
                         entry.RECEIVE2 = receive;
                         entry.Buystring = receive + " ⇐ " + pay;
                     }
+                    entry.FLATPROFIT = Flatprofit(entry.RECEIVE1, entry.PAY1, entry.RECEIVE2, entry.PAY2)+"c";
                 }
 
             }
