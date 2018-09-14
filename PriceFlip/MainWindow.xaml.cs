@@ -139,16 +139,16 @@ namespace PriceFlip
 
 
         // Calculates the flat profit value of 1 trade cycle.
-        // receive and pay represents the cash-out trade. receive2 and pay2 should represent the buy-in trade.
-        // Returns a double representing the flat profit in *chaos* units.
-        private double Flatprofit(double receive, double pay, double receive2, double pay2)
+        // receive2 is the amount of chaos you initially pay for each trade. 
+        // margin is the profit margin calculated for 1 trade cycle. 
+        // profit is equal to amount of chaos received * profit margin percentage)
+        private double Flatprofit(double margin, double rec2)
         {
             double profit = 0.0;
-            double totalbuy = pay2 - receive;
-            double buyvalue = pay2 / receive2;
-            profit = totalbuy / buyvalue;
-
-            return Math.Round(profit, 1);
+            profit = rec2 * (margin/100);
+            Math.Round(profit, 2);
+            return profit; 
+            
         }
 
         // Calculates the profit margin % of 1 trade cycle.
@@ -400,12 +400,13 @@ namespace PriceFlip
             {
                 if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
                 {
+                    double margin = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]);
                     entry.RECEIVE1 = sellvalues[0];
                     entry.PAY1 = sellvalues[1];
                     entry.RECEIVE2 = buyvalues[0];
                     entry.PAY2 = buyvalues[1];
-                    entry.PROFIT = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "%";
-                    entry.FLATPROFIT = Flatprofit(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]) + "c";
+                    entry.PROFIT = margin + "%";
+                    entry.FLATPROFIT = Flatprofit(margin, buyvalues[0]) + "c";
                     entry.Sellstring = sellvalues[0] + " ⇐ " + sellvalues[1];
                     entry.Buystring = buyvalues[0] + " ⇐ " + buyvalues[1];
 
@@ -543,7 +544,7 @@ namespace PriceFlip
         // On scrollwheel event, increase or decrease the price ratios for a CurrencyRow.
         private void ScrollBulk(object sender, MouseWheelEventArgs e)
         {
-            e.Handled = true;
+            e.Handled = true; //disable scrolling up and down ui
 
             Button b = (Button)sender;
             Grid g = (Grid)b.Parent;
@@ -596,7 +597,8 @@ namespace PriceFlip
                         entry.RECEIVE2 = receive;
                         entry.Buystring = receive + " ⇐ " + pay;
                     }
-                    entry.FLATPROFIT = Flatprofit(entry.RECEIVE1, entry.PAY1, entry.RECEIVE2, entry.PAY2)+"c";
+                    double margin = Profitmargin(entry.RECEIVE1, entry.PAY1, entry.RECEIVE2, entry.PAY2);
+                    entry.FLATPROFIT = Flatprofit(margin, entry.RECEIVE2)+"c";
                 }
 
             }
