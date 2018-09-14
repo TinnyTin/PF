@@ -188,6 +188,8 @@ namespace PriceFlip
             }
         }
 
+
+
         // Given receive and pay currency strings, retrieves the 7th listing info from currency.poe.trade. If there are <=12 listings, index = listing.size/2.
         // Returns an array[receive#,have#] representing ( receive <- pay )
         private double[] Refresh(string receive, string pay)
@@ -374,7 +376,34 @@ namespace PriceFlip
 
         }
 
+        private void OpenURL(object sender, RoutedEventArgs e)
+        {
+            string link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
+            var url = "";
+            Button b = (Button)sender;
+            Grid g = (Grid)b.Parent;
+            var list = dataList;
+            if (g.Name == "RowFav")
+            {
+                list = favouritesList;
+            }
+            CurrencyRow cr = (CurrencyRow)g.DataContext;
 
+            int receiveID = currency.Find(currency => currency.name == cr.CTYPE1).id;
+            int payID = currency.Find(currency => currency.name == cr.CTYPE2).id;
+            if (b.Name == "LinkButton1")
+            {
+                url = link + receiveID + "&have=" + payID;
+            }
+            if (b.Name == "LinkButton2")
+            {
+                url = link + payID + "&have=" + receiveID;
+            }
+            //Console.WriteLine(url);
+            System.Diagnostics.Process.Start(url);
+
+
+        }
 
         // Update numbers for the row by sending a request to currency.poe.trade 
         private void UpdateRow(object sender, RoutedEventArgs e)
@@ -643,6 +672,8 @@ namespace PriceFlip
              }
             
         }
+
+
     }
 
 

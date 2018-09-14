@@ -696,7 +696,7 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="LinkButton1" HorizontalAlignment="Left" Height="31" Margin="255,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="UpdateRow">
+                                    <Button x:Name="LinkButton1" HorizontalAlignment="Left" Height="31" Margin="255,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="OpenURL">
                                         <Image x:Name="LinkIcon1" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
                                     <Button x:Name="Buy" Background="{x:Null}" Margin="235,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="ScrollBulk" Width="185" HorizontalAlignment="Center">
@@ -712,11 +712,11 @@
                                     <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="645,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="UpdateRow">
                                         <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
-                                    <Button x:Name="LinkButton2" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="UpdateRow">
+                                    <Button x:Name="LinkButton2" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="OpenURL">
                                         <Image x:Name="LinkIcon2" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
-                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" Loaded="Profit_Loaded"/>
-                                    <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed" Loaded="Flatprofit_Loaded"/>
+                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="478,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" Loaded="Profit_Loaded"/>
+                                    <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="532,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed" Loaded="Flatprofit_Loaded"/>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -776,8 +776,8 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="LinkButton1C" HorizontalAlignment="Left" Height="31" Margin="280,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="UpdateRow">
-                                        <Image x:Name="LinkIcon1C" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Button x:Name="LinkButton1" HorizontalAlignment="Left" Height="31" Margin="280,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="OpenURL">
+                                        <Image x:Name="LinkIcon1" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
                                     <Button x:Name="Buy" Background="{x:Null}" Margin="285,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="ScrollBulk">
                                         <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
@@ -793,8 +793,8 @@
                                         <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
 
-                                    <Button x:Name="LinkButton2C" HorizontalAlignment="Left" Height="31" Margin="590,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="UpdateRow">
-                                        <Image x:Name="LinkIcon2C" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Button x:Name="LinkButton2" HorizontalAlignment="Left" Height="31" Margin="590,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="OpenURL">
+                                        <Image x:Name="LinkIcon2" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
 
 
