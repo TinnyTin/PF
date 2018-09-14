@@ -313,6 +313,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="LinkButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <LinearGradientBrush x:Key="ComboBox.Static.Background" EndPoint="0,1" StartPoint="0,0">
             <GradientStop Color="#FFF0F0F0" Offset="0.0"/>
             <GradientStop Color="#FFE5E5E5" Offset="1.0"/>
@@ -633,10 +671,10 @@
                     <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="671" Orientation="Horizontal"/>
 
 
-                    <ItemsControl x:Name="items_Fav" ScrollViewer.CanContentScroll="True" Margin="0,42,285,23">
+                    <ItemsControl x:Name="items_Fav" ScrollViewer.CanContentScroll="True" Margin="0,42,229,23">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid x:Name="RowFav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
+                                <Grid x:Name="RowFav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="720">
                                     <CheckBox x:Name="FavCheckbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Favourites_Checkmarked" IsChecked="{Binding CHECKED}" Unchecked="Fav_Unchecked">
                                         <CheckBox.RenderTransform>
                                             <TransformGroup>
@@ -668,9 +706,10 @@
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="UpdateRow">
+                                    <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="645,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="UpdateRow">
                                         <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
+
                                     <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" Loaded="Profit_Loaded"/>
                                     <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed" Loaded="Flatprofit_Loaded"/>
                                 </Grid>
@@ -678,26 +717,26 @@
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.Template>
                             <ControlTemplate>
-                                <ScrollViewer x:Name="ScrollView" HorizontalAlignment="Left" Height="710" VerticalAlignment="Top" Width="671" Margin="0" VerticalScrollBarVisibility="Auto">
+                                <ScrollViewer x:Name="ScrollView" HorizontalAlignment="Left" Height="710" VerticalAlignment="Top" Width="720" Margin="0" VerticalScrollBarVisibility="Auto">
                                     <ItemsPresenter />
                                 </ScrollViewer>
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="732,118,0,0" Width="191" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
-                    <Button Content="Remove from Favourites" HorizontalAlignment="Left" Margin="732,66,0,0" VerticalAlignment="Top" Width="191" Click="RemoveFromFavourites_Click" Height="36" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="755,479,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
+                    <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="742,118,0,0" Width="181" Background="#FF17191D" Foreground="White" Height="34" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
+                    <Button Content="Remove from Favourites" HorizontalAlignment="Left" Margin="742,66,0,0" VerticalAlignment="Top" Width="181" Click="RemoveFromFavourites_Click" Height="34" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="776,479,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
-                    <TextBlock x:Name="SelectLeagueFav" HorizontalAlignment="Center" Height="20" Margin="771,454,92,301" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
+                    <TextBlock x:Name="SelectLeagueFav" HorizontalAlignment="Center" Height="20" Margin="791,454,72,301" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
                     <TextBlock x:Name="Profitheaderfav" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Profit" Margin="517,10,363,743"/>
                     <TextBlock x:Name="Buyheaderfav" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Buy" Margin="147,8,733,745" RenderTransformOrigin="0.934,0.203"/>
                     <TextBlock x:Name="Sellheaderfav" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Sell" Margin="355,10,525,743"/>
 
                 </Grid>
             </TabItem>
-            <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Open Sans" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124">
+            <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Open Sans" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124" VerticalAlignment="Top">
                 <TabItem.Header>
                     <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" Height="74" TextWrapping="Wrap" Width="101" TextAlignment="Center" FontSize="16"><Run Text=""/><InlineUIContainer>
                             <Image
@@ -708,7 +747,7 @@
                     <StackPanel x:Name="HeaderColumn" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="671" Orientation="Horizontal"/>
 
 
-                    <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,285,24">
+                    <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,234,24">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="647">
@@ -745,6 +784,7 @@
                                     <Button x:Name="RefreshButton" HorizontalAlignment="Left" Height="31" Margin="606,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource RefreshButtonStyle}" Click="UpdateRow">
                                         <Image x:Name="RefreshIcon" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/refreshicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
+                                    
                                     <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
                                     <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed"/>
 
@@ -753,21 +793,21 @@
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.Template>
                             <ControlTemplate>
-                                <ScrollViewer x:Name="ScrollView" HorizontalAlignment="Left" Height="710" VerticalAlignment="Top" Width="671" Margin="0" VerticalScrollBarVisibility="Auto">
+                                <ScrollViewer x:Name="ScrollView" HorizontalAlignment="Left" Height="710" VerticalAlignment="Top" Width="720" Margin="0" VerticalScrollBarVisibility="Auto">
                                     <ItemsPresenter />
                                 </ScrollViewer>
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="712,141,0,0" Width="175" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click" />
-                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="36" Margin="712,96,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Open Sans" FontSize="15" Click="AddFavourites_Click"/>
-                    <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="712,234,43,340" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
-                    <ComboBox HorizontalAlignment="Left" Margin="720,524,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
+                    <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="737,141,0,0" Width="175" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click" />
+                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="36" Margin="737,90,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Open Sans" FontSize="15" Click="AddFavourites_Click"/>
+                    <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="745,228,10,346" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
+                    <ComboBox HorizontalAlignment="Left" Margin="767,512,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
-                        
+
                         <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
-                    <TextBlock x:Name="Select_League" HorizontalAlignment="Center" Height="20" Margin="737,499,126,257" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
+                    <TextBlock x:Name="Select_League" HorizontalAlignment="Center" Height="20" Margin="784,487,79,269" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
                     <TextBlock x:Name="Profitheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Profit" Margin="517,10,363,743"/>
                     <TextBlock x:Name="Buyheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Buy" Margin="147,8,733,745" RenderTransformOrigin="0.934,0.203"/>
                     <TextBlock x:Name="Sellheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Sell" Margin="355,10,525,743"/>

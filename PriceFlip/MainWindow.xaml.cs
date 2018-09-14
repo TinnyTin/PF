@@ -139,7 +139,7 @@ namespace PriceFlip
 
 
         // Calculates the flat profit value of 1 trade cycle.
-        // receive2 is the amount of chaos you initially pay for each trade. 
+        // receive2 is the amount of chaos you initially pay for each buy-in trade. 
         // margin is the profit margin calculated for 1 trade cycle. 
         // profit is equal to amount of chaos received * profit margin percentage)
         private double Flatprofit(double margin, double rec2)
