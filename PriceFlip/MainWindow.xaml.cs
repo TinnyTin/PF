@@ -673,17 +673,20 @@ namespace PriceFlip
             
         }
 
+        private void DataTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 
 
 
     public class Currency
     {
-        public string name = "";
-        public int id = 0;
-        public string tag = "";
-        public string image = "";
+        public string name { get; set; }
+        public int id { get; set; }
+        public string tag { get; set; }
+        public string image { get; set; }
     }
 
     public class CurrencyRow : INotifyPropertyChanged

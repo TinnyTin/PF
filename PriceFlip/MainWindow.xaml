@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PriceFlip"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Name="Main_Window" x:Class="PriceFlip.MainWindow"
         mc:Ignorable="d"
-        Title="Tinny's Flip Tool" Height="800" Width="1080" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{DynamicResource Button.Disabled.Foreground}">
+        Title="Tinny's Flip Tool" Height="800" Width="1164" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="{DynamicResource Button.Disabled.Foreground}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -629,14 +629,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="124" Background="#FF282B32" Margin="0,24,0,602">
+        <Grid x:Name="TitleBlock" HorizontalAlignment="Left" Width="153" Background="#FF282B32" Margin="0,24,0,602">
             <Label x:Name="Title" Content="Price Flip" HorizontalAlignment="Center" Height="38" Margin="0,83,0,0" VerticalAlignment="Top" Width="124" FontFamily="Open Sans" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" HorizontalContentAlignment="Center"/>
             <Label x:Name="subtitle" Content="by Tinny and Judy" HorizontalAlignment="Center" Height="27" Margin="0,109,-2,0" VerticalAlignment="Top" Width="126" FontFamily="Open Sans" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="{x:Null}" Foreground="White" FontStretch="Condensed" FontStyle="Italic" HorizontalContentAlignment="Center"/>
-            <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="70" Margin="24,19,0,0" Source="ImageAssets/PriceFlipIcon.png"/>
+            <Image RenderOptions.BitmapScalingMode="HighQuality"  x:Name="TitleIcon" Height="70" VerticalAlignment="Top" Margin="43,19,36,0" Source="ImageAssets/PriceFlipIcon.png"/>
         </Grid>
 
-        <Button x:Name="Minimize" Content="_" Margin="1030,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Open Sans" FontSize="20" Click="MinimizeWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1" Width="24" d:IsLocked="True"/>
-        <Rectangle x:Name="DragBar" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="1028" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="DragWindow">
+        <Button x:Name="Minimize" Content="_" Margin="1114,0,26,776" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Open Sans" FontSize="20" Click="MinimizeWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1,-8,1,1" Width="24"/>
+        <Rectangle x:Name="DragBar" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="1112" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseDown="DragWindow">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -652,26 +652,33 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button x:Name="Close" Content="X" Height="24" Margin="1056,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Open Sans" FontSize="16" Click="CloseWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24" d:IsLocked="True"/>
+        <Button x:Name="Close" Content="X" Height="24" Margin="1140,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Open Sans" FontSize="16" Click="CloseWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24"/>
 
-        <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1080" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}">
-            <TabItem x:Name="FavouritesTab" Margin="-2,172,-9,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Open Sans" Foreground="White" BorderBrush="#FF282B32" Height="124">
+        <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1164" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" SelectionChanged="DataTable_SelectionChanged">
+            <TabItem x:Name="FavouritesTab" Margin="-2,172,2,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Open Sans" Foreground="White" BorderBrush="#FF282B32" Height="42" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Right" Width="153">
                 <TabItem.Header>
-                    <TextBlock x:Name="FavouritesLabel" Height="84" TextWrapping="Wrap" Width="88" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" TextAlignment="Center" FontSize="15" FontStretch="UltraExpanded"><Run Text=""/><InlineUIContainer>
-                            <Image
-                                d:DesignUseLayoutRounding="True" Width="42" VerticalAlignment="Center" UseLayoutRounding="True" RenderTransformOrigin="0.43,0.51" x:Name="FavIcon" IsEnabled="False" Height="56" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="Fant">
-                                <Image.Source
-            >
-                                    <ImageSource>ImageAssets/favourites-white.png</ImageSource>
-                                </Image.Source>
-                            </Image>
-                        </InlineUIContainer><LineBreak/><Run FontStretch="Normal" Text="Favourites"/></TextBlock>
+                    <Grid x:Name="FavouritesTabGrid" Width="140" Height="36">
+                        <Image x:Name="FavIcon" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center" Height="18" IsEnabled="False" RenderTransformOrigin="0.764,0.514" UseLayoutRounding="True" Width="18" d:DesignUseLayoutRounding="True" VerticalAlignment="Center" Margin="115,10,7,8">
+                            <Image.Source>
+                                <BitmapImage BaseUri="pack://application:,,,/" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Martin\source\repos\PriceFlip\PriceFlip\ImageAssets\favourites-white.png"/>
+                            </Image.Source>
+                        </Image>
+                        <TextBlock x:Name="FavouritesLabel" Height="20" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontSize="16" FontStretch="UltraExpanded" TextAlignment="Center" Margin="0,8,28,8"><Run FontStretch="Normal" Text="Favourites  "/></TextBlock>
+                    </Grid>
                 </TabItem.Header>
-                <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="6,-2,-3,-3">
-                    <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="720" Orientation="Horizontal"/>
+                <Grid x:Name="FavouritesTable" Background="#FF1E2025" Margin="-5,-3,-3,-3" HorizontalAlignment="Left" Width="1011" Height="776">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
+                        <Button Content="" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Buy" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="188" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Sell" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="221" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Profit" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="139" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                    </StackPanel>
 
 
-                    <ItemsControl x:Name="items_Fav" ScrollViewer.CanContentScroll="True" Margin="0,42,229,23">
+                    <ItemsControl x:Name="items_Fav" ScrollViewer.CanContentScroll="True" Margin="0,42,0,24" HorizontalAlignment="Left" Width="750">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="RowFav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="720">
@@ -728,31 +735,35 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="742,118,0,0" Width="181" Background="#FF17191D" Foreground="White" Height="34" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
-                    <Button Content="Remove from Favourites" HorizontalAlignment="Left" Margin="742,66,0,0" VerticalAlignment="Top" Width="181" Click="RemoveFromFavourites_Click" Height="34" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="776,479,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
+                    <Button x:Name="SelectAllButtonFav" Content="Select All&#xA;" HorizontalAlignment="Left" Margin="772,150,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
+                    <Button x:Name="RemoveFavButton" Content="Remove from Favourites" HorizontalAlignment="Left" Margin="772,100,0,0" VerticalAlignment="Top" Width="200" Click="RemoveFromFavourites_Click" Height="36" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="772,507,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1" Height="28">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
                         <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
-                    <TextBlock x:Name="SelectLeagueFav" HorizontalAlignment="Center" Height="20" Margin="791,454,72,301" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
-                    <TextBlock x:Name="Profitheaderfav" HorizontalAlignment="Center" Height="24" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Profit" Margin="508,10,372,741"/>
-                    <TextBlock x:Name="Buyheaderfav" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Buy" Margin="148,10,732,742" RenderTransformOrigin="0.934,0.203"/>
-                    <TextBlock x:Name="Sellheaderfav" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Sell" Margin="375,10,505,742"/>
+                    <TextBlock x:Name="SelectLeagueFav" HorizontalAlignment="Center" Margin="772,482,145,274" TextWrapping="Wrap" Width="94" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League" Height="20" VerticalAlignment="Bottom"/>
+                    <TextBlock x:Name="Tip1_Copy" HorizontalAlignment="Center" Height="202" Margin="770.5,227,32.5,347" TextWrapping="Wrap" VerticalAlignment="Center" Width="208" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  scrollwheel to adjust bulk numbers."/></TextBlock>
 
                 </Grid>
             </TabItem>
-            <TabItem x:Name="CurrencyTab" Margin="-2,172,-9,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Open Sans" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="124" VerticalAlignment="Top">
+            <TabItem x:Name="CurrencyTab" Margin="-2,172,2,-172" BorderBrush="#FF282B32" Foreground="White" Style="{DynamicResource TabItemStyle1}" FontFamily="Open Sans" FontSize="16" Background="#FF282B32" OpacityMask="Black" Height="42" VerticalAlignment="Top" Padding="0,2">
                 <TabItem.Header>
-                    <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" Height="74" TextWrapping="Wrap" Width="101" TextAlignment="Center" FontSize="16"><Run Text=""/><InlineUIContainer>
-                            <Image
-                                Width="52" VerticalAlignment="Top" Source="ImageAssets/CurrencyIcon.png" x:Name="CurrIcon" Height="48" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" d:IsLocked="True"/>
-                        </InlineUIContainer><Run/><LineBreak/><Run Text="All Currency"/></TextBlock>
+                    <Grid x:Name="AllCurrencyGrid" Width="134" Height="31">
+                        <Image
+                                    Width="22" VerticalAlignment="Top" Source="ImageAssets/CurrencyIcon.png" x:Name="CurrIcon" Height="20" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality" Margin="111,6,0,0"/>
+                        <TextBlock x:Name="CurrencyLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Width="104" TextAlignment="Center" FontSize="16" Margin="0,4,0,5"><Run Text="All Currency"/></TextBlock>
+                    </Grid>
                 </TabItem.Header>
-                <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="6,-3,-3,-3">
-                    <StackPanel x:Name="HeaderColumn" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="720" Orientation="Horizontal"/>
+                <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="-5,-3,-3,-3">
+                    <StackPanel x:Name="HeaderColumn_All" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
+                        <Button Content="" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Buy" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="188" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Sell" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="221" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button Content="Profit" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="139" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                    </StackPanel>
 
 
-                    <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,234,24">
+                    <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,264,24" Width="750">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="710">
@@ -812,18 +823,15 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button Content="Select All&#xA;" HorizontalAlignment="Left" Margin="737,141,0,0" Width="175" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click" />
-                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="36" Margin="737,90,0,0" VerticalAlignment="Top" Width="173.163" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Open Sans" FontSize="15" Click="AddFavourites_Click"/>
-                    <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="745,228,10,346" TextWrapping="Wrap" VerticalAlignment="Center" Width="201" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  keyboard arrow keys to adjust bulk numbers."/></TextBlock>
-                    <ComboBox HorizontalAlignment="Left" Margin="767,512,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
+                    <Button x:Name="SelectAllButton" Content="Select All&#xA;" HorizontalAlignment="Left" Margin="772,150,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click" />
+                    <Button x:Name="AddFavourites" Content="Add to Favourites" HorizontalAlignment="Left" Height="36" Margin="772,100,0,0" VerticalAlignment="Top" Width="200" BorderBrush="{x:Null}" Background="#FF17191D" Foreground="White" UseLayoutRounding="False" FontFamily="Open Sans" FontSize="15" Click="AddFavourites_Click"/>
+                    <TextBlock x:Name="Tip1" HorizontalAlignment="Center" Height="202" Margin="744,227,6,347" TextWrapping="Wrap" VerticalAlignment="Center" Width="208" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  scrollwheel to adjust bulk numbers."/></TextBlock>
+                    <ComboBox HorizontalAlignment="Left" Margin="772,507,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
 
                         <ComboBoxItem Content="Delve" HorizontalAlignment="Left" Width="126"/>
                     </ComboBox>
-                    <TextBlock x:Name="Select_League" HorizontalAlignment="Center" Height="20" Margin="784,487,79,269" TextWrapping="Wrap" VerticalAlignment="Center" Width="93" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
-                    <TextBlock x:Name="Profitheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Profit" Margin="504,10,376,743"/>
-                    <TextBlock x:Name="Buyheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Buy" Margin="147,10,733,743" RenderTransformOrigin="0.934,0.203"/>
-                    <TextBlock x:Name="Sellheader" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Center" Width="76" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" Background="#FF1E2025" Padding="0,0,0,11" Text="Sell" Margin="367,11,513,742"/>
+                    <TextBlock x:Name="Select_League" HorizontalAlignment="Center" Height="20" Margin="746,482,120,274" TextWrapping="Wrap" VerticalAlignment="Center" Width="92" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League"/>
 
 
 
