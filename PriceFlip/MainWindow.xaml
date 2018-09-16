@@ -654,7 +654,7 @@
         </Rectangle>
         <Button x:Name="Close" Content="X" Height="24" Margin="1140,0,0,776" VerticalAlignment="Bottom" Background="#FF282B32" Foreground="White" BorderBrush="#FF282B32" FontFamily="Open Sans" FontSize="16" Click="CloseWindow" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Width="24"/>
 
-        <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1164" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" SelectionChanged="DataTable_SelectionChanged">
+        <TabControl x:Name="DataTable" HorizontalAlignment="Left" Height="776" Margin="0,24,0,0" VerticalAlignment="Top" Width="1164" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}">
             <TabItem x:Name="FavouritesTab" Margin="-2,172,2,-172" Background="#FF282B32" Style="{DynamicResource TabItemStyle1}" FontSize="16" FontFamily="Open Sans" Foreground="White" BorderBrush="#FF282B32" Height="42" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Right" Width="153">
                 <TabItem.Header>
                     <Grid x:Name="FavouritesTabGrid" Width="140" Height="36">

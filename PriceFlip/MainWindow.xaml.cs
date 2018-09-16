@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -200,6 +201,7 @@ namespace PriceFlip
             var Url = link + receiveID + "&have=" + payID;
             var data = new MyWebClient().DownloadString(Url);
             var doc = new HtmlDocument();
+            
             doc.LoadHtml(data);
 
             var htmlNodeList = doc.DocumentNode.SelectNodes("//div[@class='displayoffer ']");
@@ -243,6 +245,12 @@ namespace PriceFlip
             return result;
 
         }
+
+        public Task<double[]> RefreshAsync(string receive, string pay)
+        {
+            return Task.Run(() => Refresh(receive,pay));
+        }
+
 
         // Changes the profit textbox colouration depending on value
         private void Profit_Changed(object sender, TextChangedEventArgs e)
@@ -399,14 +407,11 @@ namespace PriceFlip
             {
                 url = link + payID + "&have=" + receiveID;
             }
-            //Console.WriteLine(url);
             System.Diagnostics.Process.Start(url);
-
-
         }
 
         // Update numbers for the row by sending a request to currency.poe.trade 
-        private void UpdateRow(object sender, RoutedEventArgs e)
+        private async void UpdateRow(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             Grid g = (Grid)b.Parent;
@@ -418,10 +423,8 @@ namespace PriceFlip
 
             CurrencyRow cr = (CurrencyRow)g.DataContext;
 
-            double[] sellvalues = Refresh(cr.CTYPE1, cr.CTYPE2);
-            double[] buyvalues = Refresh(cr.CTYPE2, cr.CTYPE1);
-
-
+            double[] sellvalues = await RefreshAsync(cr.CTYPE1, cr.CTYPE2);
+            double[] buyvalues = await RefreshAsync(cr.CTYPE2, cr.CTYPE1);
 
 
             //real data
@@ -673,10 +676,6 @@ namespace PriceFlip
             
         }
 
-        private void DataTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 
 
