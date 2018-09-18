@@ -660,7 +660,7 @@
                     <Grid x:Name="FavouritesTabGrid" Width="140" Height="36">
                         <Image x:Name="FavIcon" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Center" Height="18" IsEnabled="False" RenderTransformOrigin="0.764,0.514" UseLayoutRounding="True" Width="18" d:DesignUseLayoutRounding="True" VerticalAlignment="Center" Margin="115,10,7,8">
                             <Image.Source>
-                                <BitmapImage BaseUri="pack://application:,,,/" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Martin\source\repos\PriceFlip\PriceFlip\ImageAssets\favourites-white.png"/>
+                                <BitmapImage BaseUri="pack://application:,,,/" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="ImageAssets\favourites-white.png"/>
                             </Image.Source>
                         </Image>
                         <TextBlock x:Name="FavouritesLabel" Height="20" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" FontSize="16" FontStretch="UltraExpanded" TextAlignment="Center" Margin="0,8,28,8"><Run FontStretch="Normal" Text="Favourites  "/></TextBlock>
@@ -763,10 +763,10 @@
                     </StackPanel>
 
 
-                    <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,264,24" Width="750">
+                    <ItemsControl x:Name="items" ScrollViewer.CanContentScroll="True" Margin="0,42,264,24" Width="710">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="710">
+                                <Grid x:Name="Row" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="725">
                                     <CheckBox x:Name="Checkbox" Content="" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="15" Width="16" RenderTransformOrigin="0.046,0.353" Checked="Checkmarked" IsChecked="{Binding CHECKED}">
                                         <CheckBox.RenderTransform>
                                             <TransformGroup>
@@ -777,23 +777,23 @@
                                             </TransformGroup>
                                         </CheckBox.RenderTransform>
                                     </CheckBox>
-                                    <Button x:Name="Sell" Background="{x:Null}" Margin="62,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" Cursor="" MouseWheel="ScrollBulk">
-                                        <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="183" Background="#FF1E2025">
+                                    <Button x:Name="Sell" Background="{x:Null}" Margin="0,5,399,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard"  MouseWheel="ScrollBulk" Width="160" HorizontalAlignment="center">
+                                        <Grid HorizontalAlignment="Center" Height="29" VerticalAlignment="Top" Width="165" Background="#FF1E2025" >
 
-                                            <TextBox x:Name="Ratio1" HorizontalAlignment="Left" Height="29" Margin="50,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Sellstring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False" FontFamily="Open Sans"/>
+                                            <TextBox x:Name="Ratio1" HorizontalAlignment="Left" Height="29" Margin="28,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Sellstring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False" FontFamily="Open Sans"/>
                                             <Image Source="{Binding CIMAGE1}" ToolTip="{Binding CTYPE1}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,133,0" HorizontalAlignment="Right" Width="29" Height="29"/>
                                             <Image Source="{Binding CIMAGE2}" ToolTip="{Binding CTYPE2}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,15,0" Width="29"/>
 
                                         </Grid>
 
                                     </Button>
-                                    <Button x:Name="LinkButton1" HorizontalAlignment="Left" Height="31" Margin="280,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="OpenURL">
+                                    <Button x:Name="LinkButton1" HorizontalAlignment="Left" Height="31" Margin="250,5,0,0" VerticalAlignment="Top" Width="31" Background="#FF1E2025" VerticalContentAlignment="Center" Style="{DynamicResource LinkButtonStyle}" Click="OpenURL">
                                         <Image x:Name="LinkIcon1" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
-                                    <Button x:Name="Buy" Background="{x:Null}" Margin="285,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="ScrollBulk">
-                                        <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="184" Background="#FF1E2025">
+                                    <Button x:Name="Buy" Background="{x:Null}" Margin="265,5,190,6" Padding="0" BorderBrush="{x:Null}" Click="CopyToClipboard" MouseWheel="ScrollBulk" Width="160">
+                                        <Grid HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="160" Background="#FF1E2025">
 
-                                            <TextBox x:Name="Ratio2" Height="29" Margin="50,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Buystring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
+                                            <TextBox x:Name="Ratio2" Height="29" Margin="28,0,45,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FF1E2025" BorderBrush="{x:Null}" Text="{Binding Buystring}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486" FontWeight="Bold" TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" IsEnabled="False"/>
                                             <Image Source="{Binding CIMAGE2}" ToolTip="{Binding CTYPE2}" Stretch ="Uniform" RenderTransformOrigin="0.5,0.483" Margin="0,0,134,0" HorizontalAlignment="Right" Width="29" Height="29"/>
                                             <Image Source="{Binding CIMAGE1}" ToolTip="{Binding CTYPE1}" Stretch ="Uniform" RenderTransformOrigin="0.466,0.517" HorizontalAlignment="Right" Margin="0,0,16,0" Width="29"/>
 
@@ -809,7 +809,7 @@
                                     </Button>
 
 
-                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="473,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
+                                    <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin="480,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
                                     <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="527,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed"/>
 
                                 </Grid>
