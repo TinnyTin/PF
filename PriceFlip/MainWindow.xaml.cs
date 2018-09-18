@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -30,6 +31,7 @@ namespace PriceFlip
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
         public string link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
         string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PriceFlip\\favourites.txt";
+    
 
 
 
@@ -76,6 +78,9 @@ namespace PriceFlip
                 });
             };
             items_Fav.ItemsSource = favouritesList;
+
+
+
         }   
 
      
@@ -407,7 +412,7 @@ namespace PriceFlip
             {
                 url = link + payID + "&have=" + receiveID;
             }
-            System.Diagnostics.Process.Start(url);
+            Process.Start(url);
         }
 
         // Update numbers for the row by sending a request to currency.poe.trade 
