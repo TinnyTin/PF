@@ -478,6 +478,28 @@ namespace PriceFlip
 
         }
 
+
+        private void Checkmarked_Checkbox(object sender, RoutedEventArgs e)
+        {
+
+
+            if (entireListChecked(dataList) == true)
+            {
+                foreach (CurrencyRow cr in dataList)
+                {
+                    cr.CHECKED = false;
+                }
+            }
+
+            else
+            {
+                foreach (CurrencyRow cr in dataList)
+                {
+                    cr.CHECKED = true;
+                }
+            }
+        }
+
         // Removes all checkmarked rows from favourites.
         private void RemoveFromFavourites_Click(object sender, RoutedEventArgs e)
         {
@@ -518,6 +540,13 @@ namespace PriceFlip
 
         private void SelectAllCurrency_Click(object sender, RoutedEventArgs e)
         {
+            //ObservableCollection<CurrencyRow> currencyList = dataList;
+            //CheckBox cb = (CheckBox)sender;
+
+            //if (cb.Name == "FavCurrencyCB")
+            //{
+            //    currencyList = favouritesList;
+            //} maybe add this to consolidate below function at a later time
             if (entireListChecked(dataList) == true)
             {
                 foreach (CurrencyRow cr in dataList)

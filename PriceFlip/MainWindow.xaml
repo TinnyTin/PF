@@ -672,16 +672,16 @@
                     </Grid.RowDefinitions>
                     <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
                         <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}">
-                            <CheckBox Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                <CheckBox.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform X="-4.086" Y="-1.25"/>
-                                    </TransformGroup>
-                                </CheckBox.RenderTransform>
-                            </CheckBox>
+                            <CheckBox Name ="FavCurrencyCB" Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="SelectAllFav_Click" Unchecked="SelectAllFav_Click">
+                                    <CheckBox.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform X="-4.086" Y="-1.25"/>
+                                        </TransformGroup>
+                                    </CheckBox.RenderTransform>
+                                </CheckBox>
                         </Button>
                         <Button Content="Buy" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="188" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
                         <Button Content="Sell" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="221" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
@@ -749,7 +749,7 @@
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
-                    <Button x:Name="SelectAllButtonFav" Content="Select All&#xA;" HorizontalAlignment="Left" Margin="772,150,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllFav_Click"/>
+                    <Button x:Name="SelectAllButtonFav" Content="Select All&#xA;" HorizontalAlignment="Left" Margin="772,150,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="SelectAllCurrency_Click"/>
                     <Button x:Name="RemoveFavButton" Content="Remove from Favourites" HorizontalAlignment="Left" Margin="772,100,0,0" VerticalAlignment="Top" Width="200" Click="RemoveFromFavourites_Click" Height="36" Background="#FF17191D" Foreground="White" BorderBrush="Transparent" FontSize="15"/>
                     <ComboBox HorizontalAlignment="Left" Margin="772,507,0,0" VerticalAlignment="Top" Width="120" Background="#FF17191D" Foreground="Black" BorderBrush="Transparent" Style="{DynamicResource ComboBoxStyle1}" DropDownClosed="DropDownClosed_Event" SelectedIndex="1" Height="28">
                         <ComboBoxItem Content="Standard" HorizontalAlignment="Left" Width="126" Background="Transparent" Foreground="Black"/>
@@ -771,7 +771,7 @@
                 <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="-5,-3,-3,-3">
                     <StackPanel x:Name="HeaderColumn_All" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
                         <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}">
-                            <CheckBox Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <CheckBox Name ="AllCurrencyCB" Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left"  Checked="SelectAllCurrency_Click" Unchecked="SelectAllCurrency_Click">
                                 <CheckBox.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
