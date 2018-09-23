@@ -671,7 +671,18 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
-                        <Button Content="" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}">
+                            <CheckBox Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <CheckBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="-4.086" Y="-1.25"/>
+                                    </TransformGroup>
+                                </CheckBox.RenderTransform>
+                            </CheckBox>
+                        </Button>
                         <Button Content="Buy" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="188" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
                         <Button Content="Sell" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="221" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
                         <Button Content="Profit" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="139" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
@@ -759,7 +770,19 @@
                 </TabItem.Header>
                 <Grid x:Name="CurrencyTable" Background="#FF1E2025" Margin="-5,-3,-3,-3">
                     <StackPanel x:Name="HeaderColumn_All" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
-                        <Button Content="" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
+                        <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}">
+                            <CheckBox Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <CheckBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="-4.086" Y="-1.25"/>
+                                    </TransformGroup>
+                                </CheckBox.RenderTransform>
+                            </CheckBox>
+                        </Button>
+
                         <Button Content="Buy" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="188" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
                         <Button Content="Sell" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="221" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
                         <Button Content="Profit" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="139" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
@@ -812,7 +835,7 @@
                                         <Image x:Name="LinkIcon2" Height="20" Width="21" RenderOptions.BitmapScalingMode="HighQuality" Source="ImageAssets/linkicon.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </Button>
 
-                                   
+
                                     <TextBox x:Name="Profit" HorizontalAlignment="Left" Height="31" Margin= "510,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding PROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" TextChanged="Profit_Changed" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}"/>
                                     <TextBox x:Name="FlatProfit" HorizontalAlignment="Left" Height="31" Margin="560,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Text="{Binding FLATPROFIT}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" RenderTransformOrigin="0.729,0.486"  TextDecorations="{x:Null}" IsReadOnly="True" VerticalScrollBarVisibility="Disabled" Cursor="Arrow" Style="{DynamicResource TextBoxStyle1}" TextChanged="Flatprofit_Changed"/>
 
