@@ -200,6 +200,7 @@ namespace PriceFlip
         // Returns an array[receive#,have#] representing ( receive <- pay )
         private double[] Refresh(string receive, string pay)
         {
+            ParseStashAPI();
             double[] result = new double[] { 0, 0 };
             int receiveID = currency.Find(currency => currency.name == receive).id;
             int payID = currency.Find(currency => currency.name == pay).id;
@@ -580,6 +581,7 @@ namespace PriceFlip
                     cr.CHECKED = true;
                 }
             }
+  
         }
 
         private void Fav_Unchecked(object sender, RoutedEventArgs e)
@@ -710,8 +712,42 @@ namespace PriceFlip
             
         }
 
+
+        public string ParseStashAPI()
+        {
+            string url = @"https://www.pathofexile.com/character-window/get-stash-items?league=delve&tabs=1&tabIndex=0&accountName=judyc&POESESSID=c24a6f091e37b23cf8fc4d67ce9446b4";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.CookieContainer = new CookieContainer();
+
+            //used to add cookie
+            Uri target = new Uri("https://www.pathofexile.com/character-window/get-stash-items?league=delve&tabs=1&tabIndex=0&accountName=judyc");
+
+            //must update PoesessID between each log in
+            request.CookieContainer.Add(new Cookie("POESESSID", "c24a6f091e37b23cf8fc4d67ce9446b4") { Domain = target.Host });
+            StreamReader readStream = null;
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            var cookie = response.GetResponseHeader("Cookie");
+
+            try
+            {
+                Stream receiveStream = response.GetResponseStream();
+                readStream = new StreamReader(receiveStream, System.Text.Encoding.UTF8);
+            }
+
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+
+            //Console.WriteLine(readStream.ReadToEnd());
+            return readStream.ReadToEnd();
+        }
+
     }
 
+    
 
 
     public class Currency
@@ -902,5 +938,8 @@ namespace PriceFlip
         }
 
     }
+
+
+    
 
 }
