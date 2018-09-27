@@ -751,21 +751,33 @@ namespace PriceFlip
         public string ParseJSON(string data)
         {
             JObject json = JObject.Parse(data);
-            
+
             var stashinfo = json.SelectToken("items"); //JArray
-            List<string> currencies = new List<string>();
+            var currencies = new List<KeyValuePair<string, int>>();
+            int i = 0;
             foreach (var c in stashinfo.Children())
             {
-                currencies.Add(c.SelectToken("typeLine").ToString());
+                var currencyName = c.SelectToken("typeLine").ToString();
+                //filter out non currency items in currency tab
+                if (currencyName.Contains("Orb") || currencyName.Contains("Bauble") || currencyName.Contains("Prism")
+                    || currencyName.Contains("Sextant") || currencyName.Contains("Splinter"))
+                { //Also currencies: Shard, Whetstone, Scrap, Scroll
+                    int quantity = stashinfo[i]["stackSize"].ToObject<int>();
 
+                    currencies.Add(new KeyValuePair<string, int>(currencyName, quantity));
+
+                    //Console.WriteLine();
+                    i++;
+
+                }
             }
-            foreach (var c in currencies)
-            {
-                Console.WriteLine(c);
-            }
-           
-            return "";
-        }
+                foreach (var c in currencies)
+                {
+                    Console.WriteLine(c);
+                }
+
+                return "";
+                }
 
     }
 
