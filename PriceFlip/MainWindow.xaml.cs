@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using HtmlAgilityPack;
+using Newtonsoft.Json.Linq;
 
 namespace PriceFlip
 {
@@ -200,7 +201,8 @@ namespace PriceFlip
         // Returns an array[receive#,have#] representing ( receive <- pay )
         private double[] Refresh(string receive, string pay)
         {
-            ParseStashAPI();
+            string stash = RetrieveStashAPI();
+            ParseJSON(stash);
             double[] result = new double[] { 0, 0 };
             int receiveID = currency.Find(currency => currency.name == receive).id;
             int payID = currency.Find(currency => currency.name == pay).id;
@@ -713,7 +715,7 @@ namespace PriceFlip
         }
 
 
-        public string ParseStashAPI()
+        public string RetrieveStashAPI()
         {
             string url = @"https://www.pathofexile.com/character-window/get-stash-items?league=delve&tabs=1&tabIndex=0&accountName=judyc&POESESSID=c24a6f091e37b23cf8fc4d67ce9446b4";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -740,9 +742,29 @@ namespace PriceFlip
                 Console.WriteLine(e);
             }
 
+            string data = readStream.ReadToEnd();
+            //Console.WriteLine(data);
 
-            //Console.WriteLine(readStream.ReadToEnd());
-            return readStream.ReadToEnd();
+            return data;
+        }
+
+        public string ParseJSON(string data)
+        {
+            JObject json = JObject.Parse(data);
+            
+            var stashinfo = json.SelectToken("items"); //JArray
+            List<string> currencies = new List<string>();
+            foreach (var c in stashinfo.Children())
+            {
+                currencies.Add(c.SelectToken("typeLine").ToString());
+
+            }
+            foreach (var c in currencies)
+            {
+                Console.WriteLine(c);
+            }
+           
+            return "";
         }
 
     }
