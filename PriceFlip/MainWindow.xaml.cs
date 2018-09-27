@@ -721,14 +721,13 @@ namespace PriceFlip
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.CookieContainer = new CookieContainer();
 
-            //used to add cookie
+            //used to add cookies 
             Uri target = new Uri("https://www.pathofexile.com/character-window/get-stash-items?league=delve&tabs=1&tabIndex=0&accountName=judyc");
 
-            //must update PoesessID between each log in
+            //must update PoesessID between each log in, otherwise 403 will pop
             request.CookieContainer.Add(new Cookie("POESESSID", "c24a6f091e37b23cf8fc4d67ce9446b4") { Domain = target.Host });
             StreamReader readStream = null;
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            var cookie = response.GetResponseHeader("Cookie");
 
             try
             {
@@ -748,35 +747,33 @@ namespace PriceFlip
             return data;
         }
 
-        public string ParseJSON(string data)
+        public List<KeyValuePair<string, int>> ParseJSON(string data)
         {
             JObject json = JObject.Parse(data);
-
             var stashinfo = json.SelectToken("items"); //JArray
             var currencies = new List<KeyValuePair<string, int>>();
-            int i = 0;
+            int i = 0; // used to access individual stack sizes for quantities 
+
             foreach (var c in stashinfo.Children())
             {
                 var currencyName = c.SelectToken("typeLine").ToString();
                 //filter out non currency items in currency tab
                 if (currencyName.Contains("Orb") || currencyName.Contains("Bauble") || currencyName.Contains("Prism")
                     || currencyName.Contains("Sextant") || currencyName.Contains("Splinter"))
-                { //Also currencies: Shard, Whetstone, Scrap, Scroll
+                    { //Potential other currencies not added: Shard, Whetstone, Scrap, Scroll
                     int quantity = stashinfo[i]["stackSize"].ToObject<int>();
 
                     currencies.Add(new KeyValuePair<string, int>(currencyName, quantity));
-
-                    //Console.WriteLine();
                     i++;
 
-                }
+                    }
             }
-                foreach (var c in currencies)
-                {
-                    Console.WriteLine(c);
-                }
+            //foreach (var c in currencies)
+            //{
+            //    Console.WriteLine(c);
+            //}
 
-                return "";
+            return currencies;
                 }
 
     }
