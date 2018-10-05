@@ -29,6 +29,7 @@ namespace PriceFlip
         List<Currency> currency;
         ObservableCollection<CurrencyRow> dataList = new ObservableCollection<CurrencyRow>();
         ObservableCollection<CurrencyRow> favouritesList = new ObservableCollection<CurrencyRow>();
+        ObservableCollection<KeyValuePair<string, int>> tabStock = new ObservableCollection<KeyValuePair<string, int>>();
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
         public string link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
         string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PriceFlip\\favourites.txt";
@@ -201,8 +202,6 @@ namespace PriceFlip
         // Returns an array[receive#,have#] representing ( receive <- pay )
         private double[] Refresh(string receive, string pay)
         {
-            string stash = RetrieveStashAPI();
-            ParseJSON(stash);
             double[] result = new double[] { 0, 0 };
             int receiveID = currency.Find(currency => currency.name == receive).id;
             int payID = currency.Find(currency => currency.name == pay).id;
@@ -263,31 +262,17 @@ namespace PriceFlip
         // Changes the profit textbox colouration depending on value
         private void Profit_Changed(object sender, TextChangedEventArgs e)
         {
-            TextBox tb = (TextBox)sender;
-            string text = (tb.Text.TrimEnd('%'));
-            if (text != "")
-            {
-                double percentage = Convert.ToDouble(text);
-
-                if (percentage >= 7.5)
-                {
-                    tb.Foreground = Brushes.GreenYellow;
-
-                }
-                else if (percentage > 0)
-                {
-                    tb.Foreground = Brushes.LightGoldenrodYellow;
-                }
-                else
-                {
-                    tb.Foreground = Brushes.Red;
-                }
-            }
+            ProfitColourChange(sender);
         }
 
         // Changes the profit textbox colouration depending on value (for first load)
         private void Profit_Loaded(object sender, RoutedEventArgs e)
         {
+            ProfitColourChange(sender);
+        }
+
+        private void ProfitColourChange(object sender)
+        {
             TextBox tb = (TextBox)sender;
             string text = (tb.Text.TrimEnd('%'));
             if (text != "")
@@ -309,29 +294,17 @@ namespace PriceFlip
                 }
             }
         }
+
         private void Flatprofit_Changed(object sender, TextChangedEventArgs e)
         {
-            TextBox tb = (TextBox)sender;
-            string text = tb.Text.TrimEnd('c');
-            if (text != "")
-            {
-                double flatprofit = Convert.ToDouble(text);
-                if (flatprofit > 5)
-                {
-                    tb.Foreground = Brushes.GreenYellow;
-                }
-                else if (flatprofit > 0)
-                {
-                    tb.Foreground = Brushes.LightGoldenrodYellow;
-                }
-                else
-                {
-                    tb.Foreground = Brushes.OrangeRed;
-                }
-
-            }
+            FlatColourChange(sender);
         }
         private void Flatprofit_Loaded(object sender, RoutedEventArgs e)
+        {
+            FlatColourChange(sender);
+        }
+
+        private void FlatColourChange(object sender)
         {
             TextBox tb = (TextBox)sender;
             string text = tb.Text.TrimEnd('c');
@@ -717,7 +690,8 @@ namespace PriceFlip
 
         public string RetrieveStashAPI()
         {
-            string url = @"https://www.pathofexile.com/character-window/get-stash-items?league=delve&tabs=1&tabIndex=0&accountName=judyc&POESESSID=c24a6f091e37b23cf8fc4d67ce9446b4";
+            
+            string url = @"https://www.pathofexile.com/character-window/get-stash-items?league=delve&tabs=1&tabIndex=0&accountName=judyc";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.CookieContainer = new CookieContainer();
 
@@ -747,11 +721,10 @@ namespace PriceFlip
             return data;
         }
 
-        public List<KeyValuePair<string, int>> ParseJSON(string data)
+        private void ParseJSON(string data)
         {
             JObject json = JObject.Parse(data);
             var stashinfo = json.SelectToken("items"); //JArray
-            var currencies = new List<KeyValuePair<string, int>>();
             int i = 0; // used to access individual stack sizes for quantities 
 
             foreach (var c in stashinfo.Children())
@@ -763,24 +736,24 @@ namespace PriceFlip
                     { //Potential other currencies not added: Shard, Whetstone, Scrap, Scroll
                     int quantity = stashinfo[i]["stackSize"].ToObject<int>();
 
-                    currencies.Add(new KeyValuePair<string, int>(currencyName, quantity));
+                    tabStock.Add(new KeyValuePair<string, int>(currencyName, quantity));
                     i++;
-
                     }
             }
-            //foreach (var c in currencies)
-            //{
-            //    Console.WriteLine(c);
-            //}
+        }
 
-            return currencies;
-                }
-
+        // Turn on Currency Tracker
+        private void TrackerOn(object sender, RoutedEventArgs e)
+        {
+            string stash = RetrieveStashAPI();
+            ParseJSON(stash);
+        }
     }
 
-    
 
 
+    // Currency Class
+    // Stores name, id, tag (for stash api), and image path
     public class Currency
     {
         public string name { get; set; }
@@ -789,6 +762,11 @@ namespace PriceFlip
         public string image { get; set; }
     }
 
+    // CurrencyRow is all the data needed to display 1 row in the table.
+    // Stores Receive1 -> Pay1, Receive2 -> Pay2  (Follows the format left and right orientation of poe.ninja and poe.trade)
+    // CTYPE1 and CTYPE2 refer to currency types of the exchange
+    // CIMAGE1 and CIMAGE2 are the image paths
+    // sellstring and buystrings are for the actual display. This exists because we may choose to round decimals in order to simulate poe.trade
     public class CurrencyRow : INotifyPropertyChanged
     {
 
