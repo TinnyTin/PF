@@ -542,6 +542,8 @@ namespace PriceFlip
 
         private async void RefreshAll_Click(object sender, RoutedEventArgs e)
         {
+            Button b = (Button)sender;
+            b.IsEnabled = false;
             foreach (CurrencyRow cr in favouritesList)
             {
                 double[] sellvalues = await RefreshAsync(cr.CTYPE1, cr.CTYPE2);
@@ -567,6 +569,7 @@ namespace PriceFlip
                     }
                 }
             }
+            b.IsEnabled = true;
         }
 
         private void SelectAllFav_Click(object sender, RoutedEventArgs e)
