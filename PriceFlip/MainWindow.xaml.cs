@@ -540,6 +540,35 @@ namespace PriceFlip
 
         }
 
+        private async void RefreshAll_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (CurrencyRow cr in favouritesList)
+            {
+                double[] sellvalues = await RefreshAsync(cr.CTYPE1, cr.CTYPE2);
+                double[] buyvalues = await RefreshAsync(cr.CTYPE2, cr.CTYPE1);
+
+
+                //real data
+                foreach (CurrencyRow entry in favouritesList)
+                {
+                    if (entry.CTYPE1 == cr.CTYPE1 && entry.CTYPE2 == cr.CTYPE2)
+                    {
+                        Thread.Sleep(500); //wait 0.5s between each row update
+                        double margin = Profitmargin(sellvalues[0], sellvalues[1], buyvalues[0], buyvalues[1]);
+                        entry.RECEIVE1 = sellvalues[0];
+                        entry.PAY1 = sellvalues[1];
+                        entry.RECEIVE2 = buyvalues[0];
+                        entry.PAY2 = buyvalues[1];
+                        entry.PROFIT = margin + "%";
+                        entry.FLATPROFIT = Flatprofit(margin, buyvalues[0]) + "c";
+                        entry.Sellstring = sellvalues[0] + " ⇐ " + sellvalues[1];
+                        entry.Buystring = buyvalues[0] + " ⇐ " + buyvalues[1];
+
+                    }
+                }
+            }
+        }
+
         private void SelectAllFav_Click(object sender, RoutedEventArgs e)
         {
             if (entireListChecked(favouritesList) == true)
