@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using HtmlAgilityPack;
@@ -33,7 +34,7 @@ namespace PriceFlip
         HashSet<CurrencyRow> removefav_queue = new HashSet<CurrencyRow>();
         public string link = "http://currency.poe.trade/search?league=Delve&online=x&stock=&want=";
         string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PriceFlip\\favourites.txt";
-    
+
 
 
 
@@ -775,14 +776,31 @@ namespace PriceFlip
         }
 
         // Turn on Currency Tracker
-        private void TrackerOn(object sender, RoutedEventArgs e)
+        private void TrackerClick(object sender, RoutedEventArgs e)
         {
             string stash = RetrieveStashAPI();
             ParseJSON(stash);
+
+            StockPopup.IsOpen = !StockPopup.IsOpen;
+            
+        }
+
+        private void TrackerButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ToggleButton tb = (ToggleButton)sender;
+            tb.Content = "Turn Off Tracker";
+            tb.Foreground = Brushes.OrangeRed;
+            tb.FontStyle = FontStyles.Italic;
+        }
+
+        private void TrackerButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ToggleButton tb = (ToggleButton)sender;
+            tb.Content = "Turn On Tracker";
+            tb.Foreground = Brushes.GreenYellow;
+            tb.FontStyle = FontStyles.Normal;
         }
     }
-
-
 
     // Currency Class
     // Stores name, id, tag (for stash api), and image path
@@ -977,7 +995,7 @@ namespace PriceFlip
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
+        
     }
 
 

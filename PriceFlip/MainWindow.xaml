@@ -623,6 +623,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
     </Window.Resources>
     <Grid x:Name="Background" Background="#FF1E2025" ScrollViewer.VerticalScrollBarVisibility="Disabled">
         <Grid.ColumnDefinitions>
@@ -673,15 +674,15 @@
                     <StackPanel x:Name="HeaderColumn_Fav" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="750" Orientation="Horizontal">
                         <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="78" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}">
                             <CheckBox Name ="FavCurrencyCB" Content="" Height="15" Width="16" RenderTransformOrigin="0.84,0.353" VerticalAlignment="Top" HorizontalAlignment="Left" Checked="SelectAllFav_Click" Unchecked="SelectAllFav_Click">
-                                    <CheckBox.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform X="-4.086" Y="-1.25"/>
-                                        </TransformGroup>
-                                    </CheckBox.RenderTransform>
-                                </CheckBox>
+                                <CheckBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="-4.086" Y="-1.25"/>
+                                    </TransformGroup>
+                                </CheckBox.RenderTransform>
+                            </CheckBox>
                         </Button>
                         <Button Content="Buy" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="188" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
                         <Button Content="Sell" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="221" BorderBrush="{x:Null}" Foreground="White" Background="{x:Null}"/>
@@ -757,8 +758,9 @@
                     </ComboBox>
                     <TextBlock x:Name="SelectLeagueFav" HorizontalAlignment="Center" Margin="770,482,145,274" TextWrapping="Wrap" Width="94" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11" Text="Select League" Height="20" VerticalAlignment="Bottom"/>
                     <TextBlock x:Name="Tip1_Copy" HorizontalAlignment="Center" Height="202" Margin="770,263,33,311" TextWrapping="Wrap" VerticalAlignment="Center" Width="208" FontSize="14" ScrollViewer.VerticalScrollBarVisibility="Disabled" SnapsToDevicePixels="True" TextDecorations="{x:Null}" FontStyle="Italic" Background="#FF1E2025" Padding="0,0,0,11"><Run Text="Click on images to copy "/><LineBreak/><Run Text="~b/o line to clipboard. "/><LineBreak/><Run/><LineBreak/><Run Text="Use ↑ and ↓  scrollwheel to adjust bulk numbers."/></TextBlock>
-                    <Button x:Name="TrackerButton" Content="Turn on Tracker&#xA;" HorizontalAlignment="Left" Margin="770,600,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="TrackerOn"/>
-                    <Button x:Name="RefreshAllButton" Content="Refresh all&#xA;" HorizontalAlignment="Left" Margin="771,200,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="RefreshAll_Click"/>
+                    <ToggleButton x:Name="TrackerButton" Content="Turn on Tracker" HorizontalAlignment="Left" Margin="770,600,0,0" Width="200" Background="#FF17191D" Foreground="GreenYellow" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="TrackerClick" Checked="TrackerButton_Checked" Unchecked="TrackerButton_Unchecked" VerticalContentAlignment="Top"/>
+                    
+                    <Button x:Name="RefreshAllButton" Content="Refresh all&#xA;" HorizontalAlignment="Left" Margin="770,200,0,0" Width="200" Background="#FF17191D" Foreground="White" Height="36" BorderBrush="Transparent" FontSize="15" VerticalAlignment="Top" Padding="1,7,1,1" Click="RefreshAll_Click"/>
 
                 </Grid>
             </TabItem>
@@ -870,7 +872,15 @@
             </TabItem>
 
         </TabControl>
-
+        <Popup x:Name="StockPopup" PlacementTarget="{Binding ElementName=TrackerButton}" AllowsTransparency="True" PopupAnimation="Slide">
+            <StackPanel>
+                <TextBlock FontFamily="Open Sans" Foreground="White">
+                    Your stock.
+                </TextBlock>
+            </StackPanel>
+        </Popup>
     </Grid>
-
+    
 </Window>
+    
+    
